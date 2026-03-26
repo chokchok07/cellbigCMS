@@ -1,0 +1,14 @@
+[
+  {
+    "file": "C:\\Users\\user\\AppData\\Roaming\\Code\\User\\History\\-3be4b5ac\\EPQN.js",
+    "original": "c:/Users/user/Documents/VSCode/CellbigCMS/CellbigCMS/search_history6.js"
+  },
+  {
+    "file": "C:\\Users\\user\\AppData\\Roaming\\Code\\User\\History\\-597b2944\\JlHx.py",
+    "original": "c:/Users/user/Documents/VSCode/CellbigCMS/CellbigCMS/scripts/update_dashboard.py"
+  },
+  {
+    "file": "C:\\Users\\user\\AppData\\Roaming\\Code\\User\\History\\33270226\\EKLe.js",
+    "original": "c:/Users/user/Documents/VSCode/CellbigCMS/CellbigCMS/search_history_standalone.js"
+  }
+]

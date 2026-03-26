@@ -1,0 +1,538 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>踰꾩쟾 ?깅줉 - CellbigCMS</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal {
+      background: white;
+      border-radius: 8px;
+      width: 600px;
+      max-width: 90vw;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid #e0e0e0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h2 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: #999;
+      cursor: pointer;
+      padding: 0;
+      width: 32px;
+      height: 32px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-close:hover {
+      background: #f5f5f5;
+      color: #333;
+    }
+
+    .modal-body {
+      padding: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #333;
+    }
+
+    .version-inputs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .version-inputs input {
+      width: 80px;
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+      text-align: center;
+    }
+
+    .version-inputs span {
+      font-size: 20px;
+      color: #666;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 24px;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .radio-option input[type="radio"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+
+    .radio-option label {
+      margin: 0;
+      cursor: pointer;
+      font-weight: normal;
+    }
+
+    .file-input-group {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .file-input-wrapper {
+      flex: 1;
+      position: relative;
+    }
+
+    .file-display {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background: #f9f9f9;
+      color: #999;
+    }
+
+    .file-display.has-file {
+      color: #333;
+    }
+
+    input[type="file"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .file-button {
+      padding: 8px 16px;
+      border: 1px solid #ddd;
+      background: white;
+      border-radius: 4px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .file-button:hover {
+      background: #f5f5f5;
+    }
+
+    .file-clear {
+      padding: 8px 16px;
+      border: 1px solid #ddd;
+      background: white;
+      border-radius: 4px;
+      cursor: pointer;
+      color: #666;
+    }
+
+    .file-clear:hover {
+      background: #f5f5f5;
+      border-color: #999;
+    }
+
+    .file-size-group {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .file-size-display {
+      flex: 1;
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background: #f9f9f9;
+      color: #666;
+    }
+
+    .verify-button {
+      padding: 8px 16px;
+      border: none;
+      background: #28a745;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+      white-space: nowrap;
+      font-weight: 500;
+    }
+
+    .verify-button:hover {
+      background: #218838;
+    }
+
+    .verify-button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 120px;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 14px;
+      resize: vertical;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: #007bff;
+    }
+
+    .modal-footer {
+      padding: 16px 24px;
+      border-top: 1px solid #e0e0e0;
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    .btn {
+      padding: 10px 24px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .btn-cancel {
+      background: #6c757d;
+      color: white;
+    }
+
+    .btn-cancel:hover {
+      background: #5a6268;
+    }
+
+    .btn-primary {
+      background: #007bff;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #0056b3;
+    }
+
+    .btn-primary:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    .checksum-info {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #666;
+      word-break: break-all;
+    }
+
+    .checksum-info strong {
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div style="display:flex;align-items:center;gap:16px">
+      <span style="font-weight:700;font-size:20px;color:#1f2937;cursor:pointer" onclick="location.href='index.html'">CellbigCMS</span>
+      <input class="input" placeholder="?뵇 Search..." style="flex:1;max-width:300px">
+    </div>
+    <div style="display:flex;gap:16px;align-items:center">
+      <span style="cursor:pointer">?뵒 (3)</span>
+      <span style="cursor:pointer">?뫀 Admin</span>
+    </div>
+  </header>
+
+  <div class="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>踰꾩쟾 ?깅줉</h2>
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+      </div>
+      
+      <div class="modal-body">
+        <form id="versionForm">
+          <!-- 踰꾩쟾 -->
+          <div class="form-group">
+            <label>踰꾩쟾</label>
+            <div class="version-inputs">
+              <input type="number" id="versionMajor" min="0" max="999" value="0" required>
+              <span>.</span>
+              <input type="number" id="versionMinor" min="0" max="999" value="0" required>
+              <span>.</span>
+              <input type="number" id="versionPatch" min="0" max="999" value="0" required>
+            </div>
+          </div>
+
+          <!-- ?낅뜲?댄듃 ???-->
+          <div class="form-group">
+            <label>?낅뜲?댄듃</label>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" id="updateForced" name="updateType" value="forced">
+                <label for="updateForced">媛뺤젣 ?낅뜲?댄듃</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="updateOptional" name="updateType" value="optional" checked>
+                <label for="updateOptional">?좏깮 ?낅뜲?댄듃</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- 諛고룷 ?섍꼍 -->
+          <div class="form-group">
+            <label>諛고룷</label>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" id="deployProduction" name="deploymentTarget" value="production">
+                <label for="deployProduction">?곸슜</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="deployTest" name="deploymentTarget" value="test" checked>
+                <label for="deployTest">?뚯뒪??/label>
+              </div>
+            </div>
+          </div>
+
+          <!-- 踰꾩쟾 ?뚯씪 -->
+          <div class="form-group">
+            <label>踰꾩쟾 ?뚯씪</label>
+            <div class="file-input-group">
+              <div class="file-input-wrapper">
+                <input type="file" id="artifactFile" accept=".zip" onchange="handleFileSelect(event)">
+                <div class="file-display" id="fileDisplay">?뚯씪???좏깮??二쇱꽭??</div>
+              </div>
+              <button type="button" class="file-button" onclick="document.getElementById('artifactFile').click()">?뚯씪 李얘린</button>
+              <button type="button" class="file-clear" id="fileClear" onclick="clearFile()" style="display: none;">痍⑥냼</button>
+            </div>
+            <div class="checksum-info" id="checksumInfo" style="display: none;">
+              <strong>泥댄겕??</strong> <span id="checksumValue"></span>
+            </div>
+          </div>
+
+          <!-- ?뚯씪 ?ш린 -->
+          <div class="form-group">
+            <label>?뚯씪 ?ш린</label>
+            <div class="file-size-group">
+              <div class="file-size-display" id="fileSizeDisplay">0</div>
+              <button type="button" class="verify-button" id="verifyButton" onclick="verifyFile()" disabled>?뚯씪 ?뺤씤</button>
+            </div>
+          </div>
+
+          <!-- ?곹깭 (Draft / Test / Published) -->
+          <div class="form-group">
+            <label>?곹깭 (Status)</label>
+            <div class="radio-group" style="padding: 10px; background: #f9fafb; border-radius: 6px; border: 1px solid #e5e7eb; display:flex; gap:15px; margin-top:5px; align-items: center;">
+              <div class="radio-option">
+                <input type="radio" id="stateDraft" name="versionState" value="draft" checked>
+                <label for="stateDraft" style="font-weight:600; color:#4b5563;">Draft (珥덉븞)</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="stateStaged" name="versionState" value="staged">
+                <label for="stateStaged" style="font-weight:600; color:#047857;">Staged (?뚯뒪??</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="statePublished" name="versionState" value="published">
+                <label for="statePublished" style="font-weight:600; color:#1d4ed8;">Published (諛쒗뻾)</label>
+              </div>
+            </div>
+            <div style="font-size:12px; color:#6b7280; margin-top:6px; margin-left: 120px;">??踰꾩쟾???낅줈????湲곕낯 ?곹깭??'Draft(珥덉븞)'?대ŉ, ?섎룄移??딆? 利됱떆 ?곸슜 諛고룷瑜?留됯린 ?꾪븿?낅땲??</div>
+          </div>
+
+          <!-- 踰꾩쟾 ?ㅻ챸 -->
+          <div class="form-group">
+            <label>踰꾩쟾 ?ㅻ챸</label>
+            <textarea id="releaseNotes" placeholder="蹂寃??ы빆 諛?諛고룷 ?명듃瑜??낅젰?섏꽭??"></textarea>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-cancel" onclick="closeModal()">痍⑥냼</button>
+        <button type="button" class="btn btn-primary" id="registerButton" onclick="registerVersion()" disabled>?깅줉</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let selectedFile = null;
+    let fileChecksum = null;
+    let isVerified = false;
+
+    function handleFileSelect(event) {
+      const file = event.target.files[0];
+      if (file) {
+        selectedFile = file;
+        document.getElementById('fileDisplay').textContent = file.name;
+        document.getElementById('fileDisplay').classList.add('has-file');
+        document.getElementById('fileSizeDisplay').textContent = formatFileSize(file.size);
+        document.getElementById('fileClear').style.display = 'block';
+        document.getElementById('verifyButton').disabled = false;
+        
+        // Reset verification
+        isVerified = false;
+        document.getElementById('checksumInfo').style.display = 'none';
+        updateRegisterButton();
+
+        // Auto-calculate checksum
+        calculateChecksum(file);
+      }
+    }
+
+    function clearFile() {
+      selectedFile = null;
+      fileChecksum = null;
+      isVerified = false;
+      document.getElementById('artifactFile').value = '';
+      document.getElementById('fileDisplay').textContent = '?뚯씪???좏깮??二쇱꽭??';
+      document.getElementById('fileDisplay').classList.remove('has-file');
+      document.getElementById('fileSizeDisplay').textContent = '0';
+      document.getElementById('fileClear').style.display = 'none';
+      document.getElementById('verifyButton').disabled = true;
+      document.getElementById('checksumInfo').style.display = 'none';
+      updateRegisterButton();
+    }
+
+    async function calculateChecksum(file) {
+      try {
+        const arrayBuffer = await file.arrayBuffer();
+        const hashBuffer = await crypto.subtle.digest('SHA-256', arrayBuffer);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        fileChecksum = hashHex;
+        document.getElementById('checksumValue').textContent = hashHex;
+        document.getElementById('checksumInfo').style.display = 'block';
+      } catch (error) {
+        console.error('Checksum calculation failed:', error);
+        alert('泥댄겕??怨꾩궛 以??ㅻ쪟媛 諛쒖깮?덉뒿?덈떎.');
+      }
+    }
+
+    function verifyFile() {
+      if (selectedFile && fileChecksum) {
+        isVerified = true;
+        alert('?뚯씪 ?뺤씤???꾨즺?섏뿀?듬땲??\n\n' +
+              '?뚯씪紐? ' + selectedFile.name + '\n' +
+              '?ш린: ' + formatFileSize(selectedFile.size) + '\n' +
+              '泥댄겕?? ' + fileChecksum.substring(0, 16) + '...');
+        updateRegisterButton();
+      }
+    }
+
+    function formatFileSize(bytes) {
+      if (bytes === 0) return '0 Bytes';
+      const k = 1024;
+      const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+    }
+
+    function updateRegisterButton() {
+      const button = document.getElementById('registerButton');
+      button.disabled = !isVerified;
+    }
+
+    function registerVersion() {
+      const major = document.getElementById('versionMajor').value;
+      const minor = document.getElementById('versionMinor').value;
+      const patch = document.getElementById('versionPatch').value;
+      const updateType = document.querySelector('input[name="updateType"]:checked').value;
+      const deploymentTarget = document.querySelector('input[name="deploymentTarget"]:checked').value;
+      const versionState = document.querySelector('input[name="versionState"]:checked').value;
+      const releaseNotes = document.getElementById('releaseNotes').value;
+
+      if (!selectedFile || !isVerified) {
+        alert('?뚯씪???좏깮?섍퀬 ?뺤씤??二쇱꽭??');
+        return;
+      }
+
+      const formData = {
+        version_major: parseInt(major),
+        version_minor: parseInt(minor),
+        version_patch: parseInt(patch),
+        version_tag: `${major}.${minor}.${patch}`,
+        update_type: updateType,
+        deployment_target: deploymentTarget,
+        checksum: fileChecksum,
+        artifact_filename: selectedFile.name,
+        artifact_size_bytes: selectedFile.size,
+        release_notes: releaseNotes,
+        state: versionState
+      };
+
+      console.log('Registering version:', formData);
+      
+      // TODO: Actual API call
+      // await fetch('/api/contents/${contentId}/versions', {
+      //   method: 'POST',
+      //   body: formData with file
+      // });
+
+      alert('踰꾩쟾???깅줉?섏뿀?듬땲??\n\n踰꾩쟾: ' + formData.version_tag + 
+            '\n?낅뜲?댄듃: ' + (updateType === 'forced' ? '媛뺤젣' : '?좏깮') +
+            '\n諛고룷: ' + (deploymentTarget === 'production' ? '?곸슜' : '?뚯뒪??));
+      
+      closeModal();
+    }
+
+    function closeModal() {
+      // In a real app, this would close the modal or navigate back
+      if (confirm('?묒꽦 以묒씤 ?댁슜???щ씪吏묐땲?? ?レ쑝?쒓쿋?듬땲源?')) {
+        window.location.href = 'content-editor.html';
+      }
+    }
+  </script>
+</body>
+</html>
+

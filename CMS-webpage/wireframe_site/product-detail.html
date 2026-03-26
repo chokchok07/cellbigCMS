@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Product Detail — Wireframe</title>
+  <link rel="stylesheet" href="styles.css">
+  
+</head>
+<body>
+  <header class="site-header">
+    <div style="display:flex;align-items:center;gap:16px">
+      <span style="font-weight:700;font-size:20px;color:#1f2937;cursor:pointer" onclick="location.href='index.html'">CellbigCMS</span>
+    </div>
+    <div style="display:flex;gap:16px;align-items:center">
+      <span style="cursor:pointer">🔔 (3)</span>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <span style="cursor:pointer">👤 Admin(SP)</span>
+        <button type="button" style="padding:4px 12px; font-size:12px; font-weight:500; color:#4b5563; background:#f3f4f6; border:1px solid #d1d5db; border-radius:4px; cursor:pointer;" onclick="if(confirm('로그아웃 하시겠습니까?')) { location.href='login.html'; }">로그아웃</button>
+      </div>
+    </div>
+  </header>
+  
+  <div class="dashboard-layout">
+        <aside class="sidebar">
+      <div class="sidebar-category">Infrastructure (Location)</div>
+      <div class="sidebar-item" data-page="localarea-list.html">🏢 LocalAreas</div>
+      <div class="sidebar-item" data-page="store-list.html">🏪 Stores</div>
+      
+      <div class="sidebar-category">Device & Monitoring</div>
+      <div class="sidebar-item" data-page="device-list.html">🖥️ Devices</div>
+      <div class="sidebar-item" data-page="log-content-access.html">📊 Access Logs</div>
+
+      <div class="sidebar-category">Contents & Product</div>
+      <div class="sidebar-item active" data-page="product-list.html">📦 Product</div>
+      <div class="sidebar-item" data-page="serial-list.html">🔑 Licenses (Serial)</div>
+      <div class="sidebar-item" data-page="package-list.html">🎒 Package</div>
+      <div class="sidebar-item" data-page="content-list.html">🎬 Content</div>
+      
+      <div class="sidebar-category">System</div>
+      <div class="sidebar-item" data-page="settings.html">⚙️ Settings</div>
+
+      <div class="sidebar-category">Help</div>
+      <div class="sidebar-item" data-page="overview.html">📘 Overview</div>
+      <div class="sidebar-item" data-page="version-register.html">📢 Update</div>
+    </aside>
+
+    <main class="main-content">
+      <div class="container">
+        
+
+        <!-- Page Header -->
+        <div class="breadcrumb" style="font-size: 13px; color: #6b7280; margin-bottom: 20px; display:flex; gap:8px; align-items:center;">
+          <span style="cursor:pointer; padding: 4px 8px; border-radius: 4px; transition: background 0.2s; display: flex; align-items: center;" onmouseover="this.style.background='#e5e7eb'" onmouseout="this.style.background='transparent'" onclick="location.href='index.html'">🏠 Home</span>
+          <span style="color: #d1d5db;">/</span>
+          <span style="cursor:pointer; padding: 4px 8px; border-radius: 4px; transition: background 0.2s;" onmouseover="this.style.background='#e5e7eb'" onmouseout="this.style.background='transparent'" onclick="location.href='product-list.html'">📦 Product</span>
+          <span style="color: #d1d5db;">/</span>
+          <span style="color: #374151; font-weight: 600; padding: 4px 8px;">📦 Product Detail: SandCraft</span>
+        </div>
+
+        <div class="page-header" style="align-items: flex-start; justify-content: space-between; margin-bottom: 24px;">
+          <div>
+            <h1 class="page-title" style="margin-bottom: 8px;">🏢 Product Detail: SandCraft</h1>
+            <div style="color:#6b7280; font-size:14px; display:flex; gap:12px; align-items:center;">
+              <span>Created: 2026-01-15</span>
+            </div>
+          </div>
+          <div class="header-actions" style="display:flex; gap:8px;">
+            <button class="btn btn-primary" onclick="if(confirm('수정 내용을 저장하시겠습니까?')) { alert('수정되었습니다.'); }">Save</button>
+            <button class="btn btn-danger" onclick="showDeleteModal()">Delete</button>
+          </div>
+        </div>
+
+        <!-- 2:1 Grid Structure for Layout Unification -->
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px;">
+          
+          <!-- Left Column: Basic Info -->
+          <div>
+            <div class="card" style="margin-bottom:24px">
+              <h2 style="font-size: 18px; color: #111827; margin-top: 0; margin-bottom: 20px; border-bottom: 1px solid #e5e7eb; padding-bottom: 12px;">📋 기본 정보</h2>
+              <div style="display: grid; grid-template-columns: 140px 1fr; gap: 16px 24px; align-items: start;">
+                <div class="info-label" style="font-weight: 600; color: #4b5563; text-align: right; padding-top: 4px;">Product ID:</div>
+                <div class="info-value" style="color: #111827; background: #f3f4f6; padding: 6px 12px; border-radius: 6px; min-height: 20px; font-family: monospace;">product-sandcraft</div>
+                
+                <div class="info-label" style="font-weight: 600; color: #4b5563; text-align: right; padding-top: 4px;">Name:</div>
+                <input type="text" class="input" style="width:100%" value="SandCraft">
+                
+                <div class="info-label" style="font-weight: 600; color: #4b5563; text-align: right; padding-top: 4px;">Description:</div>
+                <textarea class="input" style="width:100%; height:60px; resize:vertical;">샌드크래프트 제품군</textarea>
+                
+                <div class="info-label" style="font-weight: 600; color: #4b5563; text-align: right; padding-top: 4px;">Default Package:</div>
+                <div class="info-value" style="color: #111827; background: #f9fafb; padding: 6px 12px; border-radius: 6px; min-height: 20px;"><a href="package-detail.html" style="color:#2563eb;text-decoration:none">pkg-sand-11</a></div>
+                
+                <div class="info-label" style="font-weight: 600; color: #4b5563; text-align: right; padding-top: 4px;">Created:</div>
+                <div class="info-value" style="color: #111827; background: #f9fafb; padding: 6px 12px; border-radius: 6px; min-height: 20px;">2026-01-15 10:00</div>
+                
+                <div class="info-label" style="font-weight: 600; color: #4b5563; text-align: right; padding-top: 4px;">Updated:</div>
+                <div class="info-value" style="color: #111827; background: #f9fafb; padding: 6px 12px; border-radius: 6px; min-height: 20px;">2026-02-10 14:30</div>
+              </div>
+            </div>
+
+            <!-- Packages Section -->
+            <div class="card" style="display:flex; flex-direction:column; margin-bottom:20px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+                <h2 style="font-size: 18px; color: #111827; margin:0">📦 연결된 패키지 <span id="packageCount">(3)</span></h2>
+                <button type="button" class="btn btn-primary" onclick="openPackageSelectionModal()">+ Add Package</button>
+              </div>
+              <div style="flex:1; overflow-y:auto; max-height:400px; padding-right:8px;">
+          <table class="section-table">
+            <thead>
+              <tr>
+                <th>Package Name</th>
+                <th style="width:100px">Version</th>
+                <th style="width:150px">Deploy Date</th>
+                <th style="width:180px">Action</th>
+              </tr>
+            </thead>
+            <tbody id="packagesListTableBody">
+              <tr>
+                <td><strong>pkg-sand-11</strong></td>
+                <td>v1.1</td>
+                <td>2026-02-01</td>
+                <td>
+                  <a href="#" class="action-link">View</a>
+                  <a href="#" class="action-link" style="color:#dc2626">Remove</a>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>pkg-sand-24</strong></td>
+                <td>v2.4</td>
+                <td>2026-01-20</td>
+                <td>
+                  <a href="#" class="action-link">View</a>
+                  <a href="#" class="action-link" style="color:#dc2626">Remove</a>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>pkg-sand-test</strong></td>
+                <td>v0.9</td>
+                <td>2026-02-10</td>
+                <td>
+                  <a href="#" class="action-link">View</a>
+                  <a href="#" class="action-link" style="color:#dc2626">Remove</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+              </div>
+            </div> <!-- Close Package Section div -->
+          </div> <!-- Close Left Column div -->
+
+          <!-- Right Column: Contents Section -->
+          <div>
+            <div class="card" style="display:flex; flex-direction:column; margin-bottom:20px;">
+              <h2 style="font-size: 18px; color: #111827; margin-top: 0; margin-bottom: 12px;">📝 포함된 콘텐츠 (8)</h2>
+              <div style="flex:1; overflow-y:auto; max-height:400px; padding-right:8px;">
+              <table class="section-table">
+                <thead>
+                  <tr>
+                    <th>Content Name</th>
+                    <th style="width:120px">Type</th>
+                    <th style="width:100px">Version</th>
+                    <th style="width:150px">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><a href="#" class="action-link">Beach Game</a></td>
+                    <td>single</td>
+                    <td>v2.1</td>
+                    <td><span style="color:#10b981">🟢 Published</span></td>
+                  </tr>
+                  <tr>
+                    <td><a href="#" class="action-link">Ocean View</a></td>
+                    <td>single</td>
+                    <td>v1.3</td>
+                    <td><span style="color:#10b981">🟢 Published</span></td>
+                  </tr>
+                  <tr>
+                    <td><a href="#" class="action-link">Sand Menu</a></td>
+                    <td>container</td>
+                    <td>v1.0</td>
+                    <td><span style="color:#6b7280">⚪ Draft</span></td>
+                  </tr>
+                  <tr>
+                    <td><a href="#" class="action-link">Beach Builder</a></td>
+                    <td>single</td>
+                    <td>v3.2</td>
+                    <td><span style="color:#10b981">🟢 Published</span></td>
+                  </tr>
+                </tbody>
+              </table>
+              </div>
+            </div> <!-- Close Content Card div -->
+          </div> <!-- Close Right Column div -->
+          
+        </div> <!-- Close Grid div -->
+
+      </div>
+    </main>
+  </div>
+
+  
+    <script>
+      // Navigation handling
+      document.querySelectorAll('.sidebar-item').forEach(item => {
+        item.addEventListener('click', function() {
+          const page = this.getAttribute('data-page');
+          if (page) {
+            window.location.href = page;
+          }
+        });
+      });
+
+      // New vs Edit Mode Detection
+      document.addEventListener('DOMContentLoaded', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const isNew = !urlParams.has('id');
+        
+        // Base Name Mapping
+        const entityNames = {
+          'localarea': 'LocalArea',
+          'store': 'Store',
+          'device': 'Device',
+          'package': 'Package',
+          'product': 'Product',
+          'content': 'Content'
+        };
+        
+        const path = window.location.pathname;
+        let entityKey = 'Item';
+        for(let key in entityNames) {
+            if(path.includes(key + '-detail')) {
+                entityKey = entityNames[key];
+                break;
+            }
+        }
+
+        const pageTitle = document.querySelector('.page-title');
+        const breadcrumbLast = document.querySelector('.breadcrumb span:last-child');
+        const statusSpan = document.querySelector('.status-badge') || document.querySelector('.page-title span');
+        const metaSection = document.getElementById('metadataSection');
+        
+        if (isNew) {
+          if (pageTitle) {
+            // Strip out inner HTML like badges when replacing text
+            const badgeHTML = statusSpan ? statusSpan.outerHTML : '';
+            pageTitle.innerHTML = `✨ Create New ${entityKey} ${badgeHTML}`;
+          }
+          if (breadcrumbLast) breadcrumbLast.innerHTML = `✨ New ${entityKey}`;
+          if (statusSpan) statusSpan.style.display = 'none'; // Hide status in new mode
+          
+          
+          if (metaSection) metaSection.style.display = 'none';
+
+            // Auto-generate ID placeholder
+            document.querySelectorAll('.info-label').forEach(label => {
+                if (label.textContent.includes('ID')) {
+                    let nextEl = label.nextElementSibling;
+                    while(nextEl && nextEl.tagName !== 'INPUT' && nextEl.tagName !== 'DIV') {
+                        nextEl = nextEl.nextElementSibling;
+                    }
+                    if (nextEl && nextEl.tagName === 'INPUT') {
+                        nextEl.value = '';
+                        nextEl.placeholder = '서버에서 자동 생성됩니다';
+                        nextEl.readOnly = true;
+                        nextEl.style.backgroundColor = '#f3f4f6';
+                        nextEl.style.color = '#9ca3af';
+                    }
+                }
+            });
+
+            // Re-purpose Delete and Save buttons for New Mode
+            const btnPrimary = document.querySelector('.btn-primary');
+            if (btnPrimary && pageTitle) {
+                const objName = pageTitle.textContent.replace('✨ Create New ', '').trim();
+                btnPrimary.innerHTML = '✨ Save ' + objName;
+                btnPrimary.onclick = function() { 
+                    alert(objName + ' created successfully!'); 
+                    window.location.href = location.pathname.replace('-detail', '-list'); 
+                };
+            }
+            
+            // Delete button was hidden by previous scripts. Un-hide it and turn into Cancel.
+            const deleteBtn = document.querySelector('.btn-secondary');
+            if (deleteBtn) {
+                deleteBtn.style.display = 'inline-block';
+                deleteBtn.innerHTML = '✕ Cancel';
+                deleteBtn.style.color = '#4b5563';
+                deleteBtn.style.borderColor = '#d1d5db';
+                deleteBtn.onclick = function() { history.back(); };
+            }
+
+
+                 // Hide metadata section
+          
+          // Hide mapping lists (right column cards showing Connected Contents, Devices, etc)
+          const allCards = document.querySelectorAll('.card');
+          allCards.forEach(card => {
+              const h2 = card.querySelector('h2');
+              if (h2 && (h2.textContent.includes('포함된 콘텐츠') || h2.textContent.includes('Connected Contents') || h2.textContent.includes('Installed') || h2.textContent.includes('하위') || h2.textContent.includes('Child') || h2.textContent.includes('스토어') || h2.textContent.includes('Store') || h2.textContent.includes('디바이스') || h2.textContent.includes('기기') || h2.textContent.includes('연결된'))) {
+                  card.style.display = 'none';
+              }
+          });
+
+          
+          // Hide Delete Button
+          // previously old delete btn selection
+          
+          
+          // Clear inputs
+          document.querySelectorAll('input[type="text"], textarea').forEach(el => {
+              if (el.id !== 'searchInput') el.value = '';
+          });
+          document.querySelectorAll('.info-value').forEach(el => {
+              if (el.tagName !== 'SPAN') el.innerHTML = '-';
+          });
+        }
+      });
+    </script>
+
+
+  <!-- Package Selection Modal Overlay -->
+  <div id="packageSelectionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center;">
+    <div style="background:#fff; width:600px; max-width:90%; border-radius:8px; display:flex; flex-direction:column; overflow:hidden; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);">
+      <div style="padding:16px 20px; border-bottom:1px solid #e5e7eb; display:flex; justify-content:space-between; align-items:center; background:#f9fafb;">
+        <h3 style="margin:0; font-size:18px; color:#111827;">패키지 선택 (Package Selection)</h3>
+        <button type="button" style="background:transparent; border:none; font-size:24px; cursor:pointer; color:#6b7280;" onclick="closePackageSelectionModal()">&times;</button>
+      </div>
+      <div style="padding:16px 20px;">
+        <input type="text" id="packageSearchInput" placeholder="패키지 이름 또는 ID 검색..." style="width:100%; padding:8px 12px; border:1px solid #d1d5db; border-radius:6px; margin-bottom:16px;" oninput="filterPackages()">
+        <div style="max-height:300px; overflow-y:auto; border:1px solid #e5e7eb; border-radius:6px;" id="modalPackageList">
+          <!-- Mock Item 1 -->
+          <label class="package-selection-item" style="display:flex; align-items:center; gap:12px; padding:12px 16px; border-bottom:1px solid #e5e7eb; cursor:pointer;">
+            <input type="checkbox" class="package-checkbox" data-id="pkg-sand-11" data-desc="SandCraft 11 Items (11 contents)" style="width:16px; height:16px; cursor:pointer;">
+            <div style="flex:1;">
+              <div style="font-weight:500; font-size:14px; color:#111827;">pkg-sand-11</div>
+              <div style="font-size:12px; color:#6b7280;">SandCraft 11 Items (11 contents)</div>
+            </div>
+          </label>
+          <!-- Mock Item 2 -->
+          <label class="package-selection-item" style="display:flex; align-items:center; gap:12px; padding:12px 16px; border-bottom:1px solid #e5e7eb; cursor:pointer;">
+            <input type="checkbox" class="package-checkbox" data-id="pkg-sand-24" data-desc="SandCraft 24 Items (24 contents)" style="width:16px; height:16px; cursor:pointer;">
+            <div style="flex:1;">
+              <div style="font-weight:500; font-size:14px; color:#111827;">pkg-sand-24</div>
+              <div style="font-size:12px; color:#6b7280;">SandCraft 24 Items (24 contents)</div>
+            </div>
+          </label>
+          <!-- Mock Item 3 -->
+          <label class="package-selection-item" style="display:flex; align-items:center; gap:12px; padding:12px 16px; border-bottom:none; cursor:pointer;">
+            <input type="checkbox" class="package-checkbox" data-id="pkg-fish-basic" data-desc="FishWorld Basic (5 contents)" style="width:16px; height:16px; cursor:pointer;">
+            <div style="flex:1;">
+              <div style="font-weight:500; font-size:14px; color:#111827;">pkg-fish-basic</div>
+              <div style="font-size:12px; color:#6b7280;">FishWorld Basic (5 contents)</div>
+            </div>
+          </label>
+        </div>
+      </div>
+      <div style="padding:16px 20px; border-top:1px solid #e5e7eb; display:flex; justify-content:flex-end; gap:10px; background:#f9fafb;">
+        <button type="button" class="btn btn-secondary" onclick="closePackageSelectionModal()">취소</button>
+        <button type="button" class="btn btn-primary" onclick="addSelectedPackages()">확인</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Inactive Confirm Modal -->
+  <div id="statusConfirmModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999; justify-content: center; align-items: center;">
+      <div style="background: #fff; width: 400px; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <div style="padding: 16px 24px; border-bottom: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center;">
+          <h3 style="margin: 0; font-size: 1.125rem; font-weight: 600; color: #111827;" id="statusModalTitle">상태 변경</h3>
+          <button type="button" onclick="closeStatusModal()" style="background: none; border: none; font-size: 1.25rem; cursor: pointer; color: #6b7280;">&times;</button>
+        </div>
+        <div style="padding: 24px;">
+          <p style="margin: 0; color: #374151; font-size: 1rem;" id="statusModalMessage">변경 하시겠습니까?</p>
+        </div>
+        <div style="padding: 16px 24px; border-top: 1px solid #e5e7eb; display: flex; justify-content: flex-end; gap: 8px; background: #f9fafb;">
+          <button type="button" class="btn btn-secondary" onclick="closeStatusModal()">취소</button>
+          <button type="button" class="btn btn-primary" id="statusConfirmBtn" onclick="confirmStatus()">확인</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      let currentStatusAction = '';
+      function openStatusModal(action) {
+        currentStatusAction = action;
+        const modal = document.getElementById('statusConfirmModal');
+        const title = document.getElementById('statusModalTitle');
+        const message = document.getElementById('statusModalMessage');
+        const confirmBtn = document.getElementById('statusConfirmBtn');
+        
+        if (action === 'active') {
+          title.innerText = '활성화 확인';
+          message.innerText = '활성화 하시겠습니까?';
+          confirmBtn.innerText = '활성화';
+          confirmBtn.style.background = '#10b981';
+          confirmBtn.style.borderColor = '#10b981';
+        } else {
+          title.innerText = '비활성화 확인';
+          message.innerText = '비활성화 하시겠습니까?';
+          confirmBtn.innerText = '비활성화';
+          confirmBtn.style.background = '#ef4444';
+          confirmBtn.style.borderColor = '#ef4444';
+        }
+        
+        modal.style.display = 'flex';
+      }
+      function closeStatusModal() {
+        document.getElementById('statusConfirmModal').style.display = 'none';
+      }
+      function confirmStatus() {
+        closeStatusModal();
+      }
+      
+      document.addEventListener('DOMContentLoaded', () => {
+        // Also bind any generic Active/Inactive buttons in table lists
+        document.querySelectorAll('.btn-danger, .btn-success, .btn').forEach(btn => {
+          if(btn.innerText.includes('Inactive') && !btn.hasAttribute('onclick')) {
+            btn.addEventListener('click', () => openStatusModal('inactive'));
+          }
+          if(btn.innerText.includes('Active') && !btn.hasAttribute('onclick')) {
+            btn.addEventListener('click', () => openStatusModal('active'));
+          }
+        });
+      });
+    </script>
+
+
+  <script>
+    function openPackageSelectionModal() {
+      document.getElementById('packageSelectionModal').style.display = 'flex';
+    }
+    function closePackageSelectionModal() {
+      document.getElementById('packageSelectionModal').style.display = 'none';
+    }
+    function submitPackageSelection() {
+      const checked = document.querySelectorAll('.pkg-checkbox:checked');
+      if (checked.length === 0) {
+        alert('추가할 패키지를 선택해주세요.');
+        return;
+      }
+      alert(checked.length + '개의 패키지가 성공적으로 추가되었습니다.');
+      closePackageSelectionModal();
+    }
+  </script>
+
+</body>
+</html>

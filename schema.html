@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CellbigCMS - Data Schema & ERD</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f9fafb;
+            color: #374151;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 32px 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 20px;
+            margin-bottom: 32px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: #111827;
+        }
+        .nav-links a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+        .card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 32px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .card h2 {
+            margin-top: 0;
+            border-bottom: 1px solid #f3f4f6;
+            padding-bottom: 12px;
+            color: #1f2937;
+        }
+        .erd-wrapper {
+            display: flex;
+            justify-content: center;
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 16px;
+            font-size: 0.95rem;
+        }
+        th, td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        th {
+            background-color: #f9fafb;
+            font-weight: 600;
+            color: #4b5563;
+        }
+        .pk {
+            color: #b91c1c;
+            font-weight: bold;
+        }
+        .fk {
+            color: #047857;
+            font-weight: bold;
+        }
+        .type-badge {
+            background: #e0e7ff;
+            color: #3730a3;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-family: monospace;
+        }
+        .table-desc {
+            color: #6b7280;
+            margin-bottom: 16px;
+            font-size: 0.95rem;
+        }
+    
+        .fk-link { color: #047857; font-weight: bold; text-decoration: none; border-bottom: 1px dashed #047857; }
+        .fk-link:hover { background-color: #d1fae5; color: #065f46; }
+    </style>
+    <!-- Mermiad.js 로드 -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            mermaid.initialize({ startOnLoad: true, theme: 'default' });
+        });
+    </script>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>🗄️ CellbigCMS Data Schema & ERD</h1>
+        <div class="nav-links">
+            <a href="api.html">← API 연동 규약 보러가기</a>
+        </div>
+    </div>
+
+    <!-- ERD Section -->
+    <div class="card">
+        <h2>1. Entity Relationship Diagram (ERD)</h2>
+        <p class="table-desc">CellbigCMS의 핵심 테이블 간의 관계도입니다. 사용자는 역할(Role)에 따라 스토어나 지역 권한(Scope)을 할당받습니다.</p>
+        <div class="erd-wrapper">
+            <div class="mermaid">
+erDiagram
+    tb_user ||--o{ tb_user_scope : "has access to"
+    tb_local_area ||--o{ tb_store : "contains"
+    tb_local_area ||--o{ tb_user_scope : "granted to (optional)"
+    tb_store ||--o{ tb_device : "operates"
+    tb_store ||--o{ tb_user_scope : "granted to (optional)"
+    
+    tb_product ||--o{ tb_package : "defines"
+    tb_package ||--o{ tb_package_content : "composition"
+    tb_content ||--o{ tb_package_content : "included in"
+    
+    tb_package ||--o{ tb_license : "issues"
+    tb_license |o--o| tb_device : "activated on"
+            </div>
+        </div>
+    </div>
+
+    <!-- Data Tables Section -->
+    <div class="card">
+        <h2>2. Data Tables Dictionary</h2>
+
+        <!-- User Table -->
+        <h3 id="tb-user">👤 tb_user (사용자/관리자)</h3>
+        <p class="table-desc">CMS에 접속하는 관리자 및 운영자 계정 정보 (Settings 회원가입 처리용)</p>
+        <table>
+            <tr><th>Column</th><th>Type</th><th>Key/Null</th><th>Description</th></tr>
+            <tr><td><span class="pk">user_id</span></td><td><span class="type-badge">VARCHAR(50)</span></td><td>PK</td><td>사용자 고유 식별자</td></tr>
+            <tr><td>login_id</td><td><span class="type-badge">VARCHAR(100)</span></td><td>UNIQUE</td><td>로그인 아이디</td></tr>
+            <tr><td>password_hash</td><td><span class="type-badge">VARCHAR(255)</span></td><td>NOT NULL</td><td>암호화된 비밀번호</td></tr>
+            <tr><td>user_name</td><td><span class="type-badge">VARCHAR(100)</span></td><td>NOT NULL</td><td>사용자 성명</td></tr>
+            <tr><td>email</td><td><span class="type-badge">VARCHAR(150)</span></td><td></td><td>연락처 이메일</td></tr>
+            <tr><td>role</td><td><span class="type-badge">ENUM</span></td><td>NOT NULL</td><td>SUPER, OPERATION, LOCAL, TECHNICIAN</td></tr>
+            <tr><td>status</td><td><span class="type-badge">ENUM</span></td><td>NOT NULL</td><td>PENDING, ACTIVE, SUSPENDED, REJECTED</td></tr>
+            <tr><td>created_at</td><td><span class="type-badge">DATETIME</span></td><td></td><td>생성 일시</td></tr>
+        </table>
+
+        <!-- Local Area Table -->
+        <h3 id="tb-local-area">🏢 tb_local_area (지역)</h3>
+        <p class="table-desc">스토어들을 그룹화하는 상위 지역 개념</p>
+        <table>
+            <tr><th>Column</th><th>Type</th><th>Key/Null</th><th>Description</th></tr>
+            <tr><td><span class="pk">area_id</span></td><td><span class="type-badge">VARCHAR(50)</span></td><td>PK</td><td>지역 고유 식별자</td></tr>
+            <tr><td>area_name</td><td><span class="type-badge">VARCHAR(100)</span></td><td>NOT NULL</td><td>지역 명칭 (예: 서울, 부산)</td></tr>
+            <tr><td>status</td><td><span class="type-badge">ENUM</span></td><td>NOT NULL</td><td>ACTIVE, INACTIVE</td></tr>
+        </table>
+
+        <!-- Store Table -->
+        <h3 id="tb-store">🏪 tb_store (매장/스토어)</h3>
+        <p class="table-desc">실제 디바이스가 설치되고 운영되는 매장</p>
+        <table>
+            <tr><th>Column</th><th>Type</th><th>Key/Null</th><th>Description</th></tr>
+            <tr><td><span class="pk">store_id</span></td><td><span class="type-badge">VARCHAR(50)</span></td><td>PK</td><td>스토어 고유 식별자</td></tr>
+            <tr><td><a href="#tb-local-area" class="fk-link">🔗 area_id</a></td><td><span class="type-badge">VARCHAR(50)</span></td><td>FK</td><td>소속 지역 ID</td></tr>
+            <tr><td>store_name</td><td><span class="type-badge">VARCHAR(100)</span></td><td>NOT NULL</td><td>스토어 명칭 (예: 롯데월드타워점)</td></tr>
+            <tr><td>address</td><td><span class="type-badge">VARCHAR(255)</span></td><td></td><td>상세 주소</td></tr>
+            <tr><td>status</td><td><span class="type-badge">ENUM</span></td><td>NOT NULL</td><td>ACTIVE, INACTIVE</td></tr>
+        </table>
+
+        <!-- Device Table -->
+        <h3 id="tb-device">🖥️ tb_device (디바이스)</h3>
+        <p class="table-desc">매장에 설치되어 콘텐츠를 실행하는 PC/단말기</p>
+        <table>
+            <tr><th>Column</th><th>Type</th><th>Key/Null</th><th>Description</th></tr>
+            <tr><td><span class="pk">device_id</span></td><td><span class="type-badge">VARCHAR(50)</span></td><td>PK</td><td>디바이스 고유 식별자</td></tr>
+            <tr><td><a href="#tb-store" class="fk-link">🔗 store_id</a></td><td><span class="type-badge">VARCHAR(50)</span></td><td>FK</td><td>설치된 스토어 ID</td></tr>
+            <tr><td>mac_address</td><td><span class="type-badge">VARCHAR(50)</span></td><td>UNIQUE</td><td>단말기 MAC 주소 (상시인증 기준)</td></tr>
+            <tr><td>device_name</td><td><span class="type-badge">VARCHAR(100)</span></td><td></td><td>디바이스 별칭</td></tr>
+            <tr><td>status</td><td><span class="type-badge">ENUM</span></td><td>NOT NULL</td><td>ACTIVE, INACTIVE</td></tr>
+            <tr><td>last_ping_at</td><td><span class="type-badge">DATETIME</span></td><td></td><td>마지막 서버 통신(생존) 시간</td></tr>
+        </table>
+
+        <!-- Product Table -->
+        <h3 id="tb-product">📦 tb_product (제품)</h3>
+        <p class="table-desc">판매되는 최상위 단위 (소프트웨어 묶음군)</p>
+        <table>
+            <tr><th>Column</th><th>Type</th><th>Key/Null</th><th>Description</th></tr>
+            <tr><td><span class="pk">product_id</span></td><td><span class="type-badge">VARCHAR(50)</span></td><td>PK</td><td>제품 고유 식별자</td></tr>
+            <tr><td>product_name</td><td><span class="type-badge">VARCHAR(100)</span></td><td>NOT NULL</td><td>제품 명칭</td></tr>
+            <tr><td>description</td><td><span class="type-badge">TEXT</span></td><td></td><td>제품 설명</td></tr>
+            <tr><td>status</td><td><span class="type-badge">ENUM</span></td><td>NOT NULL</td><td>ACTIVE, INACTIVE</td></tr>
+        </table>
+
+        <!-- Package Table -->
+        <h3 id="tb-package">🗂️ tb_package (패키지)</h3>
+        <p class="table-desc">제품의 하위 개념으로, 특정 테마별로 묶인 형태 (실제 기기가 다운로드 받는 단위)</p>
+        <table>
+            <tr><th>Column</th><th>Type</th><th>Key/Null</th><th>Description</th></tr>
+            <tr><td><span class="pk">package_id</span></td><td><span class="type-badge">VARCHAR(50)</span></td><td>PK</td><td>패키지 고유 식별자</td></tr>
+            <tr><td><a href="#tb-product" class="fk-link">🔗 product_id</a></td><td><span class="type-badge">VARCHAR(50)</span></td><td>FK</td><td>소속 제품 ID</td></tr>
+            <tr><td>package_name</td><td><span class="type-badge">VARCHAR(100)</span></td><td>NOT NULL</td><td>패키지 명칭</td></tr>
+            <tr><td>version</td><td><span class="type-badge">VARCHAR(20)</span></td><td></td><td>현재 배포 버전 (예: 1.0.2)</td></tr>
+            <tr><td>status</td><td><span class="type-badge">ENUM</span></td><td>NOT NULL</td><td>ACTIVE, INACTIVE</td></tr>
+        </table>
+
+        <!-- Content Table -->
+        <h3 id="tb-content">🎬 tb_content (콘텐츠)</h3>
+        <p class="table-desc">패키지를 구성하는 단일 실행파일/리소스</p>
+        <table>
+            <tr><th>Column</th><th>Type</th><th>Key/Null</th><th>Description</th></tr>
+            <tr><td><span class="pk">content_id</span></td><td><span class="type-badge">VARCHAR(50)</span></td><td>PK</td><td>콘텐츠 고유 식별자</td></tr>
+            <tr><td>title</td><td><span class="type-badge">VARCHAR(100)</span></td><td>NOT NULL</td><td>콘텐츠 제목</td></tr>
+            <tr><td>file_url</td><td><span class="type-badge">VARCHAR(255)</span></td><td>NOT NULL</td><td>다운로드 대상 S3/CDN 경로</td></tr>
+            <tr><td>file_size</td><td><span class="type-badge">BIGINT</span></td><td></td><td>파일 용량 (Byte)</td></tr>
+            <tr><td>version</td><td><span class="type-badge">VARCHAR(20)</span></td><td></td><td>개별 콘텐츠 업데이트 버전</td></tr>
+            <tr><td>status</td><td><span class="type-badge">ENUM</span></td><td>NOT NULL</td><td>ACTIVE, INACTIVE</td></tr>
+        </table>
+
+        <!-- Package_Content Join Table -->
+        <h3 id="tb-package-content">🔗 tb_package_content (매핑 테이블)</h3>
+        <p class="table-desc">패키지와 콘텐츠를 N:M 다대다 매핑</p>
+        <table>
+            <tr><th>Column</th><th>Type</th><th>Key/Null</th><th>Description</th></tr>
+            <tr><td><a href="#tb-package" class="fk-link" style="color:var(--pk-color);">🔗 package_id</a></td><td><span class="type-badge">VARCHAR(50)</span></td><td>PK, FK</td><td>연결된 패키지 ID</td></tr>
+            <tr><td><a href="#tb-content" class="fk-link" style="color:var(--pk-color);">🔗 content_id</a></td><td><span class="type-badge">VARCHAR(50)</span></td><td>PK, FK</td><td>연결된 콘텐츠 ID</td></tr>
+            <tr><td>sort_order</td><td><span class="type-badge">INT</span></td><td></td><td>패키지 내 표시/실행 순서</td></tr>
+        </table>
+
+        <!-- License Table -->
+        <h3 id="tb-license">🔑 tb_license (라이선스/시리얼)</h3>
+        <p class="table-desc">기기가 패키지를 사용하기 위한 인증 키 (Serial)</p>
+        <table>
+            <tr><th>Column</th><th>Type</th><th>Key/Null</th><th>Description</th></tr>
+            <tr><td><span class="pk">license_id</span></td><td><span class="type-badge">VARCHAR(50)</span></td><td>PK</td><td>발급 고유 식별자</td></tr>
+            <tr><td><a href="#tb-package" class="fk-link">🔗 package_id</a></td><td><span class="type-badge">VARCHAR(50)</span></td><td>FK</td><td>사용 권한을 부여받는 패키지</td></tr>
+            <tr><td><a href="#tb-device" class="fk-link">🔗 device_id</a></td><td><span class="type-badge">VARCHAR(50)</span></td><td>FK / NULL</td><td>등록/할당된 디바이스 ID</td></tr>
+            <tr><td>serial_key</td><td><span class="type-badge">VARCHAR(100)</span></td><td>UNIQUE</td><td>사용자가 입력하는 16자리 등 시리얼키</td></tr>
+            <tr><td>auth_mode</td><td><span class="type-badge">ENUM</span></td><td>NOT NULL</td><td>ALWAYS(상시), ONE_TIME(1회성)</td></tr>
+            <tr><td>status</td><td><span class="type-badge">ENUM</span></td><td>NOT NULL</td><td>UNREGISTERED, REGISTERED, REVOKED</td></tr>
+            <tr><td>expires_at</td><td><span class="type-badge">DATETIME</span></td><td>NULL</td><td>만료 일자 (구독형일 경우)</td></tr>
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>

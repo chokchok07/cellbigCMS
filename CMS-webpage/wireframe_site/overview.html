@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Wireframe Site — CMS Webpage</title>
+  <link rel="stylesheet" href="styles.css">
+  <meta name="description" content="Simple static pages implementing wireframes from CMS-webpage/wireframe">
+  
+</head>
+<body>
+    <header class="site-header">
+    <div style="display:flex;align-items:center;gap:16px">
+      <span style="font-weight:700;font-size:20px;color:#1f2937;cursor:pointer" onclick="location.href='index.html'">CellbigCMS</span>
+    </div>
+    <div style="display:flex;gap:16px;align-items:center">
+      <span style="cursor:pointer">🔔 (3)</span>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <span style="cursor:pointer">👤 Admin(SP)</span>
+        <button type="button" style="padding:4px 12px; font-size:12px; font-weight:500; color:#4b5563; background:#f3f4f6; border:1px solid #d1d5db; border-radius:4px; cursor:pointer;" onclick="if(confirm('로그아웃 하시겠습니까?')) { location.href='login.html'; }">로그아웃</button>
+      </div>
+    </div>
+  </header>
+  
+  <div class="dashboard-layout">
+        <aside class="sidebar">
+      <div class="sidebar-category">Infrastructure (Location)</div>
+      <div class="sidebar-item" data-page="localarea-list.html">🏢 LocalAreas</div>
+      <div class="sidebar-item" data-page="store-list.html">🏪 Stores</div>
+      
+      <div class="sidebar-category">Device & Monitoring</div>
+      <div class="sidebar-item" data-page="device-list.html">🖥️ Devices</div>
+      <div class="sidebar-item" data-page="log-content-access.html">📊 Access Logs</div>
+
+      <div class="sidebar-category">Contents & Product</div>
+      <div class="sidebar-item" data-page="product-list.html">📦 Product</div>
+      <div class="sidebar-item" data-page="serial-list.html">🔑 Licenses (Serial)</div>
+      <div class="sidebar-item" data-page="package-list.html">🎒 Package</div>
+      <div class="sidebar-item" data-page="content-list.html">🎬 Content</div>
+      
+      <div class="sidebar-category">System</div>
+      <div class="sidebar-item" data-page="settings.html">⚙️ Settings</div>
+
+      <div class="sidebar-category">Help</div>
+      <div class="sidebar-item active" data-page="overview.html">📘 Overview</div>
+      <div class="sidebar-item" data-page="version-register.html">📢 Update</div>
+    </aside>
+
+    <main class="main-content">
+      <div class="container">
+    <section class="card">
+      <h2>Overview</h2>
+      <p>이 정적 사이트는 `CMS-webpage/wireframe` 폴더의 각 화면을 간단한 HTML/CSS로 구현한 예시입니다.</p>
+      <ul>
+        <li><a href="index.html">Dashboard</a> — 대시보드 레이아웃</li>
+        <li><a href="content-list.html">Content List</a> — 콘텐츠 리스트</li>
+        <li><a href="content-detail.html">Content Editor</a> — 콘텐츠 에디터 인터페이스</li>
+        <li><a href="version-register.html">Version Register</a> — 버전 등록 팝업</li>
+        <li><a href="product-list.html">Product List</a> — 제품 리스트</li>
+        <li><a href="product-detail.html">Product Detail</a> — 제품 상세</li>
+        <li><a href="product-detail.html">Product Editor</a> — 제품 등록/편집</li>
+        <li><a href="package-list.html">Package List</a> — 패키지 리스트</li>        <li><a href="package-detail.html">Package Editor</a> — 패키지 등록/편집</li>        <li><a href="package-detail.html">Package Detail</a> — 패키지 상세</li>
+        <li><a href="device-list.html">Device List</a> — 디바이스 리스트</li>
+        <li><a href="device-detail.html">Device Detail</a> — 디바이스 상세 정보</li>
+      </ul>
+    </section>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Sidebar navigation
+    document.querySelectorAll('.sidebar-item').forEach(item => {
+      item.addEventListener('click', function() {
+        const page = this.getAttribute('data-page');
+        if (page) {
+          window.location.href = page;
+        }
+      });
+    });
+  </script>
+
+  <!-- Inactive Confirm Modal -->
+  <div id="statusConfirmModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999; justify-content: center; align-items: center;">
+      <div style="background: #fff; width: 400px; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <div style="padding: 16px 24px; border-bottom: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center;">
+          <h3 style="margin: 0; font-size: 1.125rem; font-weight: 600; color: #111827;" id="statusModalTitle">상태 변경</h3>
+          <button type="button" onclick="closeStatusModal()" style="background: none; border: none; font-size: 1.25rem; cursor: pointer; color: #6b7280;">&times;</button>
+        </div>
+        <div style="padding: 24px;">
+          <p style="margin: 0; color: #374151; font-size: 1rem;" id="statusModalMessage">변경 하시겠습니까?</p>
+        </div>
+        <div style="padding: 16px 24px; border-top: 1px solid #e5e7eb; display: flex; justify-content: flex-end; gap: 8px; background: #f9fafb;">
+          <button type="button" class="btn btn-secondary" onclick="closeStatusModal()">취소</button>
+          <button type="button" class="btn btn-primary" id="statusConfirmBtn" onclick="confirmStatus()">확인</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      let currentStatusAction = '';
+      function openStatusModal(action) {
+        currentStatusAction = action;
+        const modal = document.getElementById('statusConfirmModal');
+        const title = document.getElementById('statusModalTitle');
+        const message = document.getElementById('statusModalMessage');
+        const confirmBtn = document.getElementById('statusConfirmBtn');
+        
+        if (action === 'active') {
+          title.innerText = '활성화 확인';
+          message.innerText = '활성화 하시겠습니까?';
+          confirmBtn.innerText = '활성화';
+          confirmBtn.style.background = '#10b981';
+          confirmBtn.style.borderColor = '#10b981';
+        } else {
+          title.innerText = '비활성화 확인';
+          message.innerText = '비활성화 하시겠습니까?';
+          confirmBtn.innerText = '비활성화';
+          confirmBtn.style.background = '#ef4444';
+          confirmBtn.style.borderColor = '#ef4444';
+        }
+        
+        modal.style.display = 'flex';
+      }
+      function closeStatusModal() {
+        document.getElementById('statusConfirmModal').style.display = 'none';
+      }
+      function confirmStatus() {
+        closeStatusModal();
+      }
+      
+      document.addEventListener('DOMContentLoaded', () => {
+        // Also bind any generic Active/Inactive buttons in table lists
+        document.querySelectorAll('.btn-danger, .btn-success, .btn').forEach(btn => {
+          if(btn.innerText.includes('Inactive') && !btn.hasAttribute('onclick')) {
+            btn.addEventListener('click', () => openStatusModal('inactive'));
+          }
+          if(btn.innerText.includes('Active') && !btn.hasAttribute('onclick')) {
+            btn.addEventListener('click', () => openStatusModal('active'));
+          }
+        });
+      });
+    </script>
+
+</body>
+</html>

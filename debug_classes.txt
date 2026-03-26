@@ -1,0 +1,6 @@
+class="v-modal-overlay"
+class="v-modal"
+class="v-modal-header"
+class="v-modal-close"
+class="v-modal-body"
+class="v-modal-footer"

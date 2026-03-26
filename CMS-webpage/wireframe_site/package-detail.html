@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Package Detail - CMS</title>
+  <link rel="stylesheet" href="styles.css">
+  
+</head>
+<body>
+  
+  <header class="site-header">
+    <div style="display:flex;align-items:center;gap:16px">
+      <span style="font-weight:700;font-size:20px;color:#1f2937;cursor:pointer" onclick="location.href='index.html'">CellbigCMS</span>
+    </div>
+    <div style="display:flex;gap:16px;align-items:center">
+      <span style="cursor:pointer">🔔 (3)</span>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <span style="cursor:pointer">👤 Admin(SP)</span>
+        <button type="button" style="padding:4px 12px; font-size:12px; font-weight:500; color:#4b5563; background:#f3f4f6; border:1px solid #d1d5db; border-radius:4px; cursor:pointer;" onclick="if(confirm('로그아웃 하시겠습니까?')) { location.href='login.html'; }">로그아웃</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="dashboard-layout">
+    <!-- Sidebar -->
+        <aside class="sidebar">
+      <div class="sidebar-category">Infrastructure (Location)</div>
+      <div class="sidebar-item" data-page="localarea-list.html">🏢 LocalAreas</div>
+      <div class="sidebar-item" data-page="store-list.html">🏪 Stores</div>
+      
+      <div class="sidebar-category">Device & Monitoring</div>
+      <div class="sidebar-item" data-page="device-list.html">🖥️ Devices</div>
+      <div class="sidebar-item" data-page="log-content-access.html">📊 Access Logs</div>
+
+      <div class="sidebar-category">Contents & Product</div>
+      <div class="sidebar-item" data-page="product-list.html">📦 Product</div>
+      <div class="sidebar-item" data-page="serial-list.html">🔑 Licenses (Serial)</div>
+      <div class="sidebar-item active" data-page="package-list.html">🎒 Package</div>
+      <div class="sidebar-item" data-page="content-list.html">🎬 Content</div>
+      
+      <div class="sidebar-category">System</div>
+      <div class="sidebar-item" data-page="settings.html">⚙️ Settings</div>
+
+      <div class="sidebar-category">Help</div>
+      <div class="sidebar-item" data-page="overview.html">📘 Overview</div>
+      <div class="sidebar-item" data-page="version-register.html">📢 Update</div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="container">
+        
+
+        
+        
+        <!-- Page Header -->
+        <div class="breadcrumb" style="font-size: 13px; color: #6b7280; margin-bottom: 20px; display:flex; gap:8px; align-items:center;">
+          <span style="cursor:pointer; padding: 4px 8px; border-radius: 4px; transition: background 0.2s; display: flex; align-items: center;" onmouseover="this.style.background='#e5e7eb'" onmouseout="this.style.background='transparent'" onclick="location.href='index.html'">🏠 Home</span>
+          <span style="color: #d1d5db;">/</span>
+          <span style="cursor:pointer; padding: 4px 8px; border-radius: 4px; transition: background 0.2s;" onmouseover="this.style.background='#e5e7eb'" onmouseout="this.style.background='transparent'" onclick="location.href='package-list.html'">🎒 Package</span>
+          <span style="color: #d1d5db;">/</span>
+          <span style="color: #374151; font-weight: 600; padding: 4px 8px;">🎒 Package Detail: SandCraft - 11 Items</span>
+        </div>
+
+        <div class="page-header" style="align-items: flex-start; justify-content: space-between; margin-bottom: 24px; padding-top: 10px;">
+          <div>
+            <h1 class="page-title" style="margin-bottom: 8px;">
+              📦 SandCraft - 11 Items
+              <span class="status-badge status-published" style="font-size: 13px; transform: translateY(-2px); display: inline-block;">Published</span>
+            </h1>
+            <p style="color:#6b7280; margin:0; font-size:14px; display:flex; gap:12px; align-items:center;">
+              <span>ID: pkg-sand-11</span> • 
+              <span>Product: <a href="product-detail.html" style="color:#2563eb;text-decoration:none">SandCraft</a></span>
+            </p>
+          </div>
+          <div class="header-actions" style="display:flex; gap:8px;">
+            <button class="btn btn-primary" onclick="if(confirm('수정 내용을 저장하시겠습니까?')) { alert('수정되었습니다.'); }">Save</button>
+            <button class="btn btn-danger" onclick="deletePackage()">Delete Package</button>
+          </div>
+        </div>
+
+        <!-- 2:1 Grid Structure -->
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px;">
+          <!-- Left Column: Basic Information & Meta -->
+          <div>
+            <div class="card" style="margin-bottom: 24px;">
+              <h2 style="font-size: 18px; color: #111827; margin-top: 0; margin-bottom: 20px; border-bottom: 1px solid #e5e7eb; padding-bottom: 12px;">📋 기본 정보</h2>
+              <div style="display: grid; grid-template-columns: 140px 1fr; gap: 16px 24px; align-items: start;">
+                <div class="info-label" style="font-weight: 600; color: #4b5563; text-align: right; padding-top: 4px;">Product:</div>
+                <select class="input" style="width:100%;"><option value="product-sandcraft" selected>SandCraft</option><option value="product-fish">FishWorld</option></select>
+                
+                <div class="info-label" style="font-weight: 600; color: #4b5563; text-align: right; padding-top: 4px;">Package ID:</div>
+                <div class="info-value" style="color: #111827; background: #f3f4f6; padding: 6px 12px; border-radius: 6px; min-height: 20px; font-family: monospace;">pkg-sand-11</div>
+                
+                <div class="info-label" style="font-weight: 600; color: #4b5563; text-align: right; padding-top: 4px;">Package Name:</div>
+                <input type="text" class="input" style="width:100%" value="SandCraft - 11 Items">
+                
+                <div class="info-label" style="font-weight: 600; color: #4b5563; text-align: right; padding-top: 4px;">Description:</div>
+                <textarea class="input" style="width:100%; height:60px; resize:vertical;">샌드크래프트 기본 11종 콘텐츠 패키지</textarea>
+                
+                <div class="info-label" style="font-weight: 600; color: #4b5563; text-align: right; padding-top: 4px;">Status:</div>
+                <select class="input" style="width:100%;"><option value="published" selected>Published</option><option value="draft">Draft</option></select>
+              </div>
+            </div>
+
+            <div class="card" id="metadataSection">
+              <h2 style="font-size: 18px; color: #111827; margin-top: 0; margin-bottom: 20px; border-bottom: 1px solid #e5e7eb; padding-bottom: 12px;">🕒 Metadata</h2>
+              <div style="display: grid; grid-template-columns: 140px 1fr; gap: 16px 24px; align-items: start;">
+                <div class="info-label" style="font-weight: 600; color: #4b5563; text-align: right; padding-top: 4px;">Created:</div>
+                <div class="info-value" style="color: #111827; background: #f9fafb; padding: 6px 12px; border-radius: 6px; min-height: 20px;">2024-01-15 14:30:00 by admin</div>
+                
+                <div class="info-label" style="font-weight: 600; color: #4b5563; text-align: right; padding-top: 4px;">Updated:</div>
+                <div class="info-value" style="color: #111827; background: #f9fafb; padding: 6px 12px; border-radius: 6px; min-height: 20px;">2024-01-20 10:15:00 by admin</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Connected Contents -->
+          <div>
+            <div class="card">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+                <h2 style="font-size: 18px; color: #111827; margin:0">📝 Connected Contents (11)</h2>
+                <button class="btn btn-primary" style="padding: 4px 10px; font-size: 13px;" onclick="manageContents()">Manage</button>
+              </div>
+              
+              <div style="flex: 1; overflow-y: auto; max-height: 400px; border: 1px solid #e5e7eb; border-radius: 6px;">
+                <table class="content-table" style="width: 100%; border-collapse: collapse;">
+                <thead>
+                  <tr style="border-bottom: 2px solid #e5e7eb;">
+                    <th style="padding: 8px; text-align: left; color: #4b5563;">Content ID</th>
+                    <th style="padding: 8px; text-align: left; color: #4b5563;">Name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-bottom: 1px solid #f3f4f6;">
+                    <td style="padding: 12px 8px; font-family: monospace; color: #6b7280;">c-sand-01</td>
+                    <td style="padding: 12px 8px; font-weight: 500;">Sand Animation 01</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #f3f4f6;">
+                    <td style="padding: 12px 8px; font-family: monospace; color: #6b7280;">c-sand-02</td>
+                    <td style="padding: 12px 8px; font-weight: 500;">Sand Animation 02</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #f3f4f6;">
+                    <td style="padding: 12px 8px; font-family: monospace; color: #6b7280;">c-sand-03</td>
+                    <td style="padding: 12px 8px; font-weight: 500;">Sand Animation 03</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #f3f4f6;">
+                    <td style="padding: 12px 8px; font-family: monospace; color: #6b7280;">c-sand-04</td>
+                    <td style="padding: 12px 8px; font-weight: 500;">Sand Animation 04</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #f3f4f6;">
+                    <td style="padding: 12px 8px; font-family: monospace; color: #6b7280;">c-sand-05</td>
+                    <td style="padding: 12px 8px; font-weight: 500;">Sand Animation 05</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #f3f4f6;">
+                    <td style="padding: 12px 8px; font-family: monospace; color: #6b7280;">c-sand-06</td>
+                    <td style="padding: 12px 8px; font-weight: 500;">Sand Animation 06</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #f3f4f6;">
+                    <td style="padding: 12px 8px; font-family: monospace; color: #6b7280;">c-sand-07</td>
+                    <td style="padding: 12px 8px; font-weight: 500;">Sand Animation 07</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #f3f4f6;">
+                    <td style="padding: 12px 8px; font-family: monospace; color: #6b7280;">c-sand-08</td>
+                    <td style="padding: 12px 8px; font-weight: 500;">Sand Animation 08</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #f3f4f6;">
+                    <td style="padding: 12px 8px; font-family: monospace; color: #6b7280;">c-sand-09</td>
+                    <td style="padding: 12px 8px; font-weight: 500;">Sand Animation 09</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #f3f4f6;">
+                    <td style="padding: 12px 8px; font-family: monospace; color: #6b7280;">c-sand-10</td>
+                    <td style="padding: 12px 8px; font-weight: 500;">Sand Animation 10</td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 12px 8px; font-family: monospace; color: #6b7280;">c-sand-11</td>
+                    <td style="padding: 12px 8px; font-weight: 500;">Sand Animation 11</td>
+                  </tr>
+                </tbody>
+              </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  
+    <script>
+      // Navigation handling
+      document.querySelectorAll('.sidebar-item').forEach(item => {
+        item.addEventListener('click', function() {
+          const page = this.getAttribute('data-page');
+          if (page) {
+            window.location.href = page;
+          }
+        });
+      });
+
+      // New vs Edit Mode Detection
+      document.addEventListener('DOMContentLoaded', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const isNew = !urlParams.has('id');
+        
+        // Base Name Mapping
+        const entityNames = {
+          'localarea': 'LocalArea',
+          'store': 'Store',
+          'device': 'Device',
+          'package': 'Package',
+          'product': 'Product',
+          'content': 'Content'
+        };
+        
+        const path = window.location.pathname;
+        let entityKey = 'Item';
+        for(let key in entityNames) {
+            if(path.includes(key + '-detail')) {
+                entityKey = entityNames[key];
+                break;
+            }
+        }
+
+        const pageTitle = document.querySelector('.page-title');
+        const breadcrumbLast = document.querySelector('.breadcrumb span:last-child');
+        const statusSpan = document.querySelector('.status-badge') || document.querySelector('.page-title span');
+        const metaSection = document.getElementById('metadataSection');
+        
+        if (isNew) {
+          if (pageTitle) {
+            // Strip out inner HTML like badges when replacing text
+            const badgeHTML = statusSpan ? statusSpan.outerHTML : '';
+            pageTitle.innerHTML = `✨ Create New ${entityKey} ${badgeHTML}`;
+          }
+          if (breadcrumbLast) breadcrumbLast.innerHTML = `✨ New ${entityKey}`;
+          if (statusSpan) statusSpan.style.display = 'none'; // Hide status in new mode
+          
+          
+          if (metaSection) metaSection.style.display = 'none';
+
+            // Auto-generate ID placeholder
+            document.querySelectorAll('.info-label').forEach(label => {
+                if (label.textContent.includes('ID')) {
+                    let nextEl = label.nextElementSibling;
+                    while(nextEl && nextEl.tagName !== 'INPUT' && nextEl.tagName !== 'DIV') {
+                        nextEl = nextEl.nextElementSibling;
+                    }
+                    if (nextEl && nextEl.tagName === 'INPUT') {
+                        nextEl.value = '';
+                        nextEl.placeholder = '서버에서 자동 생성됩니다';
+                        nextEl.readOnly = true;
+                        nextEl.style.backgroundColor = '#f3f4f6';
+                        nextEl.style.color = '#9ca3af';
+                    }
+                }
+            });
+
+            // Re-purpose Delete and Save buttons for New Mode
+            const btnPrimary = document.querySelector('.btn-primary');
+            if (btnPrimary && pageTitle) {
+                const objName = pageTitle.textContent.replace('✨ Create New ', '').trim();
+                btnPrimary.innerHTML = '✨ Save ' + objName;
+                btnPrimary.onclick = function() { 
+                    alert(objName + ' created successfully!'); 
+                    window.location.href = location.pathname.replace('-detail', '-list'); 
+                };
+            }
+            
+            // Delete button was hidden by previous scripts. Un-hide it and turn into Cancel.
+            const deleteBtn = document.querySelector('.btn-secondary');
+            if (deleteBtn) {
+                deleteBtn.style.display = 'inline-block';
+                deleteBtn.innerHTML = '✕ Cancel';
+                deleteBtn.style.color = '#4b5563';
+                deleteBtn.style.borderColor = '#d1d5db';
+                deleteBtn.onclick = function() { history.back(); };
+            }
+
+
+                 // Hide metadata section
+          
+          // Hide mapping lists (right column cards showing Connected Contents, Devices, etc)
+          const allCards = document.querySelectorAll('.card');
+          allCards.forEach(card => {
+              const h2 = card.querySelector('h2');
+              if (h2 && (h2.textContent.includes('포함된 콘텐츠') || h2.textContent.includes('Connected Contents') || h2.textContent.includes('Installed') || h2.textContent.includes('하위') || h2.textContent.includes('Child') || h2.textContent.includes('스토어') || h2.textContent.includes('Store') || h2.textContent.includes('디바이스') || h2.textContent.includes('기기') || h2.textContent.includes('연결된'))) {
+                  card.style.display = 'none';
+              }
+          });
+
+          
+          // Hide Delete Button
+          // previously old delete btn selection
+          
+          
+          // Clear inputs
+          document.querySelectorAll('input[type="text"], textarea').forEach(el => {
+              if (el.id !== 'searchInput') el.value = '';
+          });
+          document.querySelectorAll('.info-value').forEach(el => {
+              if (el.tagName !== 'SPAN') el.innerHTML = '-';
+          });
+        }
+      });
+    </script>
+
+
+  <!-- Inactive Confirm Modal -->
+  <div id="statusConfirmModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999; justify-content: center; align-items: center;">
+      <div style="background: #fff; width: 400px; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <div style="padding: 16px 24px; border-bottom: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center;">
+          <h3 style="margin: 0; font-size: 1.125rem; font-weight: 600; color: #111827;" id="statusModalTitle">상태 변경</h3>
+          <button type="button" onclick="closeStatusModal()" style="background: none; border: none; font-size: 1.25rem; cursor: pointer; color: #6b7280;">&times;</button>
+        </div>
+        <div style="padding: 24px;">
+          <p style="margin: 0; color: #374151; font-size: 1rem;" id="statusModalMessage">변경 하시겠습니까?</p>
+        </div>
+        <div style="padding: 16px 24px; border-top: 1px solid #e5e7eb; display: flex; justify-content: flex-end; gap: 8px; background: #f9fafb;">
+          <button type="button" class="btn btn-secondary" onclick="closeStatusModal()">취소</button>
+          <button type="button" class="btn btn-primary" id="statusConfirmBtn" onclick="confirmStatus()">확인</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      let currentStatusAction = '';
+      function openStatusModal(action) {
+        currentStatusAction = action;
+        const modal = document.getElementById('statusConfirmModal');
+        const title = document.getElementById('statusModalTitle');
+        const message = document.getElementById('statusModalMessage');
+        const confirmBtn = document.getElementById('statusConfirmBtn');
+        
+        if (action === 'active') {
+          title.innerText = '활성화 확인';
+          message.innerText = '활성화 하시겠습니까?';
+          confirmBtn.innerText = '활성화';
+          confirmBtn.style.background = '#10b981';
+          confirmBtn.style.borderColor = '#10b981';
+        } else {
+          title.innerText = '비활성화 확인';
+          message.innerText = '비활성화 하시겠습니까?';
+          confirmBtn.innerText = '비활성화';
+          confirmBtn.style.background = '#ef4444';
+          confirmBtn.style.borderColor = '#ef4444';
+        }
+        
+        modal.style.display = 'flex';
+      }
+      function closeStatusModal() {
+        document.getElementById('statusConfirmModal').style.display = 'none';
+      }
+      function confirmStatus() {
+        closeStatusModal();
+      }
+      
+      document.addEventListener('DOMContentLoaded', () => {
+        // Also bind any generic Active/Inactive buttons in table lists
+        document.querySelectorAll('.btn-danger, .btn-success, .btn').forEach(btn => {
+          if(btn.innerText.includes('Inactive') && !btn.hasAttribute('onclick')) {
+            btn.addEventListener('click', () => openStatusModal('inactive'));
+          }
+          if(btn.innerText.includes('Active') && !btn.hasAttribute('onclick')) {
+            btn.addEventListener('click', () => openStatusModal('active'));
+          }
+        });
+      });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Device Detail — Wireframe</title>
+  <link rel="stylesheet" href="styles.css">
+  
+</head>
+<body>
+    <header class="site-header">
+    <div style="display:flex;align-items:center;gap:16px">
+      <span style="font-weight:700;font-size:20px;color:#1f2937;cursor:pointer" onclick="location.href='index.html'">CellbigCMS</span>
+    </div>
+    <div style="display:flex;gap:16px;align-items:center">
+      <span style="cursor:pointer">🔔 (3)</span>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <span style="cursor:pointer">👤 Admin(SP)</span>
+        <button type="button" style="padding:4px 12px; font-size:12px; font-weight:500; color:#4b5563; background:#f3f4f6; border:1px solid #d1d5db; border-radius:4px; cursor:pointer;" onclick="if(confirm('로그아웃 하시겠습니까?')) { location.href='login.html'; }">로그아웃</button>
+      </div>
+    </div>
+  </header>
+  
+  <div class="dashboard-layout">
+        <aside class="sidebar">
+      <div class="sidebar-category">Infrastructure (Location)</div>
+      <div class="sidebar-item" data-page="localarea-list.html">🏢 LocalAreas</div>
+      <div class="sidebar-item" data-page="store-list.html">🏪 Stores</div>
+      
+      <div class="sidebar-category">Device & Monitoring</div>
+      <div class="sidebar-item active" data-page="device-list.html">🖥️ Devices</div>
+      <div class="sidebar-item" data-page="log-content-access.html">📊 Access Logs</div>
+
+      <div class="sidebar-category">Contents & Product</div>
+      <div class="sidebar-item" data-page="product-list.html">📦 Product</div>
+      <div class="sidebar-item" data-page="serial-list.html">🔑 Licenses (Serial)</div>
+      <div class="sidebar-item" data-page="package-list.html">🎒 Package</div>
+      <div class="sidebar-item" data-page="content-list.html">🎬 Content</div>
+      
+      <div class="sidebar-category">System</div>
+      <div class="sidebar-item" data-page="settings.html">⚙️ Settings</div>
+
+      <div class="sidebar-category">Help</div>
+      <div class="sidebar-item" data-page="overview.html">📘 Overview</div>
+      <div class="sidebar-item" data-page="version-register.html">📢 Update</div>
+    </aside>
+
+    <main class="main-content">
+      <div class="container">
+        
+
+        <!-- Page Header -->
+        <div class="breadcrumb" style="font-size: 13px; color: #6b7280; margin-bottom: 20px; display:flex; gap:8px; align-items:center;">
+          <span style="cursor:pointer; padding: 4px 8px; border-radius: 4px; transition: background 0.2s; display: flex; align-items: center;" onmouseover="this.style.background='#e5e7eb'" onmouseout="this.style.background='transparent'" onclick="location.href='index.html'">🏠 Home</span>
+          <span style="color: #d1d5db;">/</span>
+          <span style="cursor:pointer; padding: 4px 8px; border-radius: 4px; transition: background 0.2s;" onmouseover="this.style.background='#e5e7eb'" onmouseout="this.style.background='transparent'" onclick="location.href='device-list.html'">🖥️ Devices</span>
+          <span style="color: #d1d5db;">/</span>
+          <span style="color: #374151; font-weight: 600; padding: 4px 8px;">🖥️ Device Detail: Device-A (ID: 1234)</span>
+        </div>
+
+        <div class="page-header" style="align-items: flex-start; justify-content: space-between;">
+          <div>
+            <h1 class="page-title" style="margin-bottom: 8px;">💻 Device Detail: Device-A (ID: 1234)</h1>
+            <div style="color:#6b7280; font-size:14px; display:flex; gap:12px; align-items:center;">
+              <span style="display:flex; align-items:center; gap:6px;"><span class="badge active">Active</span></span> • 
+              <span>Last seen: 2 mins ago</span> •
+              <span>Stores: <a href="store-detail.html" style="color:#2563eb;text-decoration:none">Store-01</a>, Store-02</span>
+            </div>
+          </div>
+          <div class="header-actions" style="display:flex; gap:8px;">
+            <button class="btn btn-primary" onclick="if(confirm('수정 내용을 저장하시겠습니까?')) { alert('수정되었습니다.'); }">Save</button>
+            <button class="btn btn-danger" onclick="showDeleteModal()">Delete</button>
+          </div>
+        </div>
+
+        <!-- Content Grid -->
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-bottom: 24px;">
+          <!-- Left Column: Basic Info -->
+          <div>
+            <div class="card" style="margin-bottom: 24px;">
+              <h2 style="font-size: 18px; color: #111827; margin-top: 0; margin-bottom: 20px; border-bottom: 1px solid #e5e7eb; padding-bottom: 12px;">📋 기본 정보</h2>
+              <div style="display: grid; grid-template-columns: 140px 1fr; gap: 16px 24px; align-items: start;">
+                <div class="info-label" style="font-weight: 600; color: #4b5563; text-align: right; padding-top: 4px;">MAC Address:</div>
+                <input type="text" class="input" style="width:100%; font-family:monospace" value="00:1A:2B:3C:4D:5E">
+                
+<div class="info-label" style="font-weight: 600; color: #4b5563; text-align: right; padding-top: 4px;">Product:</div>
+                  <input type="text" class="input" style="width:100%" value="Product A" readonly style="background:#f9fafb;">
+
+                  <div class="info-label" style="font-weight: 600; color: #4b5563; text-align: right; padding-top: 4px;">Package:</div>
+                  <input type="text" class="input" style="width:100%" value="Package v1.0">
+                
+                <div class="info-label" style="font-weight: 600; color: #4b5563; text-align: right; padding-top: 4px;">Stores:</div>
+                <select class="input" style="width:100%;">
+                  <option value="store-01" selected>Store-01 (Main)</option>
+                  <option value="store-02">Store-02</option>
+                </select>
+
+                
+                <div class="info-label" style="font-weight: 600; color: #4b5563; text-align: right; padding-top: 4px;">인증 모드:</div>
+                <div style="display:flex; align-items:center;">
+                  <span class="status-badge status-active" style="background:#f0fdf4; color:#166534; padding:4px 8px; border-radius:4px; font-size:12px; font-weight:600; border:1px solid #bbf7d0;">오프라인 인증</span>
+                  <span style="margin-left:8px; font-size:13px; color:#6b7280;">(유효기간: 365일)</span>
+                </div>
+
+                <div class="info-label" style="font-weight: 600; color: #4b5563; text-align: right; padding-top: 4px;">라이선스 키:</div>
+                <div style="display:flex; gap:8px;">
+                  <input type="text" class="input" style="flex:1; font-family:monospace; background:#f9fafb;" value="LIC-OFF-X8B9Q2MA" readonly>
+                  <button type="button" class="btn btn-outline" style="padding:4px 12px; font-size:13px;" onclick="alert('클립보드에 복사되었습니다.')">복사</button>
+                </div>
+
+                <div class="info-label" style="font-weight: 600; color: #4b5563; text-align: right; padding-top: 4px;">Name:</div>
+                <input type="text" class="input" style="width:100%" value="Device-A">
+              </div>
+            </div>
+
+            <div class="card">
+              <h2 style="font-size: 18px; color: #111827; margin-top: 0; margin-bottom: 20px; border-bottom: 1px solid #e5e7eb; padding-bottom: 12px;">💻 Hardware Specs (Meta Data)</h2>
+              <div style="display: grid; grid-template-columns: 140px 1fr 140px 1fr; gap: 16px 24px; align-items: start;">
+                <div class="info-label" style="font-weight: 600; color: #4b5563; text-align: right; padding-top: 4px;">CPU:</div>
+                <input type="text" class="input" style="width:100%" value="Intel Core i7-12700">
+                
+                <div class="info-label" style="font-weight: 600; color: #4b5563; text-align: right; padding-top: 4px;">GPU:</div>
+                <input type="text" class="input" style="width:100%" value="NVIDIA RTX 3060">
+                
+                <div class="info-label" style="font-weight: 600; color: #4b5563; text-align: right; padding-top: 4px;">RAM:</div>
+                <input type="text" class="input" style="width:100%" value="16GB">
+                
+                <div class="info-label" style="font-weight: 600; color: #4b5563; text-align: right; padding-top: 4px;">Disk Free:</div>
+                <input type="text" class="input" style="width:100%" value="450 GB">
+                
+                <div class="info-label" style="font-weight: 600; color: #4b5563; text-align: right; padding-top: 4px;">OS Version:</div>
+                <input type="text" class="input" style="width:100%" value="Windows 10 Pro IoT">
+                
+                <div class="info-label" style="font-weight: 600; color: #4b5563; text-align: right; padding-top: 4px;">Resolution:</div>
+                <input type="text" class="input" style="width:100%" value="1920x1080">
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Installed Packages -->
+          <div>
+            <div class="card" style="display:flex; flex-direction:column;">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+                <h2 style="font-size: 18px; color: #111827; margin-top: 0; margin-bottom: 20px; border-bottom: 1px solid #e5e7eb; padding-bottom: 12px; width: 100%;">📦 설치된 패키지</h2>
+              </div>
+              <div style="flex:1; overflow-y:auto; max-height:400px; padding-right:8px; margin-bottom:16px;">
+
+              <div style="padding: 16px; border: 1px solid #10b981; border-radius: 8px; margin-bottom: 12px; background: #f0fdf4; transition: background 0.2s;" onmouseover="this.style.background='#dcfce7'" onmouseout="this.style.background='#f0fdf4'">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                  <div style="font-weight: 600; color: #065f46; font-size: 14px;">📦 pkg-v1.1 (Active)</div>
+                </div>
+                <div class="device-info" style="color:#047857; font-size:13px; margin-bottom:4px;">Content: Spring</div>
+                <div class="device-info" style="color:#047857; font-size:13px;">Installed: 2d ago</div>
+                <button class="btn btn-outline" style="width: 100%; border-color:#34d399; color:#059669; padding: 6px; font-size: 13px; margin-top:8px" onclick="location.href='package-detail.html'">View Package</button>
+              </div>
+
+              <div style="padding: 16px; border: 1px solid #e5e7eb; border-radius: 8px; margin-bottom: 12px; background: #fafafa; transition: background 0.2s;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='#fafafa'">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                  <div style="font-weight: 600; color: #4b5563; font-size: 14px;">📦 pkg-v1.0 (Backup)</div>
+                </div>
+                <div class="device-info" style="color:#6b7280; font-size:13px; margin-bottom:4px;">Content: Winter</div>
+                <div class="device-info" style="color:#6b7280; font-size:13px;">Installed: 30d</div>
+                <button class="btn btn-outline" style="width: 100%; border-color:#d1d5db; color:#4b5563; padding: 6px; font-size: 13px; margin-top:8px" onclick="location.href='package-detail.html'">View Package</button>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+
+    <div class="card">
+      <h2>📜 이벤트 로그 (최근 100개)</h2>
+      <table style="width:100%;border-collapse:collapse;margin-top:12px">
+        <thead>
+          <tr style="border-bottom:2px solid #e6eef8">
+            <th style="padding:8px;text-align:left;width:150px">Date</th>
+            <th style="padding:8px;text-align:left">Event</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid #f1f5f9">
+            <td style="padding:8px">2026-02-12</td>
+            <td style="padding:8px">Package pkg-v1.1 installed successfully</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f1f5f9">
+            <td style="padding:8px">2026-02-11</td>
+            <td style="padding:8px">Health check passed</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f1f5f9">
+            <td style="padding:8px">2026-02-10</td>
+            <td style="padding:8px">Content update triggered</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+      </div>
+    </main>
+  </div>
+  
+  
+    <script>
+      // Navigation handling
+      document.querySelectorAll('.sidebar-item').forEach(item => {
+        item.addEventListener('click', function() {
+          const page = this.getAttribute('data-page');
+          if (page) {
+            window.location.href = page;
+          }
+        });
+      });
+
+      // New vs Edit Mode Detection
+      document.addEventListener('DOMContentLoaded', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const isNew = !urlParams.has('id');
+        
+        // Base Name Mapping
+        const entityNames = {
+          'localarea': 'LocalArea',
+          'store': 'Store',
+          'device': 'Device',
+          'package': 'Package',
+          'product': 'Product',
+          'content': 'Content'
+        };
+        
+        const path = window.location.pathname;
+        let entityKey = 'Item';
+        for(let key in entityNames) {
+            if(path.includes(key + '-detail')) {
+                entityKey = entityNames[key];
+                break;
+            }
+        }
+
+        const pageTitle = document.querySelector('.page-title');
+        const breadcrumbLast = document.querySelector('.breadcrumb span:last-child');
+        const statusSpan = document.querySelector('.status-badge') || document.querySelector('.page-title span');
+        const metaSection = document.getElementById('metadataSection');
+        
+        if (isNew) {
+          if (pageTitle) {
+            // Strip out inner HTML like badges when replacing text
+            const badgeHTML = statusSpan ? statusSpan.outerHTML : '';
+            pageTitle.innerHTML = `✨ Create New ${entityKey} ${badgeHTML}`;
+          }
+          if (breadcrumbLast) breadcrumbLast.innerHTML = `✨ New ${entityKey}`;
+          if (statusSpan) statusSpan.style.display = 'none'; // Hide status in new mode
+          
+          
+          if (metaSection) metaSection.style.display = 'none';
+
+            // Auto-generate ID placeholder
+            document.querySelectorAll('.info-label').forEach(label => {
+                if (label.textContent.includes('ID')) {
+                    let nextEl = label.nextElementSibling;
+                    while(nextEl && nextEl.tagName !== 'INPUT' && nextEl.tagName !== 'DIV') {
+                        nextEl = nextEl.nextElementSibling;
+                    }
+                    if (nextEl && nextEl.tagName === 'INPUT') {
+                        nextEl.value = '';
+                        nextEl.placeholder = '서버에서 자동 생성됩니다';
+                        nextEl.readOnly = true;
+                        nextEl.style.backgroundColor = '#f3f4f6';
+                        nextEl.style.color = '#9ca3af';
+                    }
+                }
+            });
+
+            // Re-purpose Delete and Save buttons for New Mode
+            const btnPrimary = document.querySelector('.btn-primary');
+            if (btnPrimary && pageTitle) {
+                const objName = pageTitle.textContent.replace('✨ Create New ', '').trim();
+                btnPrimary.innerHTML = '✨ Save ' + objName;
+                btnPrimary.onclick = function() { 
+                    alert(objName + ' created successfully!'); 
+                    window.location.href = location.pathname.replace('-detail', '-list'); 
+                };
+            }
+            
+            // Delete button was hidden by previous scripts. Un-hide it and turn into Cancel.
+            const deleteBtn = document.querySelector('.btn-secondary');
+            if (deleteBtn) {
+                deleteBtn.style.display = 'inline-block';
+                deleteBtn.innerHTML = '✕ Cancel';
+                deleteBtn.style.color = '#4b5563';
+                deleteBtn.style.borderColor = '#d1d5db';
+                deleteBtn.onclick = function() { history.back(); };
+            }
+
+
+                 // Hide metadata section
+          
+          // Hide mapping lists (right column cards showing Connected Contents, Devices, etc)
+          const allCards = document.querySelectorAll('.card');
+          allCards.forEach(card => {
+              const h2 = card.querySelector('h2');
+              if (h2 && (h2.textContent.includes('포함된 콘텐츠') || h2.textContent.includes('Connected Contents') || h2.textContent.includes('Installed') || h2.textContent.includes('하위') || h2.textContent.includes('Child') || h2.textContent.includes('스토어') || h2.textContent.includes('Store') || h2.textContent.includes('디바이스') || h2.textContent.includes('기기') || h2.textContent.includes('연결된'))) {
+                  card.style.display = 'none';
+              }
+          });
+
+          
+          // Hide Delete Button
+          // previously old delete btn selection
+          
+          
+          // Clear inputs
+          document.querySelectorAll('input[type="text"], textarea').forEach(el => {
+              if (el.id !== 'searchInput') el.value = '';
+          });
+          document.querySelectorAll('.info-value').forEach(el => {
+              if (el.tagName !== 'SPAN') el.innerHTML = '-';
+          });
+        }
+      });
+    </script>
+
+
+  <!-- Inactive Confirm Modal -->
+  <div id="statusConfirmModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999; justify-content: center; align-items: center;">
+      <div style="background: #fff; width: 400px; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <div style="padding: 16px 24px; border-bottom: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center;">
+          <h3 style="margin: 0; font-size: 1.125rem; font-weight: 600; color: #111827;" id="statusModalTitle">상태 변경</h3>
+          <button type="button" onclick="closeStatusModal()" style="background: none; border: none; font-size: 1.25rem; cursor: pointer; color: #6b7280;">&times;</button>
+        </div>
+        <div style="padding: 24px;">
+          <p style="margin: 0; color: #374151; font-size: 1rem;" id="statusModalMessage">변경 하시겠습니까?</p>
+        </div>
+        <div style="padding: 16px 24px; border-top: 1px solid #e5e7eb; display: flex; justify-content: flex-end; gap: 8px; background: #f9fafb;">
+          <button type="button" class="btn btn-secondary" onclick="closeStatusModal()">취소</button>
+          <button type="button" class="btn btn-primary" id="statusConfirmBtn" onclick="confirmStatus()">확인</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      let currentStatusAction = '';
+      function openStatusModal(action) {
+        currentStatusAction = action;
+        const modal = document.getElementById('statusConfirmModal');
+        const title = document.getElementById('statusModalTitle');
+        const message = document.getElementById('statusModalMessage');
+        const confirmBtn = document.getElementById('statusConfirmBtn');
+        
+        if (action === 'active') {
+          title.innerText = '활성화 확인';
+          message.innerText = '활성화 하시겠습니까?';
+          confirmBtn.innerText = '활성화';
+          confirmBtn.style.background = '#10b981';
+          confirmBtn.style.borderColor = '#10b981';
+        } else {
+          title.innerText = '비활성화 확인';
+          message.innerText = '비활성화 하시겠습니까?';
+          confirmBtn.innerText = '비활성화';
+          confirmBtn.style.background = '#ef4444';
+          confirmBtn.style.borderColor = '#ef4444';
+        }
+        
+        modal.style.display = 'flex';
+      }
+      function closeStatusModal() {
+        document.getElementById('statusConfirmModal').style.display = 'none';
+      }
+      function confirmStatus() {
+        closeStatusModal();
+      }
+      
+      document.addEventListener('DOMContentLoaded', () => {
+        // Also bind any generic Active/Inactive buttons in table lists
+        document.querySelectorAll('.btn-danger, .btn-success, .btn').forEach(btn => {
+          if(btn.innerText.includes('Inactive') && !btn.hasAttribute('onclick')) {
+            btn.addEventListener('click', () => openStatusModal('inactive'));
+          }
+          if(btn.innerText.includes('Active') && !btn.hasAttribute('onclick')) {
+            btn.addEventListener('click', () => openStatusModal('active'));
+          }
+        });
+      });
+    </script>
+
+</body>
+</html>

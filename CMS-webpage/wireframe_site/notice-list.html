@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Notice List — CellbigCMS</title>
+  <link rel="stylesheet" href="styles.css">
+  
+</head>
+<body>
+    <header class="site-header">
+    <div style="display:flex;align-items:center;gap:16px">
+      <span style="font-weight:700;font-size:20px;color:#1f2937;cursor:pointer" onclick="location.href='index.html'">CellbigCMS</span>
+    </div>
+    <div style="display:flex;gap:16px;align-items:center">
+      <span style="cursor:pointer">🔔 (3)</span>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <span style="cursor:pointer">👤 Admin(SP)</span>
+        <button type="button" style="padding:4px 12px; font-size:12px; font-weight:500; color:#4b5563; background:#f3f4f6; border:1px solid #d1d5db; border-radius:4px; cursor:pointer;" onclick="if(confirm('로그아웃 하시겠습니까?')) { location.href='login.html'; }">로그아웃</button>
+      </div>
+    </div>
+  </header>
+  
+  <div class="dashboard-layout">
+        <aside class="sidebar">
+      <div class="sidebar-category">Infrastructure (Location)</div>
+      <div class="sidebar-item" data-page="localarea-list.html">🏢 LocalAreas</div>
+      <div class="sidebar-item" data-page="store-list.html">🏪 Stores</div>
+      
+      <div class="sidebar-category">Device & Monitoring</div>
+      <div class="sidebar-item" data-page="device-list.html">🖥️ Devices</div>
+      <div class="sidebar-item" data-page="log-content-access.html">📊 Access Logs</div>
+
+      <div class="sidebar-category">Contents & Product</div>
+      <div class="sidebar-item" data-page="product-list.html">📦 Product</div>
+      <div class="sidebar-item" data-page="serial-list.html">🔑 Licenses (Serial)</div>
+      <div class="sidebar-item" data-page="package-list.html">🎒 Package</div>
+      <div class="sidebar-item" data-page="content-list.html">🎬 Content</div>
+      
+      <div class="sidebar-category">System</div>
+      <div class="sidebar-item" data-page="settings.html">⚙️ Settings</div>
+
+      <div class="sidebar-category">Help</div>
+      <div class="sidebar-item" data-page="overview.html">📘 Overview</div>
+      <div class="sidebar-item" data-page="version-register.html">📢 Update</div>
+    </aside>
+
+    <main class="main-content">
+      <div class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">📢 Notice Board</h1>
+            <p class="page-desc">Manage system announcements and notices.</p>
+          </div>
+          <div class="header-actions">
+            <button class="btn btn-primary" onclick="location.href='notice-detail.html'">+ New Notice</button>
+          </div>
+        </div>
+
+        <!-- Filter Panel -->
+        <div class="filter-panel">
+          <div class="filter-group" style="flex:2">
+            <label>Search</label>
+            <input class="input" placeholder="🔍 Search notices..." style="width:100%">
+          </div>
+          <div class="filter-group">
+            <label>Type</label>
+            <select class="input" style="width:120px">
+              <option>All</option>
+              <option>General</option>
+              <option>Emergency</option>
+              <option>Maintenance</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>State</label>
+            <select class="input" style="width:120px">
+              <option>All</option>
+              <option>Published</option>
+              <option>Draft</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label style="opacity:0">.</label>
+            <button class="btn btn-outline" style="border:1px solid #d1d5db;background:#fff;color:#374151">Reset</button>
+          </div>
+        </div>
+
+        <!-- List Table -->
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width:40px"><input type="checkbox"></th>
+              <th>Title</th>
+              <th>Type</th>
+              <th>Target</th>
+              <th>Author</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th style="text-align:right">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox"></td>
+              <td>
+                <div style="font-weight:600;color:#111827">System Maintenance Scheduled</div>
+                <div style="font-size:12px;color:#6b7280">Server upgrade on Mar 1st...</div>
+              </td>
+              <td><span class="badge" style="background:#fee2e2;color:#991b1b">Maintenance</span></td>
+              <td>All Users</td>
+              <td>Admin</td>
+              <td>2024-02-27</td>
+              <td><span class="badge badge-published">Published</span></td>
+              <td class="action-cell">
+                <button class="btn-icon">✏️</button>
+                <button class="btn-icon">🗑️</button>
+              </td>
+            </tr>
+            <tr>
+              <td><input type="checkbox"></td>
+              <td>
+                <div style="font-weight:600;color:#111827">New Feature Release: CMS v2.0</div>
+                <div style="font-size:12px;color:#6b7280">Check out the new features...</div>
+              </td>
+              <td><span class="badge" style="background:#dbeafe;color:#1e40af">General</span></td>
+              <td>All Users</td>
+              <td>Admin</td>
+              <td>2024-02-25</td>
+              <td><span class="badge badge-published">Published</span></td>
+              <td class="action-cell">
+                <button class="btn-icon">✏️</button>
+                <button class="btn-icon">🗑️</button>
+              </td>
+            </tr>
+            <tr>
+              <td><input type="checkbox"></td>
+              <td>
+                <div style="font-weight:600;color:#111827">Emergency Patch for Security</div>
+                <div style="font-size:12px;color:#6b7280">Critical security update...</div>
+              </td>
+              <td><span class="badge" style="background:#fef3c7;color:#92400e">Emergency</span></td>
+              <td>Admins</td>
+              <td>Security Team</td>
+              <td>2024-02-20</td>
+              <td><span class="badge badge-draft">Draft</span></td>
+              <td class="action-cell">
+                <button class="btn-icon">✏️</button>
+                <button class="btn-icon">🗑️</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Pagination -->
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px">
+          <div style="color:#6b7280;font-size:14px">Showing 1-3 of 3 notices</div>
+          <div style="display:flex;gap:4px">
+            <button class="btn btn-outline" style="border:1px solid #e5e7eb;background:#fff;color:#374151" disabled>Previous</button>
+            <button class="btn btn-outline" style="border:1px solid #e5e7eb;background:#eff6ff;color:#2563eb">1</button>
+            <button class="btn btn-outline" style="border:1px solid #e5e7eb;background:#fff;color:#374151" disabled>Next</button>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Sidebar navigation
+    document.querySelectorAll('.sidebar-item').forEach(item => {
+      item.addEventListener('click', function() {
+        const page = this.getAttribute('data-page');
+        if (page) {
+          window.location.href = page;
+        }
+      });
+    });
+  </script>
+
+  <!-- Inactive Confirm Modal -->
+  <div id="statusConfirmModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999; justify-content: center; align-items: center;">
+      <div style="background: #fff; width: 400px; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <div style="padding: 16px 24px; border-bottom: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center;">
+          <h3 style="margin: 0; font-size: 1.125rem; font-weight: 600; color: #111827;" id="statusModalTitle">상태 변경</h3>
+          <button type="button" onclick="closeStatusModal()" style="background: none; border: none; font-size: 1.25rem; cursor: pointer; color: #6b7280;">&times;</button>
+        </div>
+        <div style="padding: 24px;">
+          <p style="margin: 0; color: #374151; font-size: 1rem;" id="statusModalMessage">변경 하시겠습니까?</p>
+        </div>
+        <div style="padding: 16px 24px; border-top: 1px solid #e5e7eb; display: flex; justify-content: flex-end; gap: 8px; background: #f9fafb;">
+          <button type="button" class="btn btn-secondary" onclick="closeStatusModal()">취소</button>
+          <button type="button" class="btn btn-primary" id="statusConfirmBtn" onclick="confirmStatus()">확인</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      let currentStatusAction = '';
+      function openStatusModal(action) {
+        currentStatusAction = action;
+        const modal = document.getElementById('statusConfirmModal');
+        const title = document.getElementById('statusModalTitle');
+        const message = document.getElementById('statusModalMessage');
+        const confirmBtn = document.getElementById('statusConfirmBtn');
+        
+        if (action === 'active') {
+          title.innerText = '활성화 확인';
+          message.innerText = '활성화 하시겠습니까?';
+          confirmBtn.innerText = '활성화';
+          confirmBtn.style.background = '#10b981';
+          confirmBtn.style.borderColor = '#10b981';
+        } else {
+          title.innerText = '비활성화 확인';
+          message.innerText = '비활성화 하시겠습니까?';
+          confirmBtn.innerText = '비활성화';
+          confirmBtn.style.background = '#ef4444';
+          confirmBtn.style.borderColor = '#ef4444';
+        }
+        
+        modal.style.display = 'flex';
+      }
+      function closeStatusModal() {
+        document.getElementById('statusConfirmModal').style.display = 'none';
+      }
+      function confirmStatus() {
+        closeStatusModal();
+      }
+      
+      document.addEventListener('DOMContentLoaded', () => {
+        // Also bind any generic Active/Inactive buttons in table lists
+        document.querySelectorAll('.btn-danger, .btn-success, .btn').forEach(btn => {
+          if(btn.innerText.includes('Inactive') && !btn.hasAttribute('onclick')) {
+            btn.addEventListener('click', () => openStatusModal('inactive'));
+          }
+          if(btn.innerText.includes('Active') && !btn.hasAttribute('onclick')) {
+            btn.addEventListener('click', () => openStatusModal('active'));
+          }
+        });
+      });
+    </script>
+
+</body>
+</html>

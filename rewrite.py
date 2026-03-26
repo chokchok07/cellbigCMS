@@ -1,0 +1,137 @@
+﻿# -*- coding: utf-8 -*-
+import os
+
+filepath = r'c:\Users\user\Documents\VSCode\CellbigCMS\CellbigCMS\CMS-webpage\wireframe_site\version-register.html'
+prod_path = r'c:\Users\user\Documents\VSCode\CellbigCMS\CellbigCMS\CMS-webpage\wireframe_site\product-list.html'
+
+with open(prod_path, 'r', encoding='utf-8') as f:
+    prod_text = f.read()
+
+# Extract header and sidebar
+header_start = prod_text.find('<header')
+header_end = prod_text.find('</form>') # wait, sidebar is after header
+# Let's extract up to <main class="main-content">
+main_start = prod_text.find('<main class="main-content">')
+top_part = prod_text[:main_start]
+
+html_content = top_part + '''<main class="main-content">
+      <div class="container" style="max-width: 1000px; margin: 0 auto; padding-top: 20px;">
+        <!-- Release Notes / Patch Logs Section -->
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e5e7eb; padding-bottom: 10px; margin-bottom: 20px;">
+          <h2 style="font-size: 20px; color:#111827; margin: 0;">시스템 업데이트 및 패치 노트</h2>
+          <button class="btn btn-primary" onclick="openModal()">+ 신규 버전/패치 등록</button>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          
+          <!-- Log Item 1 -->
+          <div style="background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+              <h3 style="margin: 0; font-size: 16px; color: #1f2937;">v1.2.0 업데이트 - 디바이스 및 라이선스 구조 개편</h3>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="background: #eff6ff; color: #3b82f6; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 600;">2026-03-16</span>
+                <span style="display:flex; gap:4px; margin-left:8px; padding-left:8px; border-left:1px solid #d1d5db;">
+                  <button type="button" onclick="alert('이 패치노트를 수정합니다')" style="background:none; border:none; color:#4b5563; font-size:12px; cursor:pointer; padding:0;">수정</button>
+                  <button type="button" onclick="if(confirm('이 패치노트를 삭제하시겠습니까?')) alert('삭제되었습니다')" style="background:none; border:none; color:#ef4444; font-size:12px; cursor:pointer; padding:0;">삭제</button>
+                </span>
+              </div>
+            </div>
+            <ul style="margin: 0; padding-left: 20px; color: #4b5563; font-size: 14px; line-height: 1.6;">
+              <li><strong>UI 개선:</strong> Device 신규 추가 시 시스템 스펙 사양(CPU, RAM) 입력란 제거</li>
+              <li><strong>기능 변경:</strong> 디바이스 생성 시 '인증 모드(ONLINE/OFFLINE)'를 우선 선택하도록 폼 통합</li>
+              <li><strong>라이선스:</strong> 오프라인 라이선스인 경우, 기간(무제한/영구) 옵션 기능 추가</li>
+              <li><strong>메뉴 정리:</strong> 단독 서빙되던 키 생성 메뉴 폐기 및 디바이스 에디터로 기능 이관</li>
+            </ul>
+          </div>
+
+          <!-- Log Item 2 -->
+          <div style="background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+              <h3 style="margin: 0; font-size: 16px; color: #1f2937;">v1.1.0 업데이트 - 스토어(매장) 및 지역 권역 기능 추가</h3>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="background: #f3f4f6; color: #4b5563; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 600;">2026-02-28</span>
+                <span style="display:flex; gap:4px; margin-left:8px; padding-left:8px; border-left:1px solid #d1d5db;">
+                  <button type="button" onclick="alert('이 패치노트를 수정합니다')" style="background:none; border:none; color:#4b5563; font-size:12px; cursor:pointer; padding:0;">수정</button>
+                  <button type="button" onclick="if(confirm('이 패치노트를 삭제하시겠습니까?')) alert('삭제되었습니다')" style="background:none; border:none; color:#ef4444; font-size:12px; cursor:pointer; padding:0;">삭제</button>
+                </span>
+              </div>
+            </div>
+            <ul style="margin: 0; padding-left: 20px; color: #4b5563; font-size: 14px; line-height: 1.6;">
+              <li><strong>신규:</strong> LocalAreas(권역) 및 Stores(매장) 관리자 대시보드 추가</li>
+              <li><strong>데이터 구조:</strong> 매장과 디바이스 간의 1:N 맵핑 관계 스키마 연결</li>
+            </ul>
+          </div>
+          
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="versionModal" class="modal-overlay" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); align-items: center; justify-content: center; z-index: 1000;">
+    <div class="modal" style="background: white; border-radius: 8px; width: 600px; max-width: 90vw; box-shadow: 0 4px 20px rgba(0,0,0,0.2);">
+      <div class="modal-header" style="padding: 20px 24px; border-bottom: 1px solid #e0e0e0; display: flex; justify-content: space-between; align-items: center;">
+        <h2 style="margin: 0; font-size: 20px; font-weight: 600;">신규 버전/패치 등록</h2>
+        <button class="modal-close" style="background: none; border: none; font-size: 24px; color: #999; cursor: pointer; padding: 0;" onclick="closeModal()">&times;</button>
+      </div>
+      
+      <div class="modal-body" style="padding: 24px; max-height: calc(100vh - 200px); overflow-y: auto;">
+        <form id="versionForm">
+          <div class="form-group" style="margin-bottom: 20px;">
+            <label style="display: block; margin-bottom: 8px; font-weight: 500;">버전태그</label>
+            <input type="text" class="form-control" placeholder="예: v1.2.0" style="width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 4px;" required>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 20px;">
+            <label style="display: block; margin-bottom: 8px; font-weight: 500;">제목</label>
+            <input type="text" class="form-control" placeholder="예: 디바이스 및 라이선스 개편" style="width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 4px;" required>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 20px;">
+            <label style="display: block; margin-bottom: 8px; font-weight: 500;">내용 (마크다운 지원)</label>
+            <textarea class="form-control" rows="6" placeholder="- UI 개선..." style="width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 4px;" required></textarea>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer" style="padding: 16px 24px; border-top: 1px solid #e0e0e0; display: flex; justify-content: flex-end; gap: 12px;">
+        <button type="button" class="btn btn-cancel" style="padding: 8px 16px; border: 1px solid #ddd; background: white; border-radius: 4px; cursor: pointer;" onclick="closeModal()">취소</button>
+        <button type="button" class="btn btn-primary" style="padding: 8px 16px; border: none; background: #2563eb; color: white; border-radius: 4px; cursor: pointer;" onclick="registerVersion()">등록</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openModal() {
+      document.getElementById('versionModal').style.display = 'flex';
+    }
+    
+    function closeModal() {
+      if(confirm('작성 중인 내용이 사라집니다. 닫으시겠습니까?')) {
+        document.getElementById('versionModal').style.display = 'none';
+      }
+    }
+
+    function registerVersion() {
+      alert('신규 버전이 등록되었습니다.');
+      document.getElementById('versionModal').style.display = 'none';
+    }
+    
+    // Sidebar Active State
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.sidebar-item').forEach(item => {
+        if (item.getAttribute('data-page') === 'version-register.html') {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+'''
+
+with open(filepath, 'w', encoding='utf-8') as f:
+    f.write(html_content)
+    
+print("Restored successfully.")

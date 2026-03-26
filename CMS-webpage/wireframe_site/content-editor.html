@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Content Editor — CellbigCMS</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div style="display:flex;align-items:center;gap:16px">
+      <span style="font-weight:700;font-size:20px;color:#1f2937;cursor:pointer" onclick="location.href='index.html'">CellbigCMS</span>
+    </div>
+    <div style="display:flex;gap:16px;align-items:center">
+      <span style="cursor:pointer">🔔 (3)</span>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <span style="cursor:pointer">👤 Admin(SP)</span>
+        <button type="button" style="padding:4px 12px; font-size:12px; font-weight:500; color:#4b5563; background:#f3f4f6; border:1px solid #d1d5db; border-radius:4px; cursor:pointer;" onclick="if(confirm('로그아웃 하시겠습니까?')) { location.href='login.html'; }">로그아웃</button>
+      </div>
+    </div>
+  </header>
+  
+  <div class="dashboard-layout">
+        <aside class="sidebar">
+      <div class="sidebar-category">Infrastructure (Location)</div>
+      <div class="sidebar-item" data-page="localarea-list.html">🏢 LocalAreas</div>
+      <div class="sidebar-item" data-page="store-list.html">🏪 Stores</div>
+      
+      <div class="sidebar-category">Device & Monitoring</div>
+      <div class="sidebar-item" data-page="device-list.html">🖥️ Devices</div>
+      <div class="sidebar-item" data-page="log-content-access.html">📊 Access Logs</div>
+
+      <div class="sidebar-category">Contents & Product</div>
+      <div class="sidebar-item" data-page="product-list.html">📦 Product</div>
+      <div class="sidebar-item" data-page="serial-list.html">🔑 Licenses (Serial)</div>
+      <div class="sidebar-item" data-page="package-list.html">🎒 Package</div>
+      <div class="sidebar-item active" data-page="content-list.html">🎬 Content</div>
+      
+      <div class="sidebar-category">System</div>
+      <div class="sidebar-item" data-page="settings.html">⚙️ Settings</div>
+
+      <div class="sidebar-category">Help</div>
+      <div class="sidebar-item" data-page="overview.html">📘 Overview</div>
+      <div class="sidebar-item" data-page="version-register.html">📢 Update</div>
+    </aside>
+
+    <main class="main-content">
+      <div class="container">
+        <div class="breadcrumb" style="font-size: 13px; color: #6b7280; margin-bottom: 20px; display:flex; gap:8px; align-items:center;">
+          <span style="cursor:pointer; padding: 4px 8px; border-radius: 4px; transition: background 0.2s; display: flex; align-items: center;" onmouseover="this.style.background='#e5e7eb'" onmouseout="this.style.background='transparent'" onclick="location.href='index.html'">🏠 Home</span> 
+          <span style="color: #d1d5db;">/</span>
+          <span style="cursor:pointer; padding: 4px 8px; border-radius: 4px; transition: background 0.2s;" onmouseover="this.style.background='#e5e7eb'" onmouseout="this.style.background='transparent'" onclick="location.href='content-list.html'">🎬 Content</span> 
+          <span style="color: #d1d5db;">/</span>
+          <span style="color: #374151; font-weight: 600; padding: 4px 8px;">🎬 Content Editor</span>
+        </div>
+
+        <!-- Page Header -->
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">🎬 Content Editor</h1>
+            <p class="page-desc" id="pageMode">Create New Content</p>
+          </div>
+          <div class="header-actions">
+            
+            <button class="btn btn-secondary" onclick="handleCancel()">Cancel</button>
+            <button class="btn btn-primary" onclick="handleSave()">Save Content</button>
+          </div>
+        </div>
+
+        <!-- Form Layout -->
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px;">
+          <!-- Left Column: Form -->
+          <div style="display: flex; flex-direction: column; gap: 24px;">
+            
+            <!-- Metadata Card -->
+            <div class="card">
+              <h2 style="margin-top:0">📋 콘텐츠 기본 정보</h2>
+              
+              <div class="form-group">
+                <label class="form-label required">Content ID</label>
+                <input type="text" class="input" style="width:100%; background-color:#f3f4f6;" id="contentId" placeholder="(서버에서 자동 생성)" value="" disabled>
+              </div>
+
+              <div class="form-group" style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
+                <div>
+                  <label class="form-label required">Title (제목 - 한국어)</label>
+                  <input type="text" class="input" style="width:100%" id="titleKo" placeholder="예: 샌드크래프트 - 해변" value="">
+                </div>
+                <div>
+                  <label class="form-label">Title (English)</label>
+                  <input type="text" class="input" style="width:100%" id="titleEn" placeholder="e.g. SandCraft - Beach" value="">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Description (설명)</label>
+                <textarea class="input" style="width:100%; height:70px; resize:vertical;" id="description" placeholder="콘텐츠에 대한 설명을 입력하세요..." maxlength="255"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Thumbnail URL</label>
+                <input type="text" class="input" style="width:100%" id="thumbnail" placeholder="https://cdn.example.com/thumbnails/example.jpg">
+              </div>
+            </div>
+
+            <!-- Configuration Card -->
+            <div class="card">
+              <h2 style="margin-top:0">⚙️ 애플리케이션 설정</h2>
+
+              <div class="form-group" style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
+                <div>
+                  <label class="form-label required">Category</label>
+                  <select class="input" style="width:100%" id="category">
+                    <option value="게임">게임</option>
+                    <option value="교육">교육</option>
+                    <option value="유틸리티">유틸리티</option>
+                    <option value="시스템">시스템</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="form-label required">Content Type</label>
+                  <select class="input" style="width:100%" id="type">
+                    <option value="single">Single (단독 실행)</option>
+                    <option value="container">Container (상위 관리자)</option>
+                    <option value="child">Child (컨테이너용 하위)</option>
+                    <option value="mixed">Mixed</option>
+                  </select>
+                  <div style="font-size:12px; color:#6b7280; margin-top:4px;">콘텐츠의 구동 방식을 지정합니다.</div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Entry Point (실행 파일 경로)</label>
+                <input type="text" class="input" style="width:100%" id="entryPoint" placeholder="/app/sand/beach.exe">
+                <div style="font-size:12px; color:#6b7280; margin-top:4px;">ZIP 패키지 내용물 기준의 상대 실행 경로를 입력합니다. (Container 타입은 생략 가능)</div>
+              </div>
+            </div>
+
+            <!-- Versions Section (Moved from right column) -->
+            <div class="card" id="versionsSection" style="display:none;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                <h2 style="margin:0; font-size:16px;">📂 릴리즈 버전 목록 및 히스토리</h2>
+                <button class="btn btn-primary" style="padding:4px 8px; font-size:12px;" onclick="openNewVersionModal()">+ New Version</button>
+              </div>
+              <p style="color:#666;font-size:13px;margin-bottom:16px">이 콘텐츠에 연결된 전체 아티팩트 및 버전 업데이트 기록입니다.</p>
+              
+              <div style="display:flex; flex-direction:column; gap:10px;" id="versionsList">
+                <div style="padding:16px; border:1px solid #e5e7eb; border-radius:6px; background:#fff; border-left:4px solid #3b82f6;">
+                  <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                    <div>
+                      <span style="font-weight:600; font-size:16px; color:#111827; margin-right:8px;">v1.3.0</span>
+                      <span style="font-size:12px; padding:2px 6px; background:#dcfce7; color:#1d4ed8; border-radius:4px;">Latest (Published)</span>
+                    </div>
+                    <span style="font-size:12px; color:#6b7280;">2026-03-01 14:30</span>
+                  </div>
+                  <div style="font-size:13px; color:#4b5563; margin-bottom:12px; line-height:1.5;">
+                    - 해변 배경 그래픽 최적화<br>
+                    - 싱글 모드 버그 픽스
+                  </div>
+                  <div style="display:flex; gap:16px; font-size:12px;">
+                    <span style="color:#6b7280;">📦 artifact: beach_v1.3.zip (46MB)</span>
+                    <span style="color:#4b5563;">업데이트: <strong style="color:#ef4444;">강제(Required)</strong></span>
+                  </div>
+                </div>
+
+                <div style="padding:16px; border:1px solid #e5e7eb; border-radius:6px; background:#f9fafb;">
+                  <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                    <div>
+                      <span style="font-weight:600; font-size:16px; color:#4b5563; margin-right:8px;">v1.2.0</span>
+                      <span style="font-size:12px; padding:2px 6px; background:#f3f4f6; color:#4b5563; border-radius:4px;">Previous</span>
+                    </div>
+                    <span style="font-size:12px; color:#6b7280;">2026-02-15 09:20</span>
+                  </div>
+                  <div style="font-size:13px; color:#4b5563; margin-bottom:12px; line-height:1.5;">
+                    - 컨테이너 지원 버전 업데이트
+                  </div>
+                  <div style="display:flex; gap:16px; font-size:12px;">
+                    <span style="color:#6b7280;">📦 artifact: beach_v1.2.zip (45MB)</span>
+                    <span style="color:#4b5563;">업데이트: Optional</span>
+                  </div>
+                </div>
+                
+                <div style="padding:16px; border:1px solid #e5e7eb; border-radius:6px; background:#f9fafb; opacity:0.8;">
+                  <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                    <div>
+                      <span style="font-weight:600; font-size:16px; color:#9ca3af; margin-right:8px;">v1.1.0</span>
+                      <span style="font-size:12px; padding:2px 6px; background:#f3f4f6; color:#9ca3af; border-radius:4px;">Deprecated</span>
+                    </div>
+                    <span style="font-size:12px; color:#9ca3af;">2026-01-15 10:00</span>
+                  </div>
+                  <div style="font-size:13px; color:#9ca3af; margin-bottom:12px; line-height:1.5;">
+                    - 최초 출시
+                  </div>
+                  <div style="display:flex; gap:16px; font-size:12px;">
+                    <span style="color:#9ca3af;">📦 artifact: beach_v1.1.zip (43MB)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right Column -->
+          <div style="display: flex; flex-direction: column; gap: 24px;">
+
+            <!-- Initial Upload Section (New Mode Only) -->
+            <div class="card" id="initialUploadSection">
+              <h2 style="margin-top:0">📁 초기 버전 파일 업로드 <span style="color:#ef4444; font-size:12px; font-weight:normal; margin-left:8px;">*새 콘텐츠 등록용</span></h2>
+              <p style="color:#6b7280; font-size:13px; margin-bottom:16px;">새 콘텐츠 등록과 함께 첫 번째 버전(v1.0.0)으로 등록될 아티팩트를 업로드하세요.</p>
+              
+              <div class="form-group">
+                <div style="border:2px dashed #d1d5db; border-radius:6px; padding:32px; text-align:center; background:#f9fafb; cursor:pointer;" onclick="document.getElementById('contentFile').click()">
+                  <div style="font-size:32px; margin-bottom:12px;">☁️</div>
+                  <div style="font-weight:500; color:#374151; margin-bottom:8px;">클릭하거나 파일을 이곳으로 드래그하세요</div>
+                  <div style="font-size:12px; color:#6b7280;">최대 2GB의 .zip 아티팩트 지원</div>
+                  <input type="file" id="contentFile" accept=".zip" style="display:none;" onchange="handleFileSelect(event)">
+                </div>
+                <div id="selectedFileName" style="margin-top:12px; font-size:14px; color:#3b82f6; font-weight:500; text-align:center;"></div>
+              </div>
+            </div>
+
+            <!-- Package Usages (Read only view) -->
+            <div class="card" id="packagesSection" style="display:none;">
+              <h2 style="margin-top:0; font-size:16px;">🎒 포함된 패키지</h2>
+              <div style="font-size:13px; color:#4b5563; margin-top:8px;">
+                <ul style="padding-left:20px; margin:0; line-height:1.6;">
+                  <li>pkg-sand-11 (SandCraft 11 Items)</li>
+                  <li>pkg-sand-full (SandCraft Full Edition)</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Lifecycle / Meta -->
+            <div class="card" id="systemMetadataSection" style="display:none; background:#f9fafb;">
+              <h2 style="margin-top:0; font-size:15px; color:#374151;">ℹ️ 시스템 메타데이터</h2>
+              <div style="font-size:13px; color:#6b7280; display:flex; flex-direction:column; gap:8px;">
+                <div style="display:flex; justify-content:space-between;">
+                  <span>Created:</span>
+                  <span style="font-weight:500; color:#111827;" id="metaCreated"></span>
+                </div>
+                <div style="display:flex; justify-content:space-between; border-top:1px solid #e5e7eb; padding-top:8px;">
+                  <span>Last Updated:</span>
+                  <span style="font-weight:500; color:#111827;" id="metaUpdated"></span>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script>
+    document.querySelectorAll('.sidebar-item[data-page]').forEach(item => {
+      item.addEventListener('click', function() {
+        const page = this.getAttribute('data-page');
+        if (page) window.location.href = page;
+      });
+    });
+
+    function handleFileSelect(event) {
+      if(event.target.files.length > 0) {
+        document.getElementById('selectedFileName').textContent = '선택된 파일: ' + event.target.files[0].name;
+      }
+    }
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const isEditMode = urlParams.get('id') ? true : false;
+    
+    if (isEditMode) {
+      document.getElementById('pageMode').textContent = 'Edit: Content ' + urlParams.get('id');
+      document.getElementById('contentId').value = urlParams.get('id');
+      document.getElementById('contentId').disabled = true;
+      
+      document.getElementById('titleKo').value = '샌드크래프트 - 해변';
+      document.getElementById('titleEn').value = 'SandCraft - Beach';
+      document.getElementById('description').value = '해변에서 즐기는 샌드게임';
+      document.getElementById('category').value = '게임';
+      document.getElementById('type').value = 'single';
+      document.getElementById('entryPoint').value = '/app/sand/beach.exe';
+      document.getElementById('thumbnail').value = 'https://cdn.example.com/thumbnails/sandcraft-beach.jpg';
+      
+      // Hide initial upload for edit mode
+      document.getElementById('initialUploadSection').style.display = 'none';
+
+      // Show edit mode sections
+      document.getElementById('versionsSection').style.display = 'block';
+      document.getElementById('packagesSection').style.display = 'block';
+      
+      document.getElementById('systemMetadataSection').style.display = 'block';
+      document.getElementById('metaCreated').textContent = '2026-01-15 10:00:00';
+      document.getElementById('metaUpdated').textContent = '2026-02-12 10:00:00';
+    }
+
+    function generateContentId() {
+      const randomInt = Math.floor(Math.random() * 9000) + 1000;
+      document.getElementById('contentId').value = randomInt;
+    }
+
+    function validateForm() {
+      const titleKo = document.getElementById('titleKo').value;
+      if (!titleKo.trim()) {
+        alert('제목(한국어)을 입력하세요.');
+        return false;
+      }
+      return true;
+    }
+
+    function handleSave() {
+      if (validateForm()) {
+        alert('Content 정보가 성공적으로 저장되었습니다.');
+        window.location.href = 'content-list.html';
+      }
+    }
+
+    function handleCancel() {
+      if (confirm('작성 중인 내용이 저장되지 않을 수 있습니다. 취소하시겠습니까?')) {
+        window.history.back();
+      }
+    }
+
+    // New Version Modal Logic
+    function openNewVersionModal() {
+      document.getElementById('newVersionModal').style.display = 'flex';
+    }
+
+    function closeNewVersionModal() {
+      document.getElementById('newVersionModal').style.display = 'none';
+      document.getElementById('newVersionFile').value = '';
+      document.getElementById('newVersionFileName').textContent = '파일을 선택해 주세요.';
+      document.getElementById('newVersionFileName').style.color = '#6b7280';
+      document.getElementById('newVersionFileSize').textContent = '0 MB';
+      
+      const verifyBtn = document.getElementById('verifyFileBtn');
+      verifyBtn.disabled = true;
+      verifyBtn.style.cursor = 'not-allowed';
+      verifyBtn.style.opacity = '0.6';
+    }
+
+    function handleNewVersionFileSelect(event) {
+      if(event.target.files.length > 0) {
+        const file = event.target.files[0];
+        document.getElementById('newVersionFileName').textContent = file.name;
+        document.getElementById('newVersionFileName').style.color = '#111827';
+        
+        // Mock file size config
+        const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
+        document.getElementById('newVersionFileSize').textContent = sizeMB + ' MB';
+
+        const verifyBtn = document.getElementById('verifyFileBtn');
+        verifyBtn.disabled = false;
+        verifyBtn.style.cursor = 'pointer';
+        verifyBtn.style.opacity = '1';
+      }
+    }
+
+    function submitNewVersion() {
+      const vMajor = document.getElementById('versionMajor').value;
+      const vMinor = document.getElementById('versionMinor').value;
+      const vPatch = document.getElementById('versionPatch').value;
+      
+      alert(`v${vMajor}.${vMinor}.${vPatch} 버전이 성공적으로 등록되었습니다!`);
+      closeNewVersionModal();
+      // In a real scenario, this would update the version list UI dynamically
+    }
+  </script>
+
+  <!-- New Version Modal -->
+  <div id="newVersionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center; padding:20px;">
+    <div style="background:#fff; width:600px; max-width:100%; max-height:90vh; border-radius:8px; display:flex; flex-direction:column; overflow:hidden; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);">
+      
+      <!-- Modal Header -->
+      <div style="padding:16px 20px; border-bottom:1px solid #e5e7eb; display:flex; justify-content:space-between; align-items:center; background:#f9fafb;">
+        <h3 style="margin:0; font-size:18px; color:#111827;">새 버전 업로드 (+ New Version)</h3>
+        <button type="button" style="background:transparent; border:none; font-size:24px; cursor:pointer; color:#6b7280;" onclick="closeNewVersionModal()">&times;</button>
+      </div>
+      
+      <!-- Modal Body -->
+      <div style="padding:20px; overflow-y:auto; display:flex; flex-direction:column; gap:24px;">
+        
+        <!-- 버전 -->
+        <div>
+          <label style="display:block; margin-bottom:8px; font-weight:600; color:#374151; font-size:14px;">버전 (Version)</label>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <input type="number" id="versionMajor" min="0" max="999" value="1" style="width:70px; padding:8px 12px; border:1px solid #d1d5db; border-radius:4px; text-align:center;">
+            <span style="font-weight:bold; color:#6b7280;">.</span>
+            <input type="number" id="versionMinor" min="0" max="999" value="4" style="width:70px; padding:8px 12px; border:1px solid #d1d5db; border-radius:4px; text-align:center;">
+            <span style="font-weight:bold; color:#6b7280;">.</span>
+            <input type="number" id="versionPatch" min="0" max="999" value="0" style="width:70px; padding:8px 12px; border:1px solid #d1d5db; border-radius:4px; text-align:center;">
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+          <!-- 업데이트 타입 -->
+          <div>
+            <label style="display:block; margin-bottom:8px; font-weight:600; color:#374151; font-size:14px;">업데이트 유형</label>
+            <div style="display:flex; gap:16px;">
+              <label style="display:flex; align-items:center; gap:6px; cursor:pointer;" for="updateForced">
+                <input type="radio" id="updateForced" name="updateType" value="forced" style="width:16px; height:16px;">
+                <span style="font-size:13px;">강제 업데이트</span>
+              </label>
+              <label style="display:flex; align-items:center; gap:6px; cursor:pointer;" for="updateOptional">
+                <input type="radio" id="updateOptional" name="updateType" value="optional" checked style="width:16px; height:16px;">
+                <span style="font-size:13px;">선택 업데이트</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- 배포 환경 -->
+          <div>
+            <label style="display:block; margin-bottom:8px; font-weight:600; color:#374151; font-size:14px;">배포 환경</label>
+            <div style="display:flex; gap:16px;">
+              <label style="display:flex; align-items:center; gap:6px; cursor:pointer;" for="deployProduction">
+                <input type="radio" id="deployProduction" name="deploymentTarget" value="production" style="width:16px; height:16px;">
+                <span style="font-size:13px;">상용 (Production)</span>
+              </label>
+              <label style="display:flex; align-items:center; gap:6px; cursor:pointer;" for="deployTest">
+                <input type="radio" id="deployTest" name="deploymentTarget" value="test" checked style="width:16px; height:16px;">
+                <span style="font-size:13px;">테스트 (Test)</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- 버전 파일 및 확인 -->
+        <div>
+          <label style="display:block; margin-bottom:8px; font-weight:600; color:#374151; font-size:14px;">버전 파일 (Artifact File)</label>
+          <div style="display:flex; gap:8px; align-items:center; margin-bottom:8px;">
+            <div style="flex:1; padding:8px 12px; border:1px solid #d1d5db; border-radius:4px; background:#f9fafb; font-size:13px; color:#6b7280;" id="newVersionFileName">파일을 선택해 주세요.</div>
+            <input type="file" id="newVersionFile" style="display:none" accept=".zip" onchange="handleNewVersionFileSelect(event)">
+            <button type="button" class="btn btn-outline" style="padding:8px 16px; font-size:13px;" onclick="document.getElementById('newVersionFile').click()">파일 찾기</button>
+          </div>
+          <div style="display:flex; gap:12px; align-items:center; font-size:13px;">
+            <div style="background:#f3f4f6; padding:6px 12px; border-radius:4px; flex:1;">
+              <strong>파일 크기:</strong> <span id="newVersionFileSize">0 MB</span>
+            </div>
+            <button type="button" id="verifyFileBtn" class="btn" style="padding:6px 12px; background:#10b981; color:white; border:none; border-radius:4px; cursor:not-allowed; opacity:0.6;" disabled onclick="alert('파일 확인 완료!')">파일 확인 (Verify)</button>
+          </div>
+        </div>
+
+        <!-- 상태 -->
+        <div>
+          <label style="display:block; margin-bottom:8px; font-weight:600; color:#374151; font-size:14px;">상태 (Status)</label>
+          <div style="display:flex; gap:20px; padding:12px; background:#f9fafb; border:1px solid #e5e7eb; border-radius:6px; align-items:center;">
+            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;" for="stateDraft">
+              <input type="radio" id="stateDraft" name="versionState" value="draft" checked style="width:16px; height:16px;">
+              <span style="font-size:14px; font-weight:600; color:#4b5563;">Draft (초안)</span>
+            </label>
+            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;" for="stateStaged">
+              <input type="radio" id="stateStaged" name="versionState" value="staged" style="width:16px; height:16px;">
+              <span style="font-size:14px; font-weight:600; color:#047857;">Staged (테스트)</span>
+            </label>
+            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;" for="statePublished">
+              <input type="radio" id="statePublished" name="versionState" value="published" style="width:16px; height:16px;">
+              <span style="font-size:14px; font-weight:600; color:#1d4ed8;">Published (발행)</span>
+            </label>
+          </div>
+          <div style="font-size:12px; color:#6b7280; margin-top:6px;">새 버전을 업로드 시 기본 상태는 'Draft(초안)'이며, 의도치 않은 상용 배포를 방지합니다.</div>
+        </div>
+
+        <!-- 버전 설명 -->
+        <div>
+          <label style="display:block; margin-bottom:8px; font-weight:600; color:#374151; font-size:14px;">버전 설명 (Release Notes)</label>
+          <textarea id="releaseNotes" style="width:100%; min-height:100px; padding:12px; border:1px solid #d1d5db; border-radius:4px; font-family:inherit; font-size:13px; resize:vertical;" placeholder="변경 사항 및 배포 노트를 입력하세요."></textarea>
+        </div>
+
+      </div>
+      
+      <!-- Modal Footer -->
+      <div style="padding:16px 20px; border-top:1px solid #e5e7eb; display:flex; justify-content:flex-end; gap:10px; background:#f9fafb;">
+        <button type="button" class="btn btn-secondary" onclick="closeNewVersionModal()">취소</button>
+        <button type="button" class="btn btn-primary" onclick="submitNewVersion()">버전 등록</button>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Inactive Confirm Modal -->
+  <div id="statusConfirmModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999; justify-content: center; align-items: center;">
+      <div style="background: #fff; width: 400px; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <div style="padding: 16px 24px; border-bottom: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center;">
+          <h3 style="margin: 0; font-size: 1.125rem; font-weight: 600; color: #111827;" id="statusModalTitle">상태 변경</h3>
+          <button type="button" onclick="closeStatusModal()" style="background: none; border: none; font-size: 1.25rem; cursor: pointer; color: #6b7280;">&times;</button>
+        </div>
+        <div style="padding: 24px;">
+          <p style="margin: 0; color: #374151; font-size: 1rem;" id="statusModalMessage">변경 하시겠습니까?</p>
+        </div>
+        <div style="padding: 16px 24px; border-top: 1px solid #e5e7eb; display: flex; justify-content: flex-end; gap: 8px; background: #f9fafb;">
+          <button type="button" class="btn btn-secondary" onclick="closeStatusModal()">취소</button>
+          <button type="button" class="btn btn-primary" id="statusConfirmBtn" onclick="confirmStatus()">확인</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      let currentStatusAction = '';
+      function openStatusModal(action) {
+        currentStatusAction = action;
+        const modal = document.getElementById('statusConfirmModal');
+        const title = document.getElementById('statusModalTitle');
+        const message = document.getElementById('statusModalMessage');
+        const confirmBtn = document.getElementById('statusConfirmBtn');
+        
+        if (action === 'active') {
+          title.innerText = '활성화 확인';
+          message.innerText = '활성화 하시겠습니까?';
+          confirmBtn.innerText = '활성화';
+          confirmBtn.style.background = '#10b981';
+          confirmBtn.style.borderColor = '#10b981';
+        } else {
+          title.innerText = '비활성화 확인';
+          message.innerText = '비활성화 하시겠습니까?';
+          confirmBtn.innerText = '비활성화';
+          confirmBtn.style.background = '#ef4444';
+          confirmBtn.style.borderColor = '#ef4444';
+        }
+        
+        modal.style.display = 'flex';
+      }
+      function closeStatusModal() {
+        document.getElementById('statusConfirmModal').style.display = 'none';
+      }
+      function confirmStatus() {
+        closeStatusModal();
+      }
+      
+      document.addEventListener('DOMContentLoaded', () => {
+        // Also bind any generic Active/Inactive buttons in table lists
+        document.querySelectorAll('.btn-danger, .btn-success, .btn').forEach(btn => {
+          if(btn.innerText.includes('Inactive') && !btn.hasAttribute('onclick')) {
+            btn.addEventListener('click', () => openStatusModal('inactive'));
+          }
+          if(btn.innerText.includes('Active') && !btn.hasAttribute('onclick')) {
+            btn.addEventListener('click', () => openStatusModal('active'));
+          }
+        });
+      });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+Verifying replacements...
+Still contains ? characters:
+6: <title>Content List ??Wireframe</title>
+17: <span style="cursor:pointer">?�� (3)</span>
+18: <span style="cursor:pointer">?�� Admin(SP)</span>
+26: <div class="sidebar-item " data-page="localarea-list.html">?�� LocalAreas</div>
+27: <div class="sidebar-item " data-page="store-list.html">?�� Stores</div>
+30: <div class="sidebar-item " data-page="device-list.html">?�� Devices</div>
+31: <div class="sidebar-item " data-page="log-content-access.html">?�� Access Logs</div>
+34: <div class="sidebar-item " data-page="product-list.html">?�� Product</div>
+35: <div class="sidebar-item " data-page="serial-list.html">?�� Licenses (Serial)</div>
+36: <div class="sidebar-item " data-page="package-list.html">?�� Package</div>
+37: <div class="sidebar-item active" data-page="content-list.html">?�� Content</div>
+40: <div class="sidebar-item" data-page="settings.html">?�️ Settings</div>
+43: <div class="sidebar-item " data-page="overview.html">?�️ Overview</div>
+51: <h1 class="page-title">?�� Content Library</h1>
+52: <p class="page-desc">Manage ?�� Content Library and view details.</p>
+63: <input class="input" placeholder="?�� Search content..." style="width:100%">
+99: <option>?�터?�인먼트</option>
+127: <th style="width:40px">??/th>
+141: <div class="thumbnail">?��</div>
+151: <span>?��</span> Published
+169: <div class="thumbnail">?��</div>
+179: <span>?��</span> Staged
+197: <div class="thumbnail">?��</div>
+200: <div class="content-category">Category: 컨테?�너</div>
+207: <span>??/span> Draft
+225: <div class="thumbnail">?��</div>
+235: <span>??/span> Deprecated
+253: <div class="thumbnail">?��</div>
+256: <div class="content-category">Category: ?�터?�인먼트</div>
+263: <span>?��</span> Published
+281: <div class="thumbnail">?��</div>
+291: <span>?��</span> Staged
+311: <button class="page-btn">?� Previous</button>
+317: <button class="page-btn">Next ??/button>
+351: window.location.href = 'content-editor.html?id=101';
+354: window.location.href = 'content-versions.html?contentId=101';

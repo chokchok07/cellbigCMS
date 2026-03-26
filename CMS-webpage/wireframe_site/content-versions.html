@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Content Versions — CellbigCMS</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div style="display:flex;align-items:center;gap:16px">
+      <span style="font-weight:700;font-size:20px;color:#1f2937;cursor:pointer" onclick="location.href='index.html'">CellbigCMS</span>
+    </div>
+    <div style="display:flex;gap:16px;align-items:center">
+      <span style="cursor:pointer">🔔 (3)</span>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <span style="cursor:pointer">👤 Admin(SP)</span>
+        <button type="button" style="padding:4px 12px; font-size:12px; font-weight:500; color:#4b5563; background:#f3f4f6; border:1px solid #d1d5db; border-radius:4px; cursor:pointer;" onclick="if(confirm('로그아웃 하시겠습니까?')) { location.href='login.html'; }">로그아웃</button>
+      </div>
+    </div>
+  </header>
+  
+  <div class="dashboard-layout">
+        <aside class="sidebar">
+      <div class="sidebar-category">Infrastructure (Location)</div>
+      <div class="sidebar-item" data-page="localarea-list.html">🏢 LocalAreas</div>
+      <div class="sidebar-item" data-page="store-list.html">🏪 Stores</div>
+      
+      <div class="sidebar-category">Device & Monitoring</div>
+      <div class="sidebar-item" data-page="device-list.html">🖥️ Devices</div>
+      <div class="sidebar-item" data-page="log-content-access.html">📊 Access Logs</div>
+
+      <div class="sidebar-category">Contents & Product</div>
+      <div class="sidebar-item" data-page="product-list.html">📦 Product</div>
+      <div class="sidebar-item" data-page="serial-list.html">🔑 Licenses (Serial)</div>
+      <div class="sidebar-item" data-page="package-list.html">🎒 Package</div>
+      <div class="sidebar-item active" data-page="content-list.html">🎬 Content</div>
+      
+      <div class="sidebar-category">System</div>
+      <div class="sidebar-item" data-page="settings.html">⚙️ Settings</div>
+
+      <div class="sidebar-category">Help</div>
+      <div class="sidebar-item" data-page="overview.html">📘 Overview</div>
+      <div class="sidebar-item" data-page="version-register.html">📢 Update</div>
+    </aside>
+
+    <main class="main-content">
+      <div class="container">
+        <!-- Breadcrumb / Header -->
+        <div class="page-header" style="flex-direction: column; align-items: flex-start;">
+          <div style="color:#6b7280; font-size:14px; margin-bottom:8px; cursor:pointer;" onclick="history.back()">
+            ← Back to Content
+          </div>
+          <div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
+            <div>
+              <h1 class="page-title">📂 Version History</h1>
+              <p class="page-desc">ID: 101 | 샌드크래프트 - 해변 (SandCraft - Beach)</p>
+            </div>
+            <div class="header-actions">
+              <button class="btn btn-primary" onclick="location.href='version-register.html?contentId=101'">+ New Version</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Versions List Area -->
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          
+          <!-- Version Item : v2.1.0 -->
+          <div class="card" style="border-left: 4px solid #3b82f6;">
+            <div style="display:grid; grid-template-columns: 2fr 1fr 1fr; gap:20px;">
+              <!-- Col 1: Version & Release Notes -->
+              <div>
+                <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+                  <span style="font-size:20px; font-weight:700; color:#111827;">v2.1.0</span>
+                  <span style="background:#dcfce7; color:#1d4ed8; padding:4px 8px; border-radius:4px; font-size:12px; font-weight:600;">Published</span>
+                </div>
+                <div style="font-size:14px; color:#4b5563; line-height:1.5;">
+                  <strong>Release Notes:</strong><br>
+                  - 버그 수정: 로그인 오류 해결<br>
+                  - 새 기능: 다크 모드 지원
+                </div>
+              </div>
+
+              <!-- Col 2: Artifact & Configuration Info -->
+              <div style="font-size:13px; color:#4b5563; display:flex; flex-direction:column; gap:8px; justify-content:center;">
+                <div><strong>File:</strong> content-101-v2.1.0.zip (45MB)</div>
+                <div><strong>Checksum:</strong> e3b0c442...</div>
+                <div><strong>Update Type:</strong> 🟢 Optional (선택)</div>
+                <div><strong>Target:</strong> Production (상용)</div>
+              </div>
+
+              <!-- Col 3: Actions & Meta -->
+              <div style="display:flex; flex-direction:column; justify-content:space-between; align-items:flex-end;">
+                <div style="text-align:right; font-size:12px; color:#6b7280;">
+                  <div>Created: 2026-03-10 14:00</div>
+                  <div>By: admin@example.com</div>
+                </div>
+                <div style="display:flex; gap:8px;">
+                  <button class="btn btn-outline" style="padding:4px 8px; font-size:12px;">⬇️ Download</button>
+                  <button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;">Change Status</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Version Item : v2.0.0 -->
+          <div class="card" style="border-left: 4px solid #10b981;">
+            <div style="display:grid; grid-template-columns: 2fr 1fr 1fr; gap:20px;">
+              <!-- Col 1 -->
+              <div>
+                <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+                  <span style="font-size:20px; font-weight:700; color:#111827;">v2.0.0</span>
+                  <span style="background:#fef3c7; color:#047857; padding:4px 8px; border-radius:4px; font-size:12px; font-weight:600;">Staged</span>
+                </div>
+                <div style="font-size:14px; color:#4b5563; line-height:1.5;">
+                  <strong>Release Notes:</strong><br>
+                  - UI/UX 전면 개편<br>
+                  - 모바일 환경 대응 추가
+                </div>
+              </div>
+
+              <!-- Col 2 -->
+              <div style="font-size:13px; color:#4b5563; display:flex; flex-direction:column; gap:8px; justify-content:center;">
+                <div><strong>File:</strong> content-101-v2.0.0.zip (41MB)</div>
+                <div><strong>Checksum:</strong> 8a12c442...</div>
+                <div><strong>Update Type:</strong> 🔴 Forced (강제)</div>
+                <div><strong>Target:</strong> Test (테스트)</div>
+              </div>
+
+              <!-- Col 3 -->
+              <div style="display:flex; flex-direction:column; justify-content:space-between; align-items:flex-end;">
+                <div style="text-align:right; font-size:12px; color:#6b7280;">
+                  <div>Created: 2026-02-15 10:30</div>
+                  <div>By: test_admin</div>
+                </div>
+                <div style="display:flex; gap:8px;">
+                  <button class="btn btn-outline" style="padding:4px 8px; font-size:12px;">⬇️ Download</button>
+                  <button class="btn btn-primary" style="padding:4px 8px; font-size:12px;">Publish Now</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Version Item : v1.1.0 -->
+          <div class="card" style="border-left: 4px solid #9ca3af; background:#f9fafb;">
+            <div style="display:grid; grid-template-columns: 2fr 1fr 1fr; gap:20px;">
+              <!-- Col 1 -->
+              <div>
+                <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+                  <span style="font-size:20px; font-weight:700; color:#6b7280;">v1.1.0</span>
+                  <span style="background:#f3f4f6; color:#4b5563; padding:4px 8px; border-radius:4px; font-size:12px; font-weight:600;">Deprecated</span>
+                </div>
+                <div style="font-size:14px; color:#6b7280; line-height:1.5;">
+                  <strong>Release Notes:</strong><br>
+                  - 리소스 최적화 및 안정화
+                </div>
+              </div>
+
+              <!-- Col 2 -->
+              <div style="font-size:13px; color:#6b7280; display:flex; flex-direction:column; gap:8px; justify-content:center;">
+                <div><strong>File:</strong> content-101-v1.1.0.zip (38MB)</div>
+                <div><strong>Checksum:</strong> 12b0c4a9...</div>
+                <div><strong>Update Type:</strong> Optional (선택)</div>
+                <div><strong>Target:</strong> Production (상용)</div>
+              </div>
+
+              <!-- Col 3 -->
+              <div style="display:flex; flex-direction:column; justify-content:space-between; align-items:flex-end;">
+                <div style="text-align:right; font-size:12px; color:#9ca3af;">
+                  <div>Created: 2025-11-01 09:00</div>
+                  <div>By: admin_root</div>
+                </div>
+                <div style="display:flex; gap:8px;">
+                  <button class="btn btn-outline" style="padding:4px 8px; font-size:12px; color:#6b7280; border-color:#d1d5db;">⬇️ Download</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script>
+    document.querySelectorAll('.sidebar-item[data-page]').forEach(item => {
+      item.addEventListener('click', function() {
+        const page = this.getAttribute('data-page');
+        if (page) window.location.href = page;
+      });
+    });
+  </script>
+
+  <!-- Inactive Confirm Modal -->
+  <div id="statusConfirmModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999; justify-content: center; align-items: center;">
+      <div style="background: #fff; width: 400px; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <div style="padding: 16px 24px; border-bottom: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center;">
+          <h3 style="margin: 0; font-size: 1.125rem; font-weight: 600; color: #111827;" id="statusModalTitle">상태 변경</h3>
+          <button type="button" onclick="closeStatusModal()" style="background: none; border: none; font-size: 1.25rem; cursor: pointer; color: #6b7280;">&times;</button>
+        </div>
+        <div style="padding: 24px;">
+          <p style="margin: 0; color: #374151; font-size: 1rem;" id="statusModalMessage">변경 하시겠습니까?</p>
+        </div>
+        <div style="padding: 16px 24px; border-top: 1px solid #e5e7eb; display: flex; justify-content: flex-end; gap: 8px; background: #f9fafb;">
+          <button type="button" class="btn btn-secondary" onclick="closeStatusModal()">취소</button>
+          <button type="button" class="btn btn-primary" id="statusConfirmBtn" onclick="confirmStatus()">확인</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      let currentStatusAction = '';
+      function openStatusModal(action) {
+        currentStatusAction = action;
+        const modal = document.getElementById('statusConfirmModal');
+        const title = document.getElementById('statusModalTitle');
+        const message = document.getElementById('statusModalMessage');
+        const confirmBtn = document.getElementById('statusConfirmBtn');
+        
+        if (action === 'active') {
+          title.innerText = '활성화 확인';
+          message.innerText = '활성화 하시겠습니까?';
+          confirmBtn.innerText = '활성화';
+          confirmBtn.style.background = '#10b981';
+          confirmBtn.style.borderColor = '#10b981';
+        } else {
+          title.innerText = '비활성화 확인';
+          message.innerText = '비활성화 하시겠습니까?';
+          confirmBtn.innerText = '비활성화';
+          confirmBtn.style.background = '#ef4444';
+          confirmBtn.style.borderColor = '#ef4444';
+        }
+        
+        modal.style.display = 'flex';
+      }
+      function closeStatusModal() {
+        document.getElementById('statusConfirmModal').style.display = 'none';
+      }
+      function confirmStatus() {
+        closeStatusModal();
+      }
+      
+      document.addEventListener('DOMContentLoaded', () => {
+        // Also bind any generic Active/Inactive buttons in table lists
+        document.querySelectorAll('.btn-danger, .btn-success, .btn').forEach(btn => {
+          if(btn.innerText.includes('Inactive') && !btn.hasAttribute('onclick')) {
+            btn.addEventListener('click', () => openStatusModal('inactive'));
+          }
+          if(btn.innerText.includes('Active') && !btn.hasAttribute('onclick')) {
+            btn.addEventListener('click', () => openStatusModal('active'));
+          }
+        });
+      });
+    </script>
+
+</body>
+</html>

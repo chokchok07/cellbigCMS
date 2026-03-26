@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Content Access Logs — CellbigCMS</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .badge-start { background: #dbeafe; color: #1e40af; }
+    .badge-stop { background: #fee2e2; color: #991b1b; }
+    .badge-heartbeat { background: #f3f4f6; color: #374151; }
+    .badge-error { background: #fef3c7; color: #92400e; }
+    .log-meta { font-family: monospace; font-size: 12px; color: #6b7280; }
+  </style>
+</head>
+<body>
+    <header class="site-header">
+    <div style="display:flex;align-items:center;gap:16px">
+      <span style="font-weight:700;font-size:20px;color:#1f2937;cursor:pointer" onclick="location.href='index.html'">CellbigCMS</span>
+    </div>
+    <div style="display:flex;gap:16px;align-items:center">
+      <span style="cursor:pointer">🔔 (3)</span>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <span style="cursor:pointer">👤 Admin(SP)</span>
+        <button type="button" style="padding:4px 12px; font-size:12px; font-weight:500; color:#4b5563; background:#f3f4f6; border:1px solid #d1d5db; border-radius:4px; cursor:pointer;" onclick="if(confirm('로그아웃 하시겠습니까?')) { location.href='login.html'; }">로그아웃</button>
+      </div>
+    </div>
+  </header>
+  
+  <div class="dashboard-layout">
+        <aside class="sidebar">
+      <div class="sidebar-category">Infrastructure (Location)</div>
+      <div class="sidebar-item" data-page="localarea-list.html">🏢 LocalAreas</div>
+      <div class="sidebar-item" data-page="store-list.html">🏪 Stores</div>
+      
+      <div class="sidebar-category">Device & Monitoring</div>
+      <div class="sidebar-item" data-page="device-list.html">🖥️ Devices</div>
+      <div class="sidebar-item active" data-page="log-content-access.html">📊 Access Logs</div>
+
+      <div class="sidebar-category">Contents & Product</div>
+      <div class="sidebar-item" data-page="product-list.html">📦 Product</div>
+      <div class="sidebar-item" data-page="serial-list.html">🔑 Licenses (Serial)</div>
+      <div class="sidebar-item" data-page="package-list.html">🎒 Package</div>
+      <div class="sidebar-item" data-page="content-list.html">🎬 Content</div>
+      
+      <div class="sidebar-category">System</div>
+      <div class="sidebar-item" data-page="settings.html">⚙️ Settings</div>
+
+      <div class="sidebar-category">Help</div>
+      <div class="sidebar-item" data-page="overview.html">📘 Overview</div>
+      <div class="sidebar-item" data-page="version-register.html">📢 Update</div>
+    </aside>
+
+    <main class="main-content">
+      <div class="container">
+        
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">📊 Content Access Logs</h1>
+            <p class="page-desc">View real-time logs of content execution and device activities.</p>
+          </div>
+          <div class="header-actions">
+            <!-- No primary action for logs -->
+          </div>
+        </div>
+
+        <!-- Search/Filter Panel -->
+        <div class="filter-panel">
+            <div class="filter-row" style="flex-wrap:wrap">
+            <input type="text" id="searchInput" placeholder="Search Device ID or Content..." class="search-input" style="width:240px">
+            
+            <div style="display:flex;align-items:center;gap:8px">
+                <span style="font-size:13px;color:#6b7280">Date:</span>
+                <input type="date" class="input" style="padding:6px" value="2023-11-01">
+                <span>~</span>
+                <input type="date" class="input" style="padding:6px" value="2023-11-01">
+            </div>
+
+            <select id="actionFilter" class="filter-select">
+                <option value="">All Actions</option>
+                <option value="START">START</option>
+                <option value="STOP">STOP</option>
+                <option value="ERROR">ERROR</option>
+                <option value="HEARTBEAT">HEARTBEAT</option>
+            </select>
+            </div>
+        </div>
+
+        <!-- Action Bar -->
+        <div class="action-bar">
+            <div>
+                <span style="font-size:13px;color:#6b7280">Showing last 50 logs</span>
+            </div>
+            <div class="bulk-actions">
+                <button class="btn-secondary">Export CSV</button>
+                <button class="btn-secondary">Export JSON</button>
+            </div>
+        </div>
+
+        <!-- Logs Table -->
+        <div class="table-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th width="160">Timestamp</th>
+                        <th>Device</th>
+                        <th>Content / Action</th>
+                        <th>Duration</th>
+                        <th>Metadata</th>
+                        <th>IP Address</th>
+                    </tr>
+                </thead>
+                <tbody id="logTableBody">
+                    <tr>
+                        <td style="color:#6b7280;font-size:13px">2023-11-01 14:30:45</td>
+                        <td><a href="device-detail.html">dev-001 (Sand-PC)</a></td>
+                        <td>
+                            <div style="display:flex;align-items:center;gap:6px">
+                                <span class="badge badge-start">START</span>
+                                <span>SandCraft-Contents</span>
+                            </div>
+                        </td>
+                        <td>-</td>
+                        <td class="log-meta">pkg: v1.1.0</td>
+                        <td>192.168.0.15</td>
+                    </tr>
+                    <tr>
+                        <td style="color:#6b7280;font-size:13px">2023-11-01 14:15:20</td>
+                        <td><a href="device-detail.html">dev-002 (Fish-Zone)</a></td>
+                        <td>
+                            <div style="display:flex;align-items:center;gap:6px">
+                                <span class="badge badge-stop">STOP</span>
+                                <span>FishWorld-Main</span>
+                            </div>
+                        </td>
+                        <td>25m 10s</td>
+                        <td class="log-meta">pkg: v2.0.5</td>
+                        <td>192.168.0.22</td>
+                    </tr>
+                    <tr>
+                        <td style="color:#6b7280;font-size:13px">2023-11-01 14:10:00</td>
+                        <td><a href="device-detail.html">dev-003 (Dino-Kiosk)</a></td>
+                        <td>
+                            <div style="display:flex;align-items:center;gap:6px">
+                                <span class="badge badge-error">ERROR</span>
+                                <span>DinoExplorer</span>
+                            </div>
+                        </td>
+                        <td>-</td>
+                        <td class="log-meta" style="color:#b91c1c">E: AssetLoadFail</td>
+                        <td>10.0.0.5</td>
+                    </tr>
+                    <!-- More mock data -->
+                    <tr>
+                        <td style="color:#6b7280;font-size:13px">2023-11-01 14:00:00</td>
+                        <td><a href="device-detail.html">dev-001 (Sand-PC)</a></td>
+                        <td>
+                            <div style="display:flex;align-items:center;gap:6px">
+                                <span class="badge badge-heartbeat">HEARTBEAT</span>
+                                <span>SandCraft-Contents</span>
+                            </div>
+                        </td>
+                        <td>-</td>
+                        <td class="log-meta">CPU: 45%</td>
+                        <td>192.168.0.15</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="pagination">
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn">Next &gt;</button>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Sidebar interaction
+    document.querySelectorAll('.sidebar-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const page = item.getAttribute('data-page');
+        if(page) window.location.href = page;
+      });
+    });
+  </script>
+
+  <!-- Inactive Confirm Modal -->
+  <div id="statusConfirmModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999; justify-content: center; align-items: center;">
+      <div style="background: #fff; width: 400px; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <div style="padding: 16px 24px; border-bottom: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center;">
+          <h3 style="margin: 0; font-size: 1.125rem; font-weight: 600; color: #111827;" id="statusModalTitle">상태 변경</h3>
+          <button type="button" onclick="closeStatusModal()" style="background: none; border: none; font-size: 1.25rem; cursor: pointer; color: #6b7280;">&times;</button>
+        </div>
+        <div style="padding: 24px;">
+          <p style="margin: 0; color: #374151; font-size: 1rem;" id="statusModalMessage">변경 하시겠습니까?</p>
+        </div>
+        <div style="padding: 16px 24px; border-top: 1px solid #e5e7eb; display: flex; justify-content: flex-end; gap: 8px; background: #f9fafb;">
+          <button type="button" class="btn btn-secondary" onclick="closeStatusModal()">취소</button>
+          <button type="button" class="btn btn-primary" id="statusConfirmBtn" onclick="confirmStatus()">확인</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      let currentStatusAction = '';
+      function openStatusModal(action) {
+        currentStatusAction = action;
+        const modal = document.getElementById('statusConfirmModal');
+        const title = document.getElementById('statusModalTitle');
+        const message = document.getElementById('statusModalMessage');
+        const confirmBtn = document.getElementById('statusConfirmBtn');
+        
+        if (action === 'active') {
+          title.innerText = '활성화 확인';
+          message.innerText = '활성화 하시겠습니까?';
+          confirmBtn.innerText = '활성화';
+          confirmBtn.style.background = '#10b981';
+          confirmBtn.style.borderColor = '#10b981';
+        } else {
+          title.innerText = '비활성화 확인';
+          message.innerText = '비활성화 하시겠습니까?';
+          confirmBtn.innerText = '비활성화';
+          confirmBtn.style.background = '#ef4444';
+          confirmBtn.style.borderColor = '#ef4444';
+        }
+        
+        modal.style.display = 'flex';
+      }
+      function closeStatusModal() {
+        document.getElementById('statusConfirmModal').style.display = 'none';
+      }
+      function confirmStatus() {
+        closeStatusModal();
+      }
+      
+      document.addEventListener('DOMContentLoaded', () => {
+        // Also bind any generic Active/Inactive buttons in table lists
+        document.querySelectorAll('.btn-danger, .btn-success, .btn').forEach(btn => {
+          if(btn.innerText.includes('Inactive') && !btn.hasAttribute('onclick')) {
+            btn.addEventListener('click', () => openStatusModal('inactive'));
+          }
+          if(btn.innerText.includes('Active') && !btn.hasAttribute('onclick')) {
+            btn.addEventListener('click', () => openStatusModal('active'));
+          }
+        });
+      });
+    </script>
+
+</body>
+</html>

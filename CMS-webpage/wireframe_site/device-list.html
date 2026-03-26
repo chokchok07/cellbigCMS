@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Device Management — CellbigCMS</title>
+  <link rel="stylesheet" href="styles.css">
+  
+</head>
+<body>
+    <header class="site-header">
+    <div style="display:flex;align-items:center;gap:16px">
+      <span style="font-weight:700;font-size:20px;color:#1f2937;cursor:pointer" onclick="location.href='index.html'">CellbigCMS</span>
+    </div>
+    <div style="display:flex;gap:16px;align-items:center">
+      <span style="cursor:pointer">🔔 (3)</span>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <span style="cursor:pointer">👤 Admin(SP)</span>
+        <button type="button" style="padding:4px 12px; font-size:12px; font-weight:500; color:#4b5563; background:#f3f4f6; border:1px solid #d1d5db; border-radius:4px; cursor:pointer;" onclick="if(confirm('로그아웃 하시겠습니까?')) { location.href='login.html'; }">로그아웃</button>
+      </div>
+    </div>
+  </header>
+  
+  <div class="dashboard-layout">
+        <aside class="sidebar">
+      <div class="sidebar-category">Infrastructure (Location)</div>
+      <div class="sidebar-item" data-page="localarea-list.html">🏢 LocalAreas</div>
+      <div class="sidebar-item" data-page="store-list.html">🏪 Stores</div>
+      
+      <div class="sidebar-category">Device & Monitoring</div>
+      <div class="sidebar-item active" data-page="device-list.html">🖥️ Devices</div>
+      <div class="sidebar-item" data-page="log-content-access.html">📊 Access Logs</div>
+
+      <div class="sidebar-category">Contents & Product</div>
+      <div class="sidebar-item" data-page="product-list.html">📦 Product</div>
+      <div class="sidebar-item" data-page="serial-list.html">🔑 Licenses (Serial)</div>
+      <div class="sidebar-item" data-page="package-list.html">🎒 Package</div>
+      <div class="sidebar-item" data-page="content-list.html">🎬 Content</div>
+      
+      <div class="sidebar-category">System</div>
+      <div class="sidebar-item" data-page="settings.html">⚙️ Settings</div>
+
+      <div class="sidebar-category">Help</div>
+      <div class="sidebar-item" data-page="overview.html">📘 Overview</div>
+      <div class="sidebar-item" data-page="version-register.html">📢 Update</div>
+    </aside>
+
+    <main class="main-content">
+      <div class="container">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">💻 Device Management</h1>
+            <p class="page-desc">Manage 💻 Device Management and view details.</p>
+          </div>
+          <div class="header-actions">
+            <button class="btn-primary" onclick="window.location.href='device-editor.html'">+ Register Device</button>
+          </div>
+        </div>
+
+      <!-- Search/Filter Panel -->
+      <div class="filter-panel">
+        <div class="filter-row" style="display:flex; gap:12px; align-items:center;">
+          <input type="text" id="searchInput" placeholder="Search by device name, ID, or MAC..." class="search-input" style="flex:1;">
+          <select id="productFilter" class="filter-select">
+                    <option value="">All Products</option>
+                    <option value="SandCraft">SandCraft</option>
+                    <option value="FishWorld">FishWorld</option>
+                    <option value="DinoExplorer">DinoExplorer</option>
+                </select>
+                <select id="storeFilter" class="filter-select">
+                    <option value="">All Stores</option>
+                    <option value="Store A">Store A</option>
+                    <option value="Store B">Store B</option>
+                    <option value="Store C">Store C</option>
+                </select>
+                <select id="statusFilter" class="filter-select">
+                    <option value="">All Status</option>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                    
+                </select>
+                <button class="btn btn-secondary" onclick="filterTable()">Search</button>
+        </div>
+      </div>
+
+      <!-- Action Bar -->
+      <div class="action-bar">
+        <div></div>
+        <div class="bulk-actions">
+                <label><input type="checkbox" id="selectAll"> Select All</label>
+                <button class="btn-secondary">Delete</button>
+          <button class="btn-secondary">Update Package</button>
+        </div>
+      </div>
+
+      <!-- Device List Table -->
+      <div class="table-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th width="40"></th>
+                        <th>Device ID</th>
+                        <th>Name</th>
+                        <th>Product</th>
+                        <th>Store</th>
+                        <th>Package</th>
+                        <th>Last Seen</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="deviceTableBody">
+                    <tr>
+                        <td><input type="checkbox" class="row-checkbox"></td>
+                        <td>dev-001</td>
+                        <td>sand-pc-01</td>
+                        <td>SandCraft</td>
+                        <td>Store A</td>
+                        <td>pkg-sand-11</td>
+                        <td>2 mins ago</td>
+                        <td><span class="badge active">Active</span></td>
+                        <td>
+                            <button class="action-btn" onclick="viewDevice('dev-001')">View</button>
+                            <button  class="action-btn action-btn-danger"  onclick="openStatusModal('inactive')">Inactive</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" class="row-checkbox"></td>
+                        <td>dev-002</td>
+                        <td>sand-pc-02</td>
+                        <td>SandCraft</td>
+                        <td>Store A</td>
+                        <td>pkg-sand-full</td>
+                        <td>15 mins ago</td>
+                        <td><span class="badge active">Active</span></td>
+                        <td>
+                            <button class="action-btn" onclick="viewDevice('dev-002')">View</button>
+                            <button  class="action-btn action-btn-danger"  onclick="openStatusModal('inactive')">Inactive</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" class="row-checkbox"></td>
+                        <td>dev-003</td>
+                        <td>sand-pc-03</td>
+                        <td>SandCraft</td>
+                        <td>Store B</td>
+                        <td>pkg-sand-11</td>
+                        <td>30 mins ago</td>
+                        <td><span class="badge inactive">Inactive</span></td>
+                        <td>
+                            <button class="action-btn" onclick="viewDevice('dev-003')">View</button>
+                            <button  class="action-btn action-btn-success"  onclick="openStatusModal('active')">Active</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" class="row-checkbox"></td>
+                        <td>dev-010</td>
+                        <td>fish-pc-01</td>
+                        <td>FishWorld</td>
+                        <td>Store B</td>
+                        <td>pkg-fish-premium</td>
+                        <td>3 days ago</td>
+                        <td><span class="badge inactive">Inactive</span></td>
+                        <td>
+                            <button class="action-btn" onclick="viewDevice('dev-010')">View</button>
+                            <button  class="action-btn action-btn-success"  onclick="openStatusModal('active')">Active</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" class="row-checkbox"></td>
+                        <td>dev-011</td>
+                        <td>fish-pc-02</td>
+                        <td>FishWorld</td>
+                        <td>Store C</td>
+                        <td>pkg-fish-basic</td>
+                        <td>1 hour ago</td>
+                        <td><span class="badge active">Active</span></td>
+                        <td>
+                            <button class="action-btn" onclick="viewDevice('dev-011')">View</button>
+                            <button  class="action-btn action-btn-danger"  onclick="openStatusModal('inactive')">Inactive</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" class="row-checkbox"></td>
+                        <td>dev-020</td>
+                        <td>dino-pc-01</td>
+                        <td>DinoExplorer</td>
+                        <td>Store A</td>
+                        <td>pkg-dino-starter</td>
+                        <td>5 mins ago</td>
+                        <td><span class="badge active">Active</span></td>
+                        <td>
+                            <button class="action-btn" onclick="viewDevice('dev-020')">View</button>
+                            <button  class="action-btn action-btn-danger"  onclick="openStatusModal('inactive')">Inactive</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" class="row-checkbox"></td>
+                        <td>dev-021</td>
+                        <td>dino-pc-02</td>
+                        <td>DinoExplorer</td>
+                        <td>Store C</td>
+                        <td>pkg-dino-starter</td>
+                        <td>2 weeks ago</td>
+                        <td><span class="badge inactive">Inactive</span></td>
+                        <td>
+                            <button class="action-btn" onclick="viewDevice('dev-021')">View</button>
+                            <button  class="action-btn action-btn-success"  onclick="openStatusModal('active')">Active</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" class="row-checkbox"></td>
+                        <td>dev-050</td>
+                        <td>sand-pc-10</td>
+                        <td>SandCraft</td>
+                        <td>Store C</td>
+                        <td>pkg-sand-lite</td>
+                        <td>1 min ago</td>
+                        <td><span style="color:#9ca3af">-</span></td>
+                          <td>
+                              <button class="action-btn" onclick="viewDevice('dev-050')">View</button>
+                        </td>
+                    </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination">
+            <button class="btn-secondary">‹ Previous</button>
+            <span>Page 1 of 1</span>
+        <button class="btn-secondary">Next ›</button>
+      </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+        // Sidebar navigation
+        document.querySelectorAll('.sidebar-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const page = this.getAttribute('data-page');
+                if (page) {
+                    window.location.href = page;
+                }
+            });
+        });
+
+        // Select All functionality
+        document.getElementById('selectAll').addEventListener('change', function() {
+            const checkboxes = document.querySelectorAll('.row-checkbox');
+            checkboxes.forEach(cb => cb.checked = this.checked);
+        });
+
+        // View Device function
+        function viewDevice(deviceId) {
+            window.location.href = 'device-detail.html?deviceId=' + deviceId;
+        }
+
+        // Edit Device function
+        function editDevice(deviceId) {
+            window.location.href = 'device-detail.html?id=' + deviceId;
+        }
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function() {
+            filterTable();
+        });
+
+        document.getElementById('productFilter').addEventListener('change', function() {
+            filterTable();
+        });
+
+        document.getElementById('storeFilter').addEventListener('change', function() {
+            filterTable();
+        });
+
+        function filterTable() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const productFilter = document.getElementById('productFilter').value;
+            const storeFilter = document.getElementById('storeFilter').value;
+            
+            const rows = document.querySelectorAll('#deviceTableBody tr');
+            
+            rows.forEach(row => {
+                const deviceId = row.cells[1].textContent.toLowerCase();
+                const name = row.cells[2].textContent.toLowerCase();
+                const product = row.cells[3].textContent;
+                const store = row.cells[4].textContent;
+                
+                const matchesSearch = deviceId.includes(searchTerm) || name.includes(searchTerm);
+                const matchesProduct = !productFilter || product === productFilter;
+                const matchesStore = !storeFilter || store === storeFilter;
+                
+                if (matchesSearch && matchesProduct && matchesStore) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+    </script>
+
+  <!-- Inactive Confirm Modal -->
+  <div id="statusConfirmModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999; justify-content: center; align-items: center;">
+      <div style="background: #fff; width: 400px; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <div style="padding: 16px 24px; border-bottom: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center;">
+          <h3 style="margin: 0; font-size: 1.125rem; font-weight: 600; color: #111827;" id="statusModalTitle">상태 변경</h3>
+          <button type="button" onclick="closeStatusModal()" style="background: none; border: none; font-size: 1.25rem; cursor: pointer; color: #6b7280;">&times;</button>
+        </div>
+        <div style="padding: 24px;">
+          <p style="margin: 0; color: #374151; font-size: 1rem;" id="statusModalMessage">변경 하시겠습니까?</p>
+        </div>
+        <div style="padding: 16px 24px; border-top: 1px solid #e5e7eb; display: flex; justify-content: flex-end; gap: 8px; background: #f9fafb;">
+          <button type="button" class="btn btn-secondary" onclick="closeStatusModal()">취소</button>
+          <button type="button" class="btn btn-primary" id="statusConfirmBtn" onclick="confirmStatus()">확인</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      let currentStatusAction = '';
+      function openStatusModal(action) {
+        currentStatusAction = action;
+        const modal = document.getElementById('statusConfirmModal');
+        const title = document.getElementById('statusModalTitle');
+        const message = document.getElementById('statusModalMessage');
+        const confirmBtn = document.getElementById('statusConfirmBtn');
+        
+        if (action === 'active') {
+          title.innerText = '활성화 확인';
+          message.innerText = '활성화 하시겠습니까?';
+          confirmBtn.innerText = '활성화';
+          confirmBtn.style.background = '#10b981';
+          confirmBtn.style.borderColor = '#10b981';
+        } else {
+          title.innerText = '비활성화 확인';
+          message.innerText = '비활성화 하시겠습니까?';
+          confirmBtn.innerText = '비활성화';
+          confirmBtn.style.background = '#ef4444';
+          confirmBtn.style.borderColor = '#ef4444';
+        }
+        
+        modal.style.display = 'flex';
+      }
+      function closeStatusModal() {
+        document.getElementById('statusConfirmModal').style.display = 'none';
+      }
+      function confirmStatus() {
+        closeStatusModal();
+      }
+      
+      document.addEventListener('DOMContentLoaded', () => {
+        // Also bind any generic Active/Inactive buttons in table lists
+        document.querySelectorAll('.btn-danger, .btn-success, .btn').forEach(btn => {
+          if(btn.innerText.includes('Inactive') && !btn.hasAttribute('onclick')) {
+            btn.addEventListener('click', () => openStatusModal('inactive'));
+          }
+          if(btn.innerText.includes('Active') && !btn.hasAttribute('onclick')) {
+            btn.addEventListener('click', () => openStatusModal('active'));
+          }
+        });
+      });
+    </script>
+
+</body>
+</html>

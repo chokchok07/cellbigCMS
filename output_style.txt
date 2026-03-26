@@ -1,0 +1,277 @@
+<style>
+
+    .v-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .v-modal {
+      background: white;
+      border-radius: 8px;
+      width: 600px;
+      max-width: 90vw;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .v-modal-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid #e0e0e0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .v-modal-header h2 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .v-modal-close {
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: #999;
+      cursor: pointer;
+      padding: 0;
+      width: 32px;
+      height: 32px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .v-modal-close:hover {
+      background: #f5f5f5;
+      color: #333;
+    }
+
+    .v-modal-body {
+      padding: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #333;
+    }
+
+    .version-inputs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .version-inputs input {
+      width: 80px;
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+      text-align: center;
+    }
+
+    .version-inputs span {
+      font-size: 20px;
+      color: #666;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 24px;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .radio-option input[type="radio"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+
+    .radio-option label {
+      margin: 0;
+      cursor: pointer;
+      font-weight: normal;
+    }
+
+    .file-input-group {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .file-input-wrapper {
+      flex: 1;
+      position: relative;
+    }
+
+    .file-display {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background: #f9f9f9;
+      color: #999;
+    }
+
+    .file-display.has-file {
+      color: #333;
+    }
+
+    input[type="file"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .file-button {
+      padding: 8px 16px;
+      border: 1px solid #ddd;
+      background: white;
+      border-radius: 4px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .file-button:hover {
+      background: #f5f5f5;
+    }
+
+    .file-clear {
+      padding: 8px 16px;
+      border: 1px solid #ddd;
+      background: white;
+      border-radius: 4px;
+      cursor: pointer;
+      color: #666;
+    }
+
+    .file-clear:hover {
+      background: #f5f5f5;
+      border-color: #999;
+    }
+
+    .file-size-group {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .file-size-display {
+      flex: 1;
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background: #f9f9f9;
+      color: #666;
+    }
+
+    .verify-button {
+      padding: 8px 16px;
+      border: none;
+      background: #28a745;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+      white-space: nowrap;
+      font-weight: 500;
+    }
+
+    .verify-button:hover {
+      background: #218838;
+    }
+
+    .verify-button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 120px;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 14px;
+      resize: vertical;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: #007bff;
+    }
+
+    .v-modal-footer {
+      padding: 16px 24px;
+      border-top: 1px solid #e0e0e0;
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    .btn {
+      padding: 10px 24px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .btn-cancel {
+      background: #6c757d;
+      color: white;
+    }
+
+    .btn-cancel:hover {
+      background: #5a6268;
+    }
+
+    .btn-primary {
+      background: #007bff;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #0056b3;
+    }
+
+    .btn-primary:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    .checksum-info {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #666;
+      word-break: break-all;
+    }
+
+    .checksum-info strong {
+      color: #333;
+    }
+  
+</style>

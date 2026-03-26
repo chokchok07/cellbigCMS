@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Wireframe Site — CMS Webpage</title>
+  <link rel="stylesheet" href="styles.css">
+  <meta name="description" content="Simple static pages implementing wireframes from CMS-webpage/wireframe">
+</head>
+<body>
+  <header class="site-header">
+    <div style="display:flex;align-items:center;gap:16px">
+      <select class="input" style="width:150px"><option>Product ▼</option></select>
+      <input class="input" placeholder="🔍 Search..." style="flex:1;max-width:300px">
+    </div>
+    <div style="display:flex;gap:16px;align-items:center">
+      <span style="cursor:pointer">🔔 (3)</span>
+      <span style="cursor:pointer">👤 Admin</span>
+    </div>
+  </header>
+  
+  <div class="dashboard-layout">
+    <aside class="sidebar">
+      <div class="sidebar-header" style="cursor:pointer" onclick="location.href='index.html'">CellbigCMS</div>
+      
+      <div class="sidebar-category">Main</div>
+      <div class="sidebar-item" data-page="dashboard.html">📊 Dashboard</div>
+      
+      <div class="sidebar-category">Infrastructure</div>
+      <div class="sidebar-item" data-page="localarea-list.html">🌏 LocalAreas</div>
+      <div class="sidebar-item" data-page="store-list.html">🏪 Stores</div>
+      <div class="sidebar-item" data-page="device-list.html">💻 Devices</div>
+
+      <div class="sidebar-category">Management</div>
+      <div class="sidebar-item" data-page="product-list.html">🏢 Product</div>
+      <div class="sidebar-item" data-page="package-list.html">📦 Package</div>
+      <div class="sidebar-item" data-page="content-list.html">📝 Content</div>
+      
+      <div class="sidebar-category">System</div>
+      <div class="sidebar-item">📈 Reports</div>
+      <div class="sidebar-item">⚙️ Settings</div>
+    </aside>
+
+    <main class="main-content">
+      <div class="container">
+        <section class="card">
+          <h2>Overview</h2>
+          <p>이 정적 사이트는 `CMS-webpage/wireframe` 폴더의 각 화면을 간단한 HTML/CSS로 구현한 예시입니다.</p>
+          <ul>
+            <li><a href="dashboard.html">Dashboard</a> — 대시보드 레이아웃</li>
+            <li><a href="content-list.html">Content List</a> — 콘텐츠 리스트</li>
+            <li><a href="content-edit.html">Content Editor</a> — 콘텐츠 에디터 인터페이스</li>
+            <li><a href="version-register.html">Version Register</a> — 버전 등록 팝업</li>
+            <li><a href="product-list.html">Product List</a> — 제품 리스트</li>
+            <li><a href="product-detail.html">Product Detail</a> — 제품 상세</li>
+            <li><a href="product-editor.html">Product Editor</a> — 제품 등록/편집</li>
+            <li><a href="package-list.html">Package List</a> — 패키지 리스트</li>
+            <li><a href="package-editor.html">Package Editor</a> — 패키지 등록/편집</li>
+            <li><a href="package-detail.html">Package Detail</a> — 패키지 상세</li>
+            <li><a href="device-list.html">Device List</a> — 디바이스 리스트</li>
+            <li><a href="device-detail.html">Device Detail</a> — 디바이스 상세 정보</li>
+          </ul>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Sidebar navigation
+    document.querySelectorAll('.sidebar-item').forEach(item => {
+      item.addEventListener('click', function() {
+        const page = this.getAttribute('data-page');
+        if (page) {
+          window.location.href = page;
+        }
+      });
+    });
+  </script>
+</body>
+</html>

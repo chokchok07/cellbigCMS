@@ -1,0 +1,128 @@
+import io
+
+template = '''<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ENTITY_NAME Create - CellbigCMS</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div style="display:flex;align-items:center;gap:16px">
+      <span style="font-weight:700;font-size:20px;color:#1f2937;cursor:pointer" onclick="location.href='index.html'">CellbigCMS</span>
+    </div>
+    <div style="display:flex;gap:16px;align-items:center">
+      <span style="cursor:pointer">🔔 (3)</span>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <span style="cursor:pointer">👤 Admin(SP)</span>
+        <button type="button" style="padding:4px 12px; font-size:12px; font-weight:500; color:#4b5563; background:#f3f4f6; border:1px solid #d1d5db; border-radius:4px; cursor:pointer;">로그아웃</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="dashboard-layout">
+    <aside class="sidebar">
+      <div class="sidebar-category">Infrastructure (Location)</div>
+      <div class="sidebar-item" data-page="localarea-list.html">🌎 LocalAreas</div>
+      <div class="sidebar-item" data-page="store-list.html">🏪 Stores</div>    
+
+      <div class="sidebar-category">Device & Monitoring</div>
+      <div class="sidebar-item" data-page="device-list.html">🖥️ Devices</div>
+      <div class="sidebar-item" data-page="log-content-access.html">📊 Access Logs</div>
+
+      <div class="sidebar-category">Contents & Product</div>
+      <div class="sidebar-item ACTIVE_PRODUCT" data-page="product-list.html">🛒 Product</div>
+      <div class="sidebar-item" data-page="serial-list.html">🔑 Licenses (Serial)</div>
+      <div class="sidebar-item ACTIVE_PACKAGE" data-page="package-list.html">📦 Package</div>
+      <div class="sidebar-item" data-page="content-list.html">🎬 Content</div>
+
+      <div class="sidebar-category">System</div>
+      <div class="sidebar-item" data-page="settings.html">⚙️ Settings</div>
+
+      <div class="sidebar-category">Help</div>
+      <div class="sidebar-item" data-page="overview.html">📖 Overview</div>
+      <div class="sidebar-item" data-page="version-register.html">🚀 Update</div>
+    </aside>
+
+    <main class="main-content">
+      <div class="container">
+        <!-- Page Header -->
+        <div class="breadcrumb" style="font-size: 13px; color: #6b7280; margin-bottom: 20px; display:flex; gap:8px; align-items:center;">
+          <span style="cursor:pointer; padding: 4px 8px; border-radius: 4px; display: flex; align-items: center;" onclick="location.href='index.html'">🏠 Home</span>
+          <span style="color: #d1d5db;">/</span>
+          <span style="cursor:pointer; padding: 4px 8px; border-radius: 4px;" onclick="location.href='ENTITY_URL.html'">ENTITY_ICON ENTITY_NAME</span>
+          <span style="color: #d1d5db;">/</span>
+          <span style="color: #374151; font-weight: 600; padding: 4px 8px;">➕ Create New ENTITY_NAME</span>
+        </div>
+
+        <div class="page-header" style="align-items: flex-start; justify-content: space-between; margin-bottom: 24px;">
+          <div>
+            <h1 class="page-title" style="margin-bottom: 8px;">➕ Create New ENTITY_NAME</h1>
+          </div>
+          <div class="header-actions" style="display:flex; gap:8px;">
+            <button class="btn btn-secondary" onclick="history.back()" style="color:#4b5563; border-color:#d1d5db;">취소</button>
+            <button class="btn btn-primary" onclick="alert('생성되었습니다.'); location.href='ENTITY_URL.html'">저장</button>
+          </div>
+        </div>
+
+        <!-- Content Area -->
+        <div class="card" style="max-width: 800px; margin: 0 auto;">
+          <h2 style="font-size: 18px; color: #111827; margin-top: 0; margin-bottom: 20px; border-bottom: 1px solid #e5e7eb; padding-bottom: 12px;">📋 기본 정보</h2>
+          
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+ENTITY_FIELDS
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
+'''
+
+product_fields = '''            <div class="form-group">
+              <label class="form-label required">Product ID</label>
+              <input type="text" class="input" style="width:100%; background:#f3f4f6; color:#9ca3af;" value="" placeholder="(서버에서 자동 생성)" disabled>
+            </div>
+            <div class="form-group">
+              <label class="form-label required">Name</label>
+              <input type="text" class="input" style="width:100%;" value="" placeholder="예: SandCraft Basic">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Description</label>
+              <textarea class="input" style="width:100%; height:80px; resize:vertical;" placeholder="내용을 입력하세요"></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Default Package</label>
+              <select class="input" style="width:100%;">
+                <option value="">-- 선택하세요 --</option>
+                <option value="pkg1">pkg-sand-11</option>
+              </select>
+            </div>'''
+
+html_p = template.replace('ENTITY_NAME', 'Product').replace('ENTITY_URL', 'product-list').replace('ENTITY_ICON', '🛒').replace('ACTIVE_PRODUCT', 'active').replace('ACTIVE_PACKAGE', '').replace('ENTITY_FIELDS', product_fields)
+io.open('CMS-webpage/wireframe_site/product-editor.html', 'w', encoding='utf-8').write(html_p)
+
+package_fields = '''            <div class="form-group">
+              <label class="form-label required">Package ID</label>
+              <input type="text" class="input" style="width:100%; background:#f3f4f6; color:#9ca3af;" value="" placeholder="(서버에서 자동 생성)" disabled>
+            </div>
+            <div class="form-group">
+              <label class="form-label required">Name</label>
+              <input type="text" class="input" style="width:100%;" value="" placeholder="예: 패키지 v1.0">
+            </div>
+            <div class="form-group">
+              <label class="form-label required">Version</label>
+              <input type="text" class="input" style="width:100%;" value="" placeholder="예: 1.0.0">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Description</label>
+              <textarea class="input" style="width:100%; height:80px; resize:vertical;" placeholder="내용을 입력하세요"></textarea>
+            </div>'''
+
+html_pkg = template.replace('ENTITY_NAME', 'Package').replace('ENTITY_URL', 'package-list').replace('ENTITY_ICON', '📦').replace('ACTIVE_PACKAGE', 'active').replace('ACTIVE_PRODUCT', '').replace('ENTITY_FIELDS', package_fields)
+io.open('CMS-webpage/wireframe_site/package-editor.html', 'w', encoding='utf-8').write(html_pkg)
+
+print('Created fresh product/package editors!')

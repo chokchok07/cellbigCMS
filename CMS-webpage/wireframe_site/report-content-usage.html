@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Content Usage Report — CMS Webpage</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .metric-card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      border: 1px solid #e5e7eb;
+    }
+    .metric-title {
+      font-size: 13px;
+      color: #6b7280;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+    .metric-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: #111827;
+    }
+    .metric-trend {
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 8px;
+    }
+    .trend-up { color: #059669; }
+    .trend-down { color: #dc2626; }
+    
+    .chart-container {
+      background: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 20px;
+      border: 1px solid #e5e7eb;
+      min-height: 300px;
+    }
+    
+    /* Simple CSS Bar Chart for demo */
+    .bar-chart {
+      display: flex;
+      align-items: flex-end;
+      height: 200px;
+      gap: 20px;
+      padding-top: 20px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .bar-group {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .bar {
+      width: 40px;
+      background: #3b82f6;
+      border-radius: 4px 4px 0 0;
+      transition: height 0.5s ease;
+      position: relative;
+    }
+    .bar:hover {
+      background: #2563eb;
+    }
+    .bar-label {
+      font-size: 12px;
+      color: #6b7280;
+      text-align: center;
+      max-width: 80px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .bar-value {
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 11px;
+      font-weight: 600;
+      color: #374151;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div style="display:flex;align-items:center;gap:16px">
+      <span style="font-weight:700;font-size:20px;color:#1f2937;cursor:pointer" onclick="location.href='index.html'">CellbigCMS</span>
+    </div>
+    <div style="display:flex;gap:16px;align-items:center">
+      <span style="cursor:pointer">🔔 (3)</span>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <span style="cursor:pointer">👤 Admin(SP)</span>
+        <button type="button" style="padding:4px 12px; font-size:12px; font-weight:500; color:#4b5563; background:#f3f4f6; border:1px solid #d1d5db; border-radius:4px; cursor:pointer;" onclick="if(confirm('로그아웃 하시겠습니까?')) { location.href='login.html'; }">로그아웃</button>
+      </div>
+    </div>
+  </header>
+  
+  <div class="dashboard-layout">
+        <aside class="sidebar">
+      <div class="sidebar-category">Infrastructure (Location)</div>
+      <div class="sidebar-item" data-page="localarea-list.html">🏢 LocalAreas</div>
+      <div class="sidebar-item" data-page="store-list.html">🏪 Stores</div>
+      
+      <div class="sidebar-category">Device & Monitoring</div>
+      <div class="sidebar-item" data-page="device-list.html">🖥️ Devices</div>
+      <div class="sidebar-item" data-page="log-content-access.html">📊 Access Logs</div>
+
+      <div class="sidebar-category">Contents & Product</div>
+      <div class="sidebar-item" data-page="product-list.html">📦 Product</div>
+      <div class="sidebar-item" data-page="serial-list.html">🔑 Licenses (Serial)</div>
+      <div class="sidebar-item" data-page="package-list.html">🎒 Package</div>
+      <div class="sidebar-item active" data-page="content-list.html">🎬 Content</div>
+      
+      <div class="sidebar-category">System</div>
+      <div class="sidebar-item" data-page="settings.html">⚙️ Settings</div>
+
+      <div class="sidebar-category">Help</div>
+      <div class="sidebar-item" data-page="overview.html">📘 Overview</div>
+      <div class="sidebar-item" data-page="version-register.html">📢 Update</div>
+    </aside>
+
+    <main class="main-content">
+      <div class="container">
+        <!-- Page Header & Filter -->
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px">
+          <div>
+            <h1 style="margin:0;font-size:24px;color:#111827">📈 Content Usage Report</h1>
+            <p style="margin:4px 0 0;color:#6b7280;font-size:14px">Analyze content performance and engagement metrics.</p>
+          </div>
+          <div style="display:flex;gap:12px">
+            <select class="input" style="width:140px">
+              <option>Last 30 Days</option>
+              <option>Last 7 Days</option>
+              <option>This Month</option>
+              <option>Custom Range</option>
+            </select>
+            <button class="btn">Export CSV</button>
+          </div>
+        </div>
+
+        <!-- Metrics Grid -->
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-bottom:24px">
+          <div class="metric-card">
+            <div class="metric-title">Total Plays</div>
+            <div class="metric-value">124,592</div>
+            <div class="metric-trend trend-up">
+              <span>↑ 12.5%</span> vs last period
+            </div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-title">Active Contents</div>
+            <div class="metric-value">48</div>
+            <div class="metric-trend trend-up">
+              <span>↑ 3</span> new items
+            </div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-title">Avg. Play Duration</div>
+            <div class="metric-value">4m 12s</div>
+            <div class="metric-trend trend-down">
+              <span>↓ 0.8%</span> vs last period
+            </div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-title">Unique Devices</div>
+            <div class="metric-value">1,240</div>
+            <div class="metric-trend trend-up">
+              <span>↑ 5.2%</span> high engagement
+            </div>
+          </div>
+        </div>
+
+        <!-- Top Content Chart -->
+        <div class="chart-container">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+            <h3 style="margin:0;font-size:16px;color:#111827">Top Performing Content (Views)</h3>
+            <select class="input" style="width:120px;padding:4px"><option>By Views</option><option>By Duration</option></select>
+          </div>
+          
+          <div class="bar-chart">
+            <!-- Bar 1 -->
+            <div class="bar-group">
+              <div class="bar" style="height:85%">
+                <span class="bar-value">45k</span>
+              </div>
+              <div class="bar-label">SandCraft</div>
+            </div>
+            <!-- Bar 2 -->
+            <div class="bar-group">
+              <div class="bar" style="height:65%;background:#60a5fa">
+                <span class="bar-value">32k</span>
+              </div>
+              <div class="bar-label">Ocean View</div>
+            </div>
+            <!-- Bar 3 -->
+            <div class="bar-group">
+              <div class="bar" style="height:55%;background:#60a5fa">
+                <span class="bar-value">28k</span>
+              </div>
+              <div class="bar-label">Game Hub</div>
+            </div>
+            <!-- Bar 4 -->
+            <div class="bar-group">
+              <div class="bar" style="height:35%;background:#93c5fd">
+                <span class="bar-value">15k</span>
+              </div>
+              <div class="bar-label">Kids Edu</div>
+            </div>
+            <!-- Bar 5 -->
+            <div class="bar-group">
+              <div class="bar" style="height:25%;background:#93c5fd">
+                <span class="bar-value">12k</span>
+              </div>
+              <div class="bar-label">VR Tour</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Detailed Stats Table -->
+        <div style="margin-top:24px;background:#fff;border-radius:8px;border:1px solid #e5e7eb;overflow:hidden">
+          <div style="padding:16px;border-bottom:1px solid #e5e7eb;display:flex;justify-content:space-between;align-items:center">
+            <h3 style="margin:0;font-size:16px">Content Performance Detail</h3>
+            <input class="input" placeholder="Search content..." style="width:200px;padding:6px">
+          </div>
+          <table style="width:100%;border-collapse:collapse">
+            <thead>
+              <tr style="background:#f9fafb;border-bottom:1px solid #e5e7eb">
+                <th style="text-align:left;padding:12px 16px;font-size:12px;font-weight:600;color:#6b7280;text-transform:uppercase">Content Name</th>
+                <th style="text-align:left;padding:12px 16px;font-size:12px;font-weight:600;color:#6b7280;text-transform:uppercase">Category</th>
+                <th style="text-align:right;padding:12px 16px;font-size:12px;font-weight:600;color:#6b7280;text-transform:uppercase">Total Plays</th>
+                <th style="text-align:right;padding:12px 16px;font-size:12px;font-weight:600;color:#6b7280;text-transform:uppercase">Avg Duration</th>
+                <th style="text-align:right;padding:12px 16px;font-size:12px;font-weight:600;color:#6b7280;text-transform:uppercase">Unique Devices</th>
+                <th style="text-align:center;padding:12px 16px;font-size:12px;font-weight:600;color:#6b7280;text-transform:uppercase">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding:12px 16px;border-bottom:1px solid #f3f4f6">
+                  <div style="font-weight:600;color:#111827">SandCraft - Beach</div>
+                  <div style="font-size:12px;color:#6b7280">v2.1.0</div>
+                </td>
+                <td style="padding:12px 16px;border-bottom:1px solid #f3f4f6;color:#374151">Interactive / Game</td>
+                <td style="padding:12px 16px;border-bottom:1px solid #f3f4f6;text-align:right;font-weight:600">45,231</td>
+                <td style="padding:12px 16px;border-bottom:1px solid #f3f4f6;text-align:right">5m 30s</td>
+                <td style="padding:12px 16px;border-bottom:1px solid #f3f4f6;text-align:right">842</td>
+                <td style="padding:12px 16px;border-bottom:1px solid #f3f4f6;text-align:center"><span class="badge badge-published">Active</span></td>
+              </tr>
+              <tr>
+                <td style="padding:12px 16px;border-bottom:1px solid #f3f4f6">
+                  <div style="font-weight:600;color:#111827">Ocean Viewer</div>
+                  <div style="font-size:12px;color:#6b7280">v1.5.2</div>
+                </td>
+                <td style="padding:12px 16px;border-bottom:1px solid #f3f4f6;color:#374151">Video / Ambient</td>
+                <td style="padding:12px 16px;border-bottom:1px solid #f3f4f6;text-align:right;font-weight:600">32,105</td>
+                <td style="padding:12px 16px;border-bottom:1px solid #f3f4f6;text-align:right">12m 15s</td>
+                <td style="padding:12px 16px;border-bottom:1px solid #f3f4f6;text-align:right">650</td>
+                <td style="padding:12px 16px;border-bottom:1px solid #f3f4f6;text-align:center"><span class="badge badge-published">Active</span></td>
+              </tr>
+              <tr>
+                <td style="padding:12px 16px;border-bottom:1px solid #f3f4f6">
+                  <div style="font-weight:600;color:#111827">Game Hub Pro</div>
+                  <div style="font-size:12px;color:#6b7280">v3.0.1</div>
+                </td>
+                <td style="padding:12px 16px;border-bottom:1px solid #f3f4f6;color:#374151">Platform</td>
+                <td style="padding:12px 16px;border-bottom:1px solid #f3f4f6;text-align:right;font-weight:600">28,400</td>
+                <td style="padding:12px 16px;border-bottom:1px solid #f3f4f6;text-align:right">2m 45s</td>
+                <td style="padding:12px 16px;border-bottom:1px solid #f3f4f6;text-align:right">1,020</td>
+                <td style="padding:12px 16px;border-bottom:1px solid #f3f4f6;text-align:center"><span class="badge badge-warning">Warning</span></td>
+              </tr>
+              <tr>
+                <td style="padding:12px 16px;border-bottom:1px solid #f3f4f6">
+                  <div style="font-weight:600;color:#111827">Kids Education Pack</div>
+                  <div style="font-size:12px;color:#6b7280">v1.0.0</div>
+                </td>
+                <td style="padding:12px 16px;border-bottom:1px solid #f3f4f6;color:#374151">Education</td>
+                <td style="padding:12px 16px;border-bottom:1px solid #f3f4f6;text-align:right;font-weight:600">15,120</td>
+                <td style="padding:12px 16px;border-bottom:1px solid #f3f4f6;text-align:right">8m 00s</td>
+                <td style="padding:12px 16px;border-bottom:1px solid #f3f4f6;text-align:right">320</td>
+                <td style="padding:12px 16px;border-bottom:1px solid #f3f4f6;text-align:center"><span class="badge badge-published">Active</span></td>
+              </tr>
+              <tr>
+                <td style="padding:12px 16px;border-bottom:1px solid #f3f4f6">
+                  <div style="font-weight:600;color:#111827">Seasonal Event 2024</div>
+                  <div style="font-size:12px;color:#6b7280">v0.9.5</div>
+                </td>
+                <td style="padding:12px 16px;border-bottom:1px solid #f3f4f6;color:#374151">Event</td>
+                <td style="padding:12px 16px;border-bottom:1px solid #f3f4f6;text-align:right;font-weight:600">5,430</td>
+                <td style="padding:12px 16px;border-bottom:1px solid #f3f4f6;text-align:right">1m 20s</td>
+                <td style="padding:12px 16px;border-bottom:1px solid #f3f4f6;text-align:right">150</td>
+                <td style="padding:12px 16px;border-bottom:1px solid #f3f4f6;text-align:center"><span class="badge badge-draft">Ended</span></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="pagination">
+            <span class="page-info">Showing 1 to 5 of 48 results</span>
+            <div class="page-numbers">
+              <button class="page-btn active">1</button>
+              <button class="page-btn">2</button>
+              <button class="page-btn">3</button>
+              <button class="page-btn">Next</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Sidebar navigation
+    document.querySelectorAll('.sidebar-item').forEach(item => {
+      item.addEventListener('click', function() {
+        const page = this.getAttribute('data-page');
+        if (page) {
+          window.location.href = page;
+        }
+      });
+    });
+  </script>
+
+  <!-- Inactive Confirm Modal -->
+  <div id="statusConfirmModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999; justify-content: center; align-items: center;">
+      <div style="background: #fff; width: 400px; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <div style="padding: 16px 24px; border-bottom: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center;">
+          <h3 style="margin: 0; font-size: 1.125rem; font-weight: 600; color: #111827;" id="statusModalTitle">상태 변경</h3>
+          <button type="button" onclick="closeStatusModal()" style="background: none; border: none; font-size: 1.25rem; cursor: pointer; color: #6b7280;">&times;</button>
+        </div>
+        <div style="padding: 24px;">
+          <p style="margin: 0; color: #374151; font-size: 1rem;" id="statusModalMessage">변경 하시겠습니까?</p>
+        </div>
+        <div style="padding: 16px 24px; border-top: 1px solid #e5e7eb; display: flex; justify-content: flex-end; gap: 8px; background: #f9fafb;">
+          <button type="button" class="btn btn-secondary" onclick="closeStatusModal()">취소</button>
+          <button type="button" class="btn btn-primary" id="statusConfirmBtn" onclick="confirmStatus()">확인</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      let currentStatusAction = '';
+      function openStatusModal(action) {
+        currentStatusAction = action;
+        const modal = document.getElementById('statusConfirmModal');
+        const title = document.getElementById('statusModalTitle');
+        const message = document.getElementById('statusModalMessage');
+        const confirmBtn = document.getElementById('statusConfirmBtn');
+        
+        if (action === 'active') {
+          title.innerText = '활성화 확인';
+          message.innerText = '활성화 하시겠습니까?';
+          confirmBtn.innerText = '활성화';
+          confirmBtn.style.background = '#10b981';
+          confirmBtn.style.borderColor = '#10b981';
+        } else {
+          title.innerText = '비활성화 확인';
+          message.innerText = '비활성화 하시겠습니까?';
+          confirmBtn.innerText = '비활성화';
+          confirmBtn.style.background = '#ef4444';
+          confirmBtn.style.borderColor = '#ef4444';
+        }
+        
+        modal.style.display = 'flex';
+      }
+      function closeStatusModal() {
+        document.getElementById('statusConfirmModal').style.display = 'none';
+      }
+      function confirmStatus() {
+        closeStatusModal();
+      }
+      
+      document.addEventListener('DOMContentLoaded', () => {
+        // Also bind any generic Active/Inactive buttons in table lists
+        document.querySelectorAll('.btn-danger, .btn-success, .btn').forEach(btn => {
+          if(btn.innerText.includes('Inactive') && !btn.hasAttribute('onclick')) {
+            btn.addEventListener('click', () => openStatusModal('inactive'));
+          }
+          if(btn.innerText.includes('Active') && !btn.hasAttribute('onclick')) {
+            btn.addEventListener('click', () => openStatusModal('active'));
+          }
+        });
+      });
+    </script>
+
+</body>
+</html>

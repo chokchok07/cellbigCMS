@@ -1,0 +1,125 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Fix Modal",
+			"type": "shell",
+			"command": "python fix_modal_display_v2.py"
+		},
+		{
+			"label": "Dump Modal",
+			"type": "shell",
+			"command": "python dump_modal.py"
+		},
+		{
+			"label": "Dump Style",
+			"type": "shell",
+			"command": "python dump_style.py"
+		},
+		{
+			"label": "Force Display",
+			"type": "shell",
+			"command": "python force_display.py"
+		},
+		{
+			"label": "Dump Classes",
+			"type": "shell",
+			"command": "python dump_classes.py"
+		},
+		{
+			"label": "Dump End",
+			"type": "shell",
+			"command": "python dump_end.py"
+		},
+		{
+			"label": "Count IDs",
+			"type": "shell",
+			"command": "python count_id.py"
+		},
+		{
+			"label": "Dump CSS",
+			"type": "shell",
+			"command": "python dump_css.py"
+		},
+		{
+			"label": "Final Check",
+			"type": "shell",
+			"command": "python -c \"import io, re; text = open('CMS-webpage/wireframe_site/content-versions.html', 'r', encoding='utf-8').read(); m = re.search(r'<div class=.(?:v-)?modal-overlay.*?</form>', text, re.DOTALL); open('final_check.txt', 'w', encoding='utf-8').write(m.group(0)) if m else None\""
+		},
+		{
+			"label": "Revert to Native Page",
+			"type": "shell",
+			"command": "python revert_to_page.py"
+		},
+		{
+			"label": "Verify Breadcrumbs",
+			"type": "shell",
+			"command": "python -c \"import os; print([x for x in os.listdir('CMS-webpage/wireframe_site') if x.endswith('.html') and 'breadcrumb' in open(f'CMS-webpage/wireframe_site/{x}', encoding='utf-8').read()])\""
+		},
+		{
+			"label": "Run Breadcrumbs V2",
+			"type": "shell",
+			"command": "python add_breadcrumbs_v2.py"
+		},
+		{
+			"label": "Run Simplify Breadcrumbs",
+			"type": "shell",
+			"command": "python simplify_breadcrumbs.py",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Run History Search",
+			"type": "shell",
+			"command": "node search_history.js > js_result.txt",
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Run History Search 2",
+			"type": "shell",
+			"command": "node search_history2.js > js_result2.txt",
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Run History Search 3",
+			"type": "shell",
+			"command": "node search_history3.js > js_result3.txt",
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Run History Search 4",
+			"type": "shell",
+			"command": "node search_history4.js > js_result4.txt",
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Run History Search 5",
+			"type": "shell",
+			"command": "node search_history5.js",
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Run standalone search",
+			"type": "shell",
+			"command": "node search_history_standalone.js"
+		},
+		{
+			"label": "Run find dashboard",
+			"type": "shell",
+			"command": "node find_dashboard.js > output_find.txt",
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		}
+	]
+}

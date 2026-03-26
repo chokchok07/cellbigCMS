@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Content List 📄 Wireframe</title>
+  <link rel="stylesheet" href="styles.css">
+  
+</head>
+<body>
+    <header class="site-header">
+    <div style="display:flex;align-items:center;gap:16px">
+      <span style="font-weight:700;font-size:20px;color:#1f2937;cursor:pointer" onclick="location.href='index.html'">CellbigCMS</span>
+    </div>
+    <div style="display:flex;gap:16px;align-items:center">
+      <span style="cursor:pointer">🔔 (3)</span>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <span style="cursor:pointer">👤 Admin(SP)</span>
+        <button type="button" style="padding:4px 12px; font-size:12px; font-weight:500; color:#4b5563; background:#f3f4f6; border:1px solid #d1d5db; border-radius:4px; cursor:pointer;" onclick="if(confirm('로그아웃 하시겠습니까?')) { location.href='login.html'; }">로그아웃</button>
+      </div>
+    </div>
+  </header>
+  
+  <div class="dashboard-layout">
+        <aside class="sidebar">
+      <div class="sidebar-category">Infrastructure (Location)</div>
+      <div class="sidebar-item" data-page="localarea-list.html">🏢 LocalAreas</div>
+      <div class="sidebar-item" data-page="store-list.html">🏪 Stores</div>
+      
+      <div class="sidebar-category">Device & Monitoring</div>
+      <div class="sidebar-item" data-page="device-list.html">🖥️ Devices</div>
+      <div class="sidebar-item" data-page="log-content-access.html">📊 Access Logs</div>
+
+      <div class="sidebar-category">Contents & Product</div>
+      <div class="sidebar-item" data-page="product-list.html">📦 Product</div>
+      <div class="sidebar-item" data-page="serial-list.html">🔑 Licenses (Serial)</div>
+      <div class="sidebar-item" data-page="package-list.html">🎒 Package</div>
+      <div class="sidebar-item active" data-page="content-list.html">🎬 Content</div>
+      
+      <div class="sidebar-category">System</div>
+      <div class="sidebar-item" data-page="settings.html">⚙️ Settings</div>
+
+      <div class="sidebar-category">Help</div>
+      <div class="sidebar-item" data-page="overview.html">📘 Overview</div>
+      <div class="sidebar-item" data-page="version-register.html">📢 Update</div>
+    </aside>
+
+    <main class="main-content">
+      <div class="container">
+        <div class="breadcrumb" style="font-size: 13px; color: #6b7280; margin-bottom: 20px; display:flex; gap:8px; align-items:center;">
+          <span style="cursor:pointer; padding: 4px 8px; border-radius: 4px; transition: background 0.2s; display: flex; align-items: center;" onmouseover="this.style.background='#e5e7eb'" onmouseout="this.style.background='transparent'" onclick="location.href='index.html'">🏠 Home</span> 
+          <span style="color: #d1d5db;">/</span>
+          <span style="color: #374151; font-weight: 600; padding: 4px 8px;">🎬 Content</span>
+        </div>
+
+        <!-- Page Header -->
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">📄 Content Library</h1>
+            <p class="page-desc">Manage 📄 Content Library and view details.</p>
+          </div>
+          <div class="header-actions">
+            <button type="button" class="btn btn-primary" onclick="openNewContentModal()">+ New Content</button>
+          </div>
+        </div>
+
+        <!-- Filter Panel -->
+        <div class="filter-panel">
+          <div class="filter-group" style="flex:2">
+            <label>Search</label>
+            <input class="input" placeholder="🔍 Search content..." style="width:100%">
+          </div>
+          <div class="filter-group">
+            <label>Type</label>
+            <select class="input" style="width:120px">
+              <option>All</option>
+              <option>single</option>
+              <option>container</option>
+              <option>child</option>
+              <option>mixed</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>Status</label>
+            <select class="input" style="width:120px">
+              <option>All</option>
+              <option>Published</option>
+              <option>Staged</option>
+              <option>Draft</option>
+              <option>Deprecated</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>Product</label>
+            <select class="input" style="width:140px">
+              <option>All</option>
+              <option>Product A</option>
+              <option>Product B</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>Category</label>
+            <select class="input" style="width:120px">
+              <option>All</option>
+              <option>게임</option>
+              <option>교육</option>
+              <option>엔터테인먼트</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label style="opacity:0">.</label>
+            <button class="btn btn-secondary">Apply Filters</button>
+          </div>
+        </div>
+
+        <!-- Bulk Actions -->
+        <div class="bulk-actions">
+          <input type="checkbox" id="selectAll">
+          <label for="selectAll" style="cursor:pointer;font-weight:500">Select All</label>
+          <span style="color:#666;margin-left:auto">Bulk Actions:</span>
+          <select class="input" style="width:140px">
+            <option>Select action...</option>
+            <option>Publish</option>
+            <option>Archive</option>
+            <option>Delete</option>
+          </select>
+          <button class="btn btn-secondary" style="padding:6px 16px">Apply</button>
+        </div>
+
+        <!-- Content Table -->
+        <div style="background:#fff;border-radius:8px;overflow:hidden">
+          <table class="content-table">
+            <thead>
+              <tr>
+                <th style="width:40px"><input type="checkbox"></th>
+                <th>Title</th>
+                <th style="width:100px">Type</th>
+                <th style="width:140px">Status</th>
+                <th style="width:100px">Version</th>
+                <th style="width:180px">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Content Row 1 -->
+              <tr>
+                <td><input type="checkbox"></td>
+                <td>
+                  <div class="content-cell">
+                    <div class="thumbnail">🖼️</div>
+                    <div class="content-info">
+                      <div class="content-title">SandCraft - Beach</div>
+                      <div class="content-category">Category: 게임</div>
+                    </div>
+                  </div>
+                </td>
+                <td>single</td>
+                <td>
+                  <span class="status-badge status-published">
+                    <span>✅ Published
+                  </span>
+                </td>
+                <td>v2.1</td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="action-btn" onclick="openContentViewModal(this)">View</button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Content Row 2 -->
+              <tr>
+                <td><input type="checkbox"></td>
+                <td>
+                  <div class="content-cell">
+                    <div class="thumbnail">🖼️</div>
+                    <div class="content-info">
+                      <div class="content-title">Ocean Viewer</div>
+                      <div class="content-category">Category: 교육</div>
+                    </div>
+                  </div>
+                </td>
+                <td>single</td>
+                <td>
+                  <span class="status-badge status-staged">
+                    <span>⏳ Staged
+                  </span>
+                </td>
+                <td>v1.3</td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="action-btn" onclick="openContentViewModal(this)">View</button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Content Row 3 -->
+              <tr>
+                <td><input type="checkbox"></td>
+                <td>
+                  <div class="content-cell">
+                    <div class="thumbnail">🖼️</div>
+                    <div class="content-info">
+                      <div class="content-title">Game Hub</div>
+                      <div class="content-category">Category: 컨테이너</div>
+                    </div>
+                  </div>
+                </td>
+                <td>container</td>
+                <td>
+                  <span class="status-badge status-draft">
+                    <span>📝 Draft
+                  </span>
+                </td>
+                <td>v1.0</td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="action-btn" onclick="openContentViewModal(this)">View</button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Content Row 4 -->
+              <tr>
+                <td><input type="checkbox"></td>
+                <td>
+                  <div class="content-cell">
+                    <div class="thumbnail">🖼️</div>
+                    <div class="content-info">
+                      <div class="content-title">Mini Game 1</div>
+                      <div class="content-category">Category: 게임</div>
+                    </div>
+                  </div>
+                </td>
+                <td>child</td>
+                <td>
+                  <span class="status-badge status-deprecated">
+                    <span>🚫 Deprecated
+                  </span>
+                </td>
+                <td>v2.0</td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="action-btn" onclick="openContentViewModal(this)">View</button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Content Row 5 -->
+              <tr>
+                <td><input type="checkbox"></td>
+                <td>
+                  <div class="content-cell">
+                    <div class="thumbnail">🖼️</div>
+                    <div class="content-info">
+                      <div class="content-title">Virtual Tour</div>
+                      <div class="content-category">Category: 엔터테인먼트</div>
+                    </div>
+                  </div>
+                </td>
+                <td>single</td>
+                <td>
+                  <span class="status-badge status-published">
+                    <span>✅ Published
+                  </span>
+                </td>
+                <td>v3.5</td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="action-btn" onclick="openContentViewModal(this)">View</button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Content Row 6 -->
+              <tr>
+                <td><input type="checkbox"></td>
+                <td>
+                  <div class="content-cell">
+                    <div class="thumbnail">🖼️</div>
+                    <div class="content-info">
+                      <div class="content-title">Educational Suite</div>
+                      <div class="content-category">Category: 교육</div>
+                    </div>
+                  </div>
+                </td>
+                <td>mixed</td>
+                <td>
+                  <span class="status-badge status-staged">
+                    <span>⏳ Staged
+                  </span>
+                </td>
+                <td>v1.2</td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="action-btn" onclick="openContentViewModal(this)">View</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+          <div class="page-info">Showing 1-6 of 47</div>
+          <div class="page-numbers">
+            <button class="page-btn">◀ Previous</button>
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn" style="border:none;background:transparent">...</button>
+            <button class="page-btn">12</button>
+            <button class="page-btn">Next ▶</button>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Select All functionality
+    document.getElementById('selectAll').addEventListener('change', function() {
+      const checkboxes = document.querySelectorAll('.content-table tbody input[type="checkbox"]');
+      checkboxes.forEach(cb => cb.checked = this.checked);
+    });
+
+    // Sidebar navigation
+    document.querySelectorAll('.sidebar-item').forEach(item => {
+      item.addEventListener('click', function() {
+        const page = this.getAttribute('data-page');
+        if (page) {
+          window.location.href = page;
+        }
+      });
+    });
+
+    // Action buttons (mock)
+    document.querySelectorAll('.action-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const action = this.textContent;
+        const row = this.closest('tr');
+        const title = row.querySelector('.content-title').textContent;
+        
+        if (action === 'Edit') {
+          // Navigate to content-editor in edit mode
+          window.location.href = 'content-detail.html?id=101';
+        } else if (action === 'Ver') {
+          // Navigate to version history
+          window.location.href = 'content-versions.html?contentId=101';
+        } else {
+          if (action === 'View') return;
+          alert(`${action} action for: ${title}`);
+        }
+      });
+    });
+
+    // Apply Filters button
+    document.querySelector('.filter-panel .btn-secondary').addEventListener('click', function() {
+      alert('Applying filters...\n(This would reload the table with filtered results)');
+    });
+
+    // Bulk Actions Apply button
+    document.querySelector('.bulk-actions .btn-secondary').addEventListener('click', function() {
+      const selectedAction = document.querySelector('.bulk-actions select').value;
+      const checkedBoxes = document.querySelectorAll('.content-table tbody input[type="checkbox"]:checked');
+      if (checkedBoxes.length === 0) {
+        alert('Please select at least one content item.');
+        return;
+      }
+      if (selectedAction === 'Select action...') {
+        alert('Please select an action from the dropdown.');
+        return;
+      }
+      alert(`Applying "${selectedAction}" to ${checkedBoxes.length} selected item(s)...`);
+    });
+
+    // Pagination buttons
+    document.querySelectorAll('.page-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        if (this.textContent.includes('Previous') || this.textContent.includes('Next') || this.textContent === '...') {
+          return;
+        }
+        document.querySelectorAll('.page-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        alert(`Loading page ${this.textContent}...`);
+      });
+    });
+
+    // Modal logic for "+ New Content"
+    function openNewContentModal() {
+      document.getElementById('newContentModal').style.display = 'flex';
+    }
+
+    function closeNewContentModal() {
+      document.getElementById('newContentModal').style.display = 'none';
+    }
+
+    function generateContentId() {
+      const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+      let randomStr = '';
+      for (let i = 0; i < 6; i++) {
+        randomStr += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      document.getElementById('modalContentId').value = `content-${randomStr}`;
+    }
+
+    function saveNewContent() {
+      const id = document.getElementById('modalContentId').value;
+      const title = document.getElementById('modalContentTitle').value;
+      
+      if(!id || !title) {
+        alert('필수 입력 항목을 입력해주세요.');
+        return;
+      }
+      
+      alert('콘텐츠가 성공적으로 생성되었습니다!');
+      closeNewContentModal();
+      // In a real app, this would refresh the list
+    }
+  </script>
+
+  <!-- New Content Modal Overlay -->
+  <div id="newContentModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center; padding:20px;">
+    <div style="background:#fff; width:700px; max-width:100%; max-height:90vh; border-radius:8px; display:flex; flex-direction:column; overflow:hidden; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);">
+      
+      <!-- Modal Header -->
+      <div style="padding:16px 20px; border-bottom:1px solid #e5e7eb; display:flex; justify-content:space-between; align-items:center; background:#f9fafb;">
+        <h3 style="margin:0; font-size:18px; color:#111827;">새 콘텐츠 추가 (New Content)</h3>
+        <button type="button" style="background:transparent; border:none; font-size:24px; cursor:pointer; color:#6b7280;" onclick="closeNewContentModal()">&times;</button>
+      </div>
+      
+      <!-- Modal Body -->
+      <div style="padding:20px; overflow-y:auto; display:flex; flex-direction:column; gap:20px;">
+        
+        <!-- Basic Info Section -->
+        <div>
+          <h4 style="margin:0 0 12px 0; font-size:15px; color:#374151; border-bottom:1px solid #e5e7eb; padding-bottom:8px;">기본 정보</h4>
+          
+          <div class="form-group" style="margin-bottom:16px;">
+            <label class="form-label required" style="display:block; margin-bottom:6px; font-size:13px; font-weight:500;">Content ID (콘텐츠 ID)</label>
+            <div style="display:flex; gap:8px;">
+              <input type="text" class="input" style="flex:1; padding:8px 12px; border:1px solid #d1d5db; border-radius:6px;" id="modalContentId" placeholder="예: sandcraft-beach" maxlength="50">
+              <button type="button" class="btn btn-outline" onclick="generateContentId()">자동 생성</button>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom:16px;">
+            <label class="form-label required" style="display:block; margin-bottom:6px; font-size:13px; font-weight:500;">Title (콘텐츠 명)</label>
+            <input type="text" class="input" style="width:100%; padding:8px 12px; border:1px solid #d1d5db; border-radius:6px;" id="modalContentTitle" placeholder="예: 샌드크래프트 - 해변">
+          </div>
+
+          <div class="form-group" style="margin-bottom:16px;">
+            <label class="form-label" style="display:block; margin-bottom:6px; font-size:13px; font-weight:500;">Description (설명)</label>
+            <textarea class="input" style="width:100%; height:60px; padding:8px 12px; border:1px solid #d1d5db; border-radius:6px; resize:vertical;" placeholder="콘텐츠에 대한 간략한 설명"></textarea>
+          </div>
+        </div>
+
+        <!-- Technical Detail Section -->
+        <div>
+          <h4 style="margin:0 0 12px 0; font-size:15px; color:#374151; border-bottom:1px solid #e5e7eb; padding-bottom:8px;">기술 설정</h4>
+          
+          <div style="display:flex; gap:16px; margin-bottom:16px;">
+            <div class="form-group" style="flex:1;">
+              <label class="form-label required" style="display:block; margin-bottom:6px; font-size:13px; font-weight:500;">Category (카테고리)</label>
+              <select class="input" style="width:100%; padding:8px 12px; border:1px solid #d1d5db; border-radius:6px;">
+                <option value="">선택하세요...</option>
+                <option value="cat-sandcraft">샌드크래프트</option>
+                <option value="cat-fishworld">피쉬월드</option>
+                <option value="cat-brain">두뇌/학습</option>
+              </select>
+            </div>
+            
+            <div class="form-group" style="flex:1;">
+              <label class="form-label required" style="display:block; margin-bottom:6px; font-size:13px; font-weight:500;">Content Type (유형)</label>
+              <select class="input" style="width:100%; padding:8px 12px; border:1px solid #d1d5db; border-radius:6px;">
+                <option value="single">Single (독립 실행형)</option>
+                <option value="container">Container (실행 런타임)</option>
+                <option value="child">Child (런타임에 종속된 에셋)</option>
+                <option value="mixed">Mixed (런타임 + 자체 콘텐츠)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" style="display:block; margin-bottom:6px; font-size:13px; font-weight:500;">Entry Point (실행 파일 경로)</label>
+            <input type="text" class="input" style="width:100%; padding:8px 12px; border:1px solid #d1d5db; border-radius:6px;" placeholder="/app/sand/beach.exe">
+          </div>
+        </div>
+
+        <!-- Initial Upload Section -->
+        <div>
+          <h4 style="margin:0 0 12px 0; font-size:15px; color:#374151; border-bottom:1px solid #e5e7eb; padding-bottom:8px;">초기 버전 업로드 (v1.0.0)</h4>
+          <div style="border:2px dashed #d1d5db; border-radius:6px; padding:32px; text-align:center; background:#f9fafb; cursor:pointer;" onclick="document.getElementById('modalFileUpload').click()">
+            <div style="font-size:32px; margin-bottom:12px;">☁️</div>
+            <div style="font-weight:500; color:#374151; margin-bottom:8px;">클릭하거나 ZIP 파일을 이곳으로 드래그하세요</div>
+            <div style="font-size:12px; color:#6b7280;">최대 2GB 허용 (.zip 형식)</div>
+            <input type="file" id="modalFileUpload" style="display:none" accept=".zip">
+          </div>
+        </div>
+        
+      </div>
+      
+      <!-- Modal Footer -->
+      <div style="padding:16px 20px; border-top:1px solid #e5e7eb; display:flex; justify-content:flex-end; gap:10px; background:#f9fafb;">
+        <button type="button" class="btn btn-secondary" onclick="closeNewContentModal()">취소</button>
+        <button type="button" class="btn btn-primary" onclick="saveNewContent()">생성하기</button>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Inactive Confirm Modal -->
+  <div id="statusConfirmModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999; justify-content: center; align-items: center;">
+      <div style="background: #fff; width: 400px; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <div style="padding: 16px 24px; border-bottom: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center;">
+          <h3 style="margin: 0; font-size: 1.125rem; font-weight: 600; color: #111827;" id="statusModalTitle">상태 변경</h3>
+          <button type="button" onclick="closeStatusModal()" style="background: none; border: none; font-size: 1.25rem; cursor: pointer; color: #6b7280;">&times;</button>
+        </div>
+        <div style="padding: 24px;">
+          <p style="margin: 0; color: #374151; font-size: 1rem;" id="statusModalMessage">변경 하시겠습니까?</p>
+        </div>
+        <div style="padding: 16px 24px; border-top: 1px solid #e5e7eb; display: flex; justify-content: flex-end; gap: 8px; background: #f9fafb;">
+          <button type="button" class="btn btn-secondary" onclick="closeStatusModal()">취소</button>
+          <button type="button" class="btn btn-primary" id="statusConfirmBtn" onclick="confirmStatus()">확인</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      let currentStatusAction = '';
+      function openStatusModal(action) {
+        currentStatusAction = action;
+        const modal = document.getElementById('statusConfirmModal');
+        const title = document.getElementById('statusModalTitle');
+        const message = document.getElementById('statusModalMessage');
+        const confirmBtn = document.getElementById('statusConfirmBtn');
+        
+        if (action === 'active') {
+          title.innerText = '활성화 확인';
+          message.innerText = '활성화 하시겠습니까?';
+          confirmBtn.innerText = '활성화';
+          confirmBtn.style.background = '#10b981';
+          confirmBtn.style.borderColor = '#10b981';
+        } else {
+          title.innerText = '비활성화 확인';
+          message.innerText = '비활성화 하시겠습니까?';
+          confirmBtn.innerText = '비활성화';
+          confirmBtn.style.background = '#ef4444';
+          confirmBtn.style.borderColor = '#ef4444';
+        }
+        
+        modal.style.display = 'flex';
+      }
+      function closeStatusModal() {
+        document.getElementById('statusConfirmModal').style.display = 'none';
+      }
+      function confirmStatus() {
+        closeStatusModal();
+      }
+      
+      document.addEventListener('DOMContentLoaded', () => {
+        // Also bind any generic Active/Inactive buttons in table lists
+        document.querySelectorAll('.btn-danger, .btn-success, .btn').forEach(btn => {
+          if(btn.innerText.includes('Inactive') && !btn.hasAttribute('onclick')) {
+            btn.addEventListener('click', () => openStatusModal('inactive'));
+          }
+          if(btn.innerText.includes('Active') && !btn.hasAttribute('onclick')) {
+            btn.addEventListener('click', () => openStatusModal('active'));
+          }
+        });
+      });
+    </script>
+
+
+    <!-- Content Detail View Modal -->
+    <div id="contentViewModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:10000; align-items:center; justify-content:center; padding:20px;">
+      <div style="background:white; border-radius:8px; width:100%; max-width:450px; padding:24px; box-shadow:0 4px 6px rgba(0,0,0,0.1);">
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e5e7eb; padding-bottom:12px; margin-bottom:16px;">
+          <h2 style="margin:0; font-size:18px; color:#111827;">🎬 Content Registration Info</h2>
+          <button type="button" style="background:transparent; border:none; font-size:24px; cursor:pointer; color:#6b7280;" onclick="closeContentViewModal()">&times;</button>
+        </div>
+        
+        <div style="display:flex; gap:16px; margin-bottom:16px;">
+          <div style="width:80px; height:80px; background:#f3f4f6; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:32px;">🏖️</div>
+          <div style="flex:1;">
+            <h3 id="cvModalTitle" style="margin:0 0 4px 0; font-size:16px; color:#111827;">SandCraft - Beach</h3>
+            <p style="margin:0 0 2px 0; font-size:13px; color:#6b7280;">ID: <span style="color:#111827; font-weight:500;">sandcraft-beach</span></p>
+            <p style="margin:0 0 2px 0; font-size:13px; color:#6b7280;">Type: <span style="color:#111827;">single</span></p>
+            <p style="margin:0; font-size:13px; color:#6b7280;">Version: <span style="color:#2563eb; font-weight:500;">v2.1</span></p>
+          </div>
+        </div>
+        
+        <div style="background:#f9fafb; padding:12px; border-radius:6px; margin-bottom:16px;">
+          <p style="margin:0 0 8px 0; font-size:12px; font-weight:600; color:#4b5563; text-transform:uppercase;">DESCRIPTION</p>
+          <p style="margin:0; font-size:13px; color:#374151; line-height:1.5;">해변을 테마로 한 모래놀이 콘텐츠. 다양한 해양 생물과 상호작용이 가능합니다.</p>
+        </div>
+        
+        <div style="display:flex; justify-content:flex-end; gap:8px; border-top:1px solid #e5e7eb; padding-top:16px;">
+          <button type="button" class="btn btn-secondary" onclick="closeContentViewModal()">닫기</button>
+          <button type="button" class="btn btn-primary" onclick="location.href='content-detail.html'">상세 페이지로 이동</button>
+        </div>
+      </div>
+    </div>
+    
+    <script>
+    function openContentViewModal(btn) {
+      if(btn) {
+          let row = btn.closest('tr');
+          if(row) {
+              let titleEl = row.querySelector('.content-title');
+              if(titleEl) {
+                  document.getElementById('cvModalTitle').innerText = titleEl.innerText;
+              }
+          }
+      }
+      document.getElementById('contentViewModal').style.display = 'flex';
+    }
+    
+    function closeContentViewModal() {
+      document.getElementById('contentViewModal').style.display = 'none';
+    }
+    </script>
+
+</body>
+</html>
+

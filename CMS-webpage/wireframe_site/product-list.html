@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Product List — Wireframe</title>
+  <link rel="stylesheet" href="styles.css">
+  
+</head>
+<body>
+    <header class="site-header">
+    <div style="display:flex;align-items:center;gap:16px">
+      <span style="font-weight:700;font-size:20px;color:#1f2937;cursor:pointer" onclick="location.href='index.html'">CellbigCMS</span>
+    </div>
+    <div style="display:flex;gap:16px;align-items:center">
+      <span style="cursor:pointer">🔔 (3)</span>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <span style="cursor:pointer">👤 Admin(SP)</span>
+        <button type="button" style="padding:4px 12px; font-size:12px; font-weight:500; color:#4b5563; background:#f3f4f6; border:1px solid #d1d5db; border-radius:4px; cursor:pointer;" onclick="if(confirm('로그아웃 하시겠습니까?')) { location.href='login.html'; }">로그아웃</button>
+      </div>
+    </div>
+  </header>
+  
+  <div class="dashboard-layout">
+        <aside class="sidebar">
+      <div class="sidebar-category">Infrastructure (Location)</div>
+      <div class="sidebar-item" data-page="localarea-list.html">🏢 LocalAreas</div>
+      <div class="sidebar-item" data-page="store-list.html">🏪 Stores</div>
+      
+      <div class="sidebar-category">Device & Monitoring</div>
+      <div class="sidebar-item" data-page="device-list.html">🖥️ Devices</div>
+      <div class="sidebar-item" data-page="log-content-access.html">📊 Access Logs</div>
+
+      <div class="sidebar-category">Contents & Product</div>
+      <div class="sidebar-item active" data-page="product-list.html">📦 Product</div>
+      <div class="sidebar-item" data-page="serial-list.html">🔑 Licenses (Serial)</div>
+      <div class="sidebar-item" data-page="package-list.html">🎒 Package</div>
+      <div class="sidebar-item" data-page="content-list.html">🎬 Content</div>
+      
+      <div class="sidebar-category">System</div>
+      <div class="sidebar-item" data-page="settings.html">⚙️ Settings</div>
+
+      <div class="sidebar-category">Help</div>
+      <div class="sidebar-item" data-page="overview.html">📘 Overview</div>
+      <div class="sidebar-item" data-page="version-register.html">📢 Update</div>
+    </aside>
+
+    <main class="main-content">
+      <div class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">🏢 Product Library</h1>
+            <p class="page-desc">Manage 🏢 Product Library and view details.</p>
+          </div>
+          <div class="header-actions">
+            <button class="btn btn-primary">+ New Product</button>
+          </div>
+        </div>
+
+        <!-- Filter Panel -->
+        <div class="filter-panel">
+          <div class="filter-group" style="flex:2">
+            <label>Search</label>
+            <input class="input" placeholder="🔍 Search product..." style="width:100%">
+          </div>
+          <div class="filter-group">
+            <label style="opacity:0">.</label>
+            <button class="btn btn-secondary">Apply Filter</button>
+          </div>
+        </div>
+
+        <!-- Bulk Actions -->
+        <div class="bulk-actions">
+          <input type="checkbox" id="selectAll">
+          <label for="selectAll" style="cursor:pointer;font-weight:500">Select All</label>
+          <span style="color:#666;margin-left:auto">Bulk Actions:</span>
+          <select class="input" style="width:140px">
+            <option>Select action...</option>
+            <option>Delete</option>
+          </select>
+          <button class="btn btn-secondary" style="padding:6px 16px">Apply</button>
+        </div>
+
+        <!-- Product Table -->
+        <div style="background:#fff;border-radius:8px;overflow:hidden">
+          <table class="product-table">
+            <thead>
+              <tr>
+                <th style="width:40px">☑</th>
+                <th>Title</th>
+                <th style="width:100px;text-align:center">Packages</th>
+                <th style="width:100px;text-align:center">Devices</th>
+                <th style="width:180px">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Product Row 1 -->
+              <tr>
+                <td><input type="checkbox"></td>
+                <td>
+                  <div class="product-cell">
+                    <div class="product-title">SandCraft</div>
+                    <div class="product-desc">샌드크래프트 제품군</div>
+                    <div class="product-id">ID: product-sandcraft</div>
+                  </div>
+                </td>
+                <td class="stat-cell">
+                  <strong>3</strong><br>
+                  <span style="font-size:11px;color:#666">packages</span>
+                </td>
+                <td class="stat-cell">
+                  <strong>45</strong><br>
+                  <span style="font-size:11px;color:#666">devices</span>
+                </td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="action-btn">View</button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Product Row 2 -->
+              <tr>
+                <td><input type="checkbox"></td>
+                <td>
+                  <div class="product-cell">
+                    <div class="product-title">Ocean Player</div>
+                    <div class="product-desc">해양 콘텐츠 플레이어</div>
+                    <div class="product-id">ID: product-ocean</div>
+                  </div>
+                </td>
+                <td class="stat-cell">
+                  <strong>5</strong><br>
+                  <span style="font-size:11px;color:#666">packages</span>
+                </td>
+                <td class="stat-cell">
+                  <strong>32</strong><br>
+                  <span style="font-size:11px;color:#666">devices</span>
+                </td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="action-btn">View</button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Product Row 3 -->
+              <tr>
+                <td><input type="checkbox"></td>
+                <td>
+                  <div class="product-cell">
+                    <div class="product-title">Game Hub Pro</div>
+                    <div class="product-desc">게임 허브 프리미엄</div>
+                    <div class="product-id">ID: product-game-hub</div>
+                  </div>
+                </td>
+                <td class="stat-cell">
+                  <strong>2</strong><br>
+                  <span style="font-size:11px;color:#666">packages</span>
+                </td>
+                <td class="stat-cell">
+                  <strong>0</strong><br>
+                  <span style="font-size:11px;color:#666">devices</span>
+                </td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="action-btn">View</button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Product Row 4 -->
+              <tr>
+                <td><input type="checkbox"></td>
+                <td>
+                  <div class="product-cell">
+                    <div class="product-title">Education Suite</div>
+                    <div class="product-desc">교육용 콘텐츠 패키지</div>
+                    <div class="product-id">ID: product-edu</div>
+                  </div>
+                </td>
+                <td class="stat-cell">
+                  <strong>4</strong><br>
+                  <span style="font-size:11px;color:#666">packages</span>
+                </td>
+                <td class="stat-cell">
+                  <strong>28</strong><br>
+                  <span style="font-size:11px;color:#666">devices</span>
+                </td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="action-btn">View</button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Product Row 5 -->
+              <tr>
+                <td><input type="checkbox"></td>
+                <td>
+                  <div class="product-cell">
+                    <div class="product-title">VR Experience</div>
+                    <div class="product-desc">가상현실 체험 콘텐츠</div>
+                    <div class="product-id">ID: product-vr</div>
+                  </div>
+                </td>
+                <td class="stat-cell">
+                  <strong>6</strong><br>
+                  <span style="font-size:11px;color:#666">packages</span>
+                </td>
+                <td class="stat-cell">
+                  <strong>15</strong><br>
+                  <span style="font-size:11px;color:#666">devices</span>
+                </td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="action-btn">View</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+          <div class="page-info">Showing 1-5 of 8</div>
+          <div class="page-numbers">
+            <button class="page-btn">◀ Previous</button>
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">Next ▶</button>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Select All functionality
+    document.getElementById('selectAll').addEventListener('change', function() {
+      const checkboxes = document.querySelectorAll('.product-table tbody input[type="checkbox"]');
+      checkboxes.forEach(cb => cb.checked = this.checked);
+    });
+
+    // Sidebar navigation
+    document.querySelectorAll('.sidebar-item').forEach(item => {
+      item.addEventListener('click', function() {
+        const page = this.getAttribute('data-page');
+        if (page) {
+          window.location.href = page;
+        }
+      });
+    });
+
+    // Action buttons (mock)
+    document.querySelectorAll('.action-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const action = this.textContent;
+        const row = this.closest('tr');
+        const title = row.querySelector('.product-title').textContent;
+        const productIdText = row.querySelector('.product-id').textContent;
+        const productId = productIdText.replace('ID: ', '');
+        
+        if (action === 'View') {
+          window.location.href = 'product-detail.html?id=' + productId;
+        } else if (action === 'Edit') {
+          window.location.href = 'product-detail.html?id=' + productId;
+        } else if (action === 'Del') {
+          if (confirm(`정말 삭제하시겠습니까?\n${title}\n\n연관된 패키지와 디바이스에 영향이 있을 수 있습니다.`)) {
+            alert('삭제되었습니다.');
+          }
+        }
+      });
+    });
+
+    // New Product button
+    document.querySelector('.btn-primary').addEventListener('click', function() {
+      location.href='product-editor.html';
+    });
+
+    // Apply Filter button
+    document.querySelector('.filter-panel .btn-secondary').addEventListener('click', function() {
+      alert('Applying filters...\n(This would reload the table with filtered results)');
+    });
+
+    // Bulk Actions Apply button
+    document.querySelector('.bulk-actions .btn-secondary').addEventListener('click', function() {
+      const selectedAction = document.querySelector('.bulk-actions select').value;
+      const checkedBoxes = document.querySelectorAll('.product-table tbody input[type="checkbox"]:checked');
+      if (checkedBoxes.length === 0) {
+        alert('Please select at least one product.');
+        return;
+      }
+      if (selectedAction === 'Select action...') {
+        alert('Please select an action from the dropdown.');
+        return;
+      }
+      alert(`Applying "${selectedAction}" to ${checkedBoxes.length} selected product(s)...`);
+    });
+
+    // Pagination buttons
+    document.querySelectorAll('.page-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        if (this.textContent.includes('Previous') || this.textContent.includes('Next')) {
+          return;
+        }
+        document.querySelectorAll('.page-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        alert(`Loading page ${this.textContent}...`);
+      });
+    });
+  </script>
+
+  <!-- Inactive Confirm Modal -->
+  <div id="statusConfirmModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999; justify-content: center; align-items: center;">
+      <div style="background: #fff; width: 400px; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <div style="padding: 16px 24px; border-bottom: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center;">
+          <h3 style="margin: 0; font-size: 1.125rem; font-weight: 600; color: #111827;" id="statusModalTitle">상태 변경</h3>
+          <button type="button" onclick="closeStatusModal()" style="background: none; border: none; font-size: 1.25rem; cursor: pointer; color: #6b7280;">&times;</button>
+        </div>
+        <div style="padding: 24px;">
+          <p style="margin: 0; color: #374151; font-size: 1rem;" id="statusModalMessage">변경 하시겠습니까?</p>
+        </div>
+        <div style="padding: 16px 24px; border-top: 1px solid #e5e7eb; display: flex; justify-content: flex-end; gap: 8px; background: #f9fafb;">
+          <button type="button" class="btn btn-secondary" onclick="closeStatusModal()">취소</button>
+          <button type="button" class="btn btn-primary" id="statusConfirmBtn" onclick="confirmStatus()">확인</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      let currentStatusAction = '';
+      function openStatusModal(action) {
+        currentStatusAction = action;
+        const modal = document.getElementById('statusConfirmModal');
+        const title = document.getElementById('statusModalTitle');
+        const message = document.getElementById('statusModalMessage');
+        const confirmBtn = document.getElementById('statusConfirmBtn');
+        
+        if (action === 'active') {
+          title.innerText = '활성화 확인';
+          message.innerText = '활성화 하시겠습니까?';
+          confirmBtn.innerText = '활성화';
+          confirmBtn.style.background = '#10b981';
+          confirmBtn.style.borderColor = '#10b981';
+        } else {
+          title.innerText = '비활성화 확인';
+          message.innerText = '비활성화 하시겠습니까?';
+          confirmBtn.innerText = '비활성화';
+          confirmBtn.style.background = '#ef4444';
+          confirmBtn.style.borderColor = '#ef4444';
+        }
+        
+        modal.style.display = 'flex';
+      }
+      function closeStatusModal() {
+        document.getElementById('statusConfirmModal').style.display = 'none';
+      }
+      function confirmStatus() {
+        closeStatusModal();
+      }
+      
+      document.addEventListener('DOMContentLoaded', () => {
+        // Also bind any generic Active/Inactive buttons in table lists
+        document.querySelectorAll('.btn-danger, .btn-success, .btn').forEach(btn => {
+          if(btn.innerText.includes('Inactive') && !btn.hasAttribute('onclick')) {
+            btn.addEventListener('click', () => openStatusModal('inactive'));
+          }
+          if(btn.innerText.includes('Active') && !btn.hasAttribute('onclick')) {
+            btn.addEventListener('click', () => openStatusModal('active'));
+          }
+        });
+      });
+    </script>
+
+</body>
+</html>

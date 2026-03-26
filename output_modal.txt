@@ -1,0 +1,251 @@
+<div class="v-modal-overlay" id="versionModal" style="display: none; align-items:center; justify-content:center; z-index:9999;">
+    <div class="v-modal" style="background:#fff; border-radius:8px; width:600px; max-width:90vw; box-shadow:0 4px 20px rgba(0,0,0,0.2);">
+      <div class="v-modal-header" style="flex-direction:row;">
+        <h2>버전 등록</h2>
+        <button class="v-modal-close" onclick="closeModal()">&times;</button>
+      </div>
+      
+      <div class="v-modal-body">
+        <form id="versionForm">
+          <!-- 버전 -->
+          <div class="form-group">
+            <label>버전</label>
+            <div class="version-inputs">
+              <input type="number" id="versionMajor" min="0" max="999" value="0" required>
+              <span>.</span>
+              <input type="number" id="versionMinor" min="0" max="999" value="0" required>
+              <span>.</span>
+              <input type="number" id="versionPatch" min="0" max="999" value="0" required>
+            </div>
+          </div>
+
+          <!-- 업데이트 타입 -->
+          <div class="form-group">
+            <label>업데이트</label>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" id="updateForced" name="updateType" value="forced">
+                <label for="updateForced">강제 업데이트</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="updateOptional" name="updateType" value="optional" checked>
+                <label for="updateOptional">선택 업데이트</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- 배포 환경 -->
+          <div class="form-group">
+            <label>배포</label>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" id="deployProduction" name="deploymentTarget" value="production">
+                <label for="deployProduction">상용</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="deployTest" name="deploymentTarget" value="test" checked>
+                <label for="deployTest">테스트</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- 버전 파일 -->
+          <div class="form-group">
+            <label>버전 파일</label>
+            <div class="file-input-group">
+              <div class="file-input-wrapper">
+                <input type="file" id="artifactFile" accept=".zip" onchange="handleFileSelect(event)">
+                <div class="file-display" id="fileDisplay">파일을 선택해 주세요.</div>
+                <button type="button" class="file-button" id="fileDownload" style="display:none; background:#10b981; color:white; border-color:#10b981;">다운로드</button>
+              </div>
+              <button type="button" class="file-button" onclick="document.getElementById('artifactFile').click()">파일 찾기</button>
+              <button type="button" class="file-clear" id="fileClear" onclick="clearFile()" style="display: none;">취소</button>
+            </div>
+            <div class="checksum-info" id="checksumInfo" style="display: none;">
+              <strong>체크섬:</strong> <span id="checksumValue"></span>
+            </div>
+          </div>
+
+          <!-- 파일 크기 -->
+          <div class="form-group">
+            <label>파일 크기</label>
+            <div class="file-size-group">
+              <div class="file-size-display" id="fileSizeDisplay">0</div>
+              <button type="button" class="verify-button" id="verifyButton" onclick="verifyFile()" disabled>파일 확인</button>
+            </div>
+          </div>
+
+          <!-- 상태 (Draft / Test / Published) -->
+          <div class="form-group">
+            <label>상태 (Status)</label>
+            <div class="radio-group" style="padding: 10px; background: #f9fafb; border-radius: 6px; border: 1px solid #e5e7eb; display:flex; gap:15px; margin-top:5px; align-items: center;">
+              <div class="radio-option">
+                <input type="radio" id="stateDraft" name="versionState" value="draft" checked>
+                <label for="stateDraft" style="font-weight:600; color:#4b5563;">Draft (초안)</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="stateStaged" name="versionState" value="staged">
+                <label for="stateStaged" style="font-weight:600; color:#047857;">Staged (테스트)</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="statePublished" name="versionState" value="published">
+                <label for="statePublished" style="font-weight:600; color:#1d4ed8;">Published (발행)</label>
+              </div>
+            </div>
+            <div style="font-size:12px; color:#6b7280; margin-top:6px; margin-left: 120px;">새 버전을 업로드 시 기본 상태는 'Draft(초안)'이며, 의도치 않은 즉시 상용 배포를 막기 위함입니다.</div>
+          </div>
+
+          <!-- 버전 설명 -->
+          <div class="form-group">
+            <label>버전 설명</label>
+            <textarea id="releaseNotes" placeholder="변경 사항 및 배포 노트를 입력하세요."></textarea>
+          </div>
+        </form>
+      </div>
+
+      <div class="v-modal-footer">
+        <button type="button" class="btn btn-cancel" onclick="closeModal()">취소</button>
+        <button type="button" class="btn btn-primary" id="registerButton" onclick="registerVersion()" disabled>등록</button>
+      </div>
+    </div>
+  </div>
+
+  
+  <script>
+    
+    let selectedFile = null;
+    let fileChecksum = null;
+    let isVerified = false;
+
+    function handleFileSelect(event) {
+      const file = event.target.files[0];
+      if (file) {
+        selectedFile = file;
+        document.getElementById('fileDisplay').textContent = file.name;
+        document.getElementById('fileDisplay').classList.add('has-file');
+        document.getElementById('fileSizeDisplay').textContent = formatFileSize(file.size);
+        document.getElementById('fileClear').style.display = 'block';
+        document.getElementById('verifyButton').disabled = false;
+        
+        // Reset verification
+        isVerified = false;
+        document.getElementById('checksumInfo').style.display = 'none';
+        updateRegisterButton();
+
+        // Auto-calculate checksum
+        calculateChecksum(file);
+      }
+    }
+
+    function clearFile() {
+      selectedFile = null;
+      fileChecksum = null;
+      isVerified = false;
+      document.getElementById('artifactFile').value = '';
+      document.getElementById('fileDisplay').textContent = '파일을 선택해 주세요.';
+      document.getElementById('fileDisplay').classList.remove('has-file');
+      document.getElementById('fileSizeDisplay').textContent = '0';
+      document.getElementById('fileClear').style.display = 'none';
+      document.getElementById('verifyButton').disabled = true;
+      document.getElementById('checksumInfo').style.display = 'none';
+      updateRegisterButton();
+    }
+
+    async function calculateChecksum(file) {
+      try {
+        const arrayBuffer = await file.arrayBuffer();
+        const hashBuffer = await crypto.subtle.digest('SHA-256', arrayBuffer);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        fileChecksum = hashHex;
+        document.getElementById('checksumValue').textContent = hashHex;
+        document.getElementById('checksumInfo').style.display = 'block';
+      } catch (error) {
+        console.error('Checksum calculation failed:', error);
+        alert('체크섬 계산 중 오류가 발생했습니다.');
+      }
+    }
+
+    function verifyFile() {
+      if (selectedFile && fileChecksum) {
+        isVerified = true;
+        alert('파일 확인이 완료되었습니다.\n\n' +
+              '파일명: ' + selectedFile.name + '\n' +
+              '크기: ' + formatFileSize(selectedFile.size) + '\n' +
+              '체크섬: ' + fileChecksum.substring(0, 16) + '...');
+        updateRegisterButton();
+      }
+    }
+
+    function formatFileSize(bytes) {
+      if (bytes === 0) return '0 Bytes';
+      const k = 1024;
+      const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+    }
+
+    function updateRegisterButton() {
+      const button = document.getElementById('registerButton');
+      button.disabled = !isVerified;
+    }
+
+    function registerVersion() {
+      const major = document.getElementById('versionMajor').value;
+      const minor = document.getElementById('versionMinor').value;
+      const patch = document.getElementById('versionPatch').value;
+      const updateType = document.querySelector('input[name="updateType"]:checked').value;
+      const deploymentTarget = document.querySelector('input[name="deploymentTarget"]:checked').value;
+      const versionState = document.querySelector('input[name="versionState"]:checked').value;
+      const releaseNotes = document.getElementById('releaseNotes').value;
+
+      if (!selectedFile || !isVerified) {
+        alert('파일을 선택하고 확인해 주세요.');
+        return;
+      }
+
+      const formData = {
+        version_major: parseInt(major),
+        version_minor: parseInt(minor),
+        version_patch: parseInt(patch),
+        version_tag: `${major}.${minor}.${patch}`,
+        update_type: updateType,
+        deployment_target: deploymentTarget,
+        checksum: fileChecksum,
+        artifact_filename: selectedFile.name,
+        artifact_size_bytes: selectedFile.size,
+        release_notes: releaseNotes,
+        state: versionState
+      };
+
+      console.log('Registering version:', formData);
+      
+      // TODO: Actual API call
+      // await fetch('/api/contents/${contentId}/versions', {
+      //   method: 'POST',
+      //   body: formData with file
+      // });
+
+      alert('버전이 등록되었습니다.\n\n버전: ' + formData.version_tag + 
+            '\n업데이트: ' + (updateType === 'forced' ? '강제' : '선택') +
+            '\n배포: ' + (deploymentTarget === 'production' ? '상용' : '테스트'));
+      
+      closeModal();
+    }
+
+    function closeModal() {
+      // In a real app, this would close the modal or navigate back
+      if (confirm('작성 중인 내용이 사라집니다. 닫으시겠습니까?')) {
+        window.location.href = 'content-editor.html';
+      }
+    }
+  
+    
+    function openModal() {
+       document.getElementById('versionModal').style.display = 'flex';
+    }
+    function closeModal() {
+       document.getElementById('versionModal').style.display = 'none';
+    }
+
+  </script>
