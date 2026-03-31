@@ -121,14 +121,22 @@
               <h2 style="margin-top:0">⚙️ 애플리케이션 설정</h2>
 
               <div class="form-group" style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
-                
+                <div>
+                  <label class="form-label required">Category</label>
+                  <select class="input" style="width:100%" id="category">
+                    <option value="게임">게임</option>
+                    <option value="교육">교육</option>
+                    <option value="유틸리티">유틸리티</option>
+                    <option value="시스템">시스템</option>
+                  </select>
+                </div>
                 <div>
                   <label class="form-label required">Content Type</label>
                   <select class="input" style="width:100%" id="type">
                     <option value="single">Single (단독 실행)</option>
                     <option value="container">Container (상위 관리자)</option>
-                    <option value="sensor">Sensor (컨테이너용 하위)</option>
-                    <option value="etc">Etc</option>
+                    <option value="child">Child (컨테이너용 하위)</option>
+                    <option value="mixed">Mixed</option>
                   </select>
                   <div style="font-size:12px; color:#6b7280; margin-top:4px;">콘텐츠의 구동 방식을 지정합니다.</div>
                 </div>
@@ -287,7 +295,8 @@
       document.getElementById('titleKo').value = '샌드크래프트 - 해변';
       document.getElementById('titleEn').value = 'SandCraft - Beach';
       document.getElementById('description').value = '해변에서 즐기는 샌드게임';
-            document.getElementById('type').value = 'single';
+      document.getElementById('category').value = '게임';
+      document.getElementById('type').value = 'single';
       document.getElementById('entryPoint').value = '/app/sand/beach.exe';
       document.getElementById('thumbnail').value = 'https://cdn.example.com/thumbnails/sandcraft-beach.jpg';
       

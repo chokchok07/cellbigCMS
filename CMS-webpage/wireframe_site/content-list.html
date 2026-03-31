@@ -41,9 +41,22 @@
       <div class="sidebar-item" data-page="settings.html">⚙️ Settings</div>
 
       <div class="sidebar-category">Help</div>
-      <div class="sidebar-item" data-page="overview.html">📘 Overview</div>
+      <div class="sidebar-item" data-page="notice-list.html">📢 Notice</div>
       <div class="sidebar-item" data-page="version-register.html">📢 Update</div>
-    </aside>
+    
+        <div style="margin-top: auto; padding-top: 24px; margin-bottom: 8px;">
+          <div style="padding: 12px 16px; border-radius: 8px; background: #f8fafc; border: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; cursor: default;" title="Last checked: Just now">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <div style="width: 8px; height: 8px; border-radius: 50%; background-color: #10b981; box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2); animation: pulse 2s infinite;"></div>
+              <div style="display: flex; flex-direction: column;">
+                <span style="font-size: 12px; font-weight: 600; color: #374151;">API Server</span>
+                <span style="font-size: 11px; color: #10b981; font-weight: 500;">Online (42ms)</span>
+              </div>
+            </div>
+            <span style="font-size: 12px; color: #64748b;">v1.2</span>
+          </div>
+        </div>
+      </aside>
 
     <main class="main-content">
       <div class="container">
@@ -76,8 +89,8 @@
               <option>All</option>
               <option>single</option>
               <option>container</option>
-              <option>child</option>
-              <option>mixed</option>
+              <option>sensor</option>
+              <option>etc</option>
             </select>
           </div>
           <div class="filter-group">
@@ -97,15 +110,7 @@
               <option>Product B</option>
             </select>
           </div>
-          <div class="filter-group">
-            <label>Category</label>
-            <select class="input" style="width:120px">
-              <option>All</option>
-              <option>게임</option>
-              <option>교육</option>
-              <option>엔터테인먼트</option>
-            </select>
-          </div>
+          
           <div class="filter-group">
             <label style="opacity:0">.</label>
             <button class="btn btn-secondary">Apply Filters</button>
@@ -113,25 +118,14 @@
         </div>
 
         <!-- Bulk Actions -->
-        <div class="bulk-actions">
-          <input type="checkbox" id="selectAll">
-          <label for="selectAll" style="cursor:pointer;font-weight:500">Select All</label>
-          <span style="color:#666;margin-left:auto">Bulk Actions:</span>
-          <select class="input" style="width:140px">
-            <option>Select action...</option>
-            <option>Publish</option>
-            <option>Archive</option>
-            <option>Delete</option>
-          </select>
-          <button class="btn btn-secondary" style="padding:6px 16px">Apply</button>
-        </div>
+        
 
         <!-- Content Table -->
         <div style="background:#fff;border-radius:8px;overflow:hidden">
           <table class="content-table">
             <thead>
               <tr>
-                <th style="width:40px"><input type="checkbox"></th>
+                
                 <th>Title</th>
                 <th style="width:100px">Type</th>
                 <th style="width:140px">Status</th>
@@ -142,15 +136,9 @@
             <tbody>
               <!-- Content Row 1 -->
               <tr>
-                <td><input type="checkbox"></td>
+                
                 <td>
-                  <div class="content-cell">
-                    <div class="thumbnail">🖼️</div>
-                    <div class="content-info">
-                      <div class="content-title">SandCraft - Beach</div>
-                      <div class="content-category">Category: 게임</div>
-                    </div>
-                  </div>
+                  <span style="font-weight: 500; color: #1f2937;">SandCraft - Beach</span>
                 </td>
                 <td>single</td>
                 <td>
@@ -166,15 +154,9 @@
 
               <!-- Content Row 2 -->
               <tr>
-                <td><input type="checkbox"></td>
+                
                 <td>
-                  <div class="content-cell">
-                    <div class="thumbnail">🖼️</div>
-                    <div class="content-info">
-                      <div class="content-title">Ocean Viewer</div>
-                      <div class="content-category">Category: 교육</div>
-                    </div>
-                  </div>
+                  <span style="font-weight: 500; color: #1f2937;">Ocean Viewer</span>
                 </td>
                 <td>single</td>
                 <td>
@@ -190,15 +172,9 @@
 
               <!-- Content Row 3 -->
               <tr>
-                <td><input type="checkbox"></td>
+                
                 <td>
-                  <div class="content-cell">
-                    <div class="thumbnail">🖼️</div>
-                    <div class="content-info">
-                      <div class="content-title">Game Hub</div>
-                      <div class="content-category">Category: 컨테이너</div>
-                    </div>
-                  </div>
+                  <span style="font-weight: 500; color: #1f2937;">Game Hub</span>
                 </td>
                 <td>container</td>
                 <td>
@@ -214,17 +190,11 @@
 
               <!-- Content Row 4 -->
               <tr>
-                <td><input type="checkbox"></td>
+                
                 <td>
-                  <div class="content-cell">
-                    <div class="thumbnail">🖼️</div>
-                    <div class="content-info">
-                      <div class="content-title">Mini Game 1</div>
-                      <div class="content-category">Category: 게임</div>
-                    </div>
-                  </div>
+                  <span style="font-weight: 500; color: #1f2937;">Mini Game 1</span>
                 </td>
-                <td>child</td>
+                <td>sensor</td>
                 <td>
                   <span class="badge badge-test">Test</span>
                 </td>
@@ -238,15 +208,9 @@
 
               <!-- Content Row 5 -->
               <tr>
-                <td><input type="checkbox"></td>
+                
                 <td>
-                  <div class="content-cell">
-                    <div class="thumbnail">🖼️</div>
-                    <div class="content-info">
-                      <div class="content-title">Virtual Tour</div>
-                      <div class="content-category">Category: 엔터테인먼트</div>
-                    </div>
-                  </div>
+                  <span style="font-weight: 500; color: #1f2937;">Virtual Tour</span>
                 </td>
                 <td>single</td>
                 <td>
@@ -262,17 +226,11 @@
 
               <!-- Content Row 6 -->
               <tr>
-                <td><input type="checkbox"></td>
+                
                 <td>
-                  <div class="content-cell">
-                    <div class="thumbnail">🖼️</div>
-                    <div class="content-info">
-                      <div class="content-title">Educational Suite</div>
-                      <div class="content-category">Category: 교육</div>
-                    </div>
-                  </div>
+                  <span style="font-weight: 500; color: #1f2937;">Educational Suite</span>
                 </td>
-                <td>mixed</td>
+                <td>etc</td>
                 <td>
                   <span class="badge badge-test">Test</span>
                 </td>
@@ -306,12 +264,6 @@
   </div>
 
   <script>
-    // Select All functionality
-    document.getElementById('selectAll').addEventListener('change', function() {
-      const checkboxes = document.querySelectorAll('.content-table tbody input[type="checkbox"]');
-      checkboxes.forEach(cb => cb.checked = this.checked);
-    });
-
     // Sidebar navigation
     document.querySelectorAll('.sidebar-item').forEach(item => {
       item.addEventListener('click', function() {
@@ -347,20 +299,7 @@
       alert('Applying filters...\n(This would reload the table with filtered results)');
     });
 
-    // Bulk Actions Apply button
-    document.querySelector('.bulk-actions .btn-secondary').addEventListener('click', function() {
-      const selectedAction = document.querySelector('.bulk-actions select').value;
-      const checkedBoxes = document.querySelectorAll('.content-table tbody input[type="checkbox"]:checked');
-      if (checkedBoxes.length === 0) {
-        alert('Please select at least one content item.');
-        return;
-      }
-      if (selectedAction === 'Select action...') {
-        alert('Please select an action from the dropdown.');
-        return;
-      }
-      alert(`Applying "${selectedAction}" to ${checkedBoxes.length} selected item(s)...`);
-    });
+    
 
     // Pagination buttons
     document.querySelectorAll('.page-btn').forEach(btn => {
@@ -448,23 +387,15 @@
           <h4 style="margin:0 0 12px 0; font-size:15px; color:#374151; border-bottom:1px solid #e5e7eb; padding-bottom:8px;">기술 설정</h4>
           
           <div style="display:flex; gap:16px; margin-bottom:16px;">
-            <div class="form-group" style="flex:1;">
-              <label class="form-label required" style="display:block; margin-bottom:6px; font-size:13px; font-weight:500;">Category (카테고리)</label>
-              <select class="input" style="width:100%; padding:8px 12px; border:1px solid #d1d5db; border-radius:6px;">
-                <option value="">선택하세요...</option>
-                <option value="cat-sandcraft">샌드크래프트</option>
-                <option value="cat-fishworld">피쉬월드</option>
-                <option value="cat-brain">두뇌/학습</option>
-              </select>
-            </div>
+            
             
             <div class="form-group" style="flex:1;">
               <label class="form-label required" style="display:block; margin-bottom:6px; font-size:13px; font-weight:500;">Content Type (유형)</label>
               <select class="input" style="width:100%; padding:8px 12px; border:1px solid #d1d5db; border-radius:6px;">
                 <option value="single">Single (독립 실행형)</option>
                 <option value="container">Container (실행 런타임)</option>
-                <option value="child">Child (런타임에 종속된 에셋)</option>
-                <option value="mixed">Mixed (런타임 + 자체 콘텐츠)</option>
+                <option value="sensor">Sensor (런타임에 종속된 에셋)</option>
+                <option value="etc">Etc (런타임 + 자체 콘텐츠)</option>
               </select>
             </div>
           </div>

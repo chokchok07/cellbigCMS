@@ -1,64 +1,6 @@
-<!doctype html>
-<html lang="ko">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>LocalArea Management — CellbigCMS</title>
-  <link rel="stylesheet" href="styles.css">
-  
-</head>
-<body>
-    <header class="site-header">
-    <div style="display:flex;align-items:center;gap:16px">
-      <span style="font-weight:700;font-size:20px;color:#1f2937;cursor:pointer" onclick="location.href='index.html'">CellbigCMS</span>
-    </div>
-    <div style="display:flex;gap:16px;align-items:center">
-      <span style="cursor:pointer">🔔 (3)</span>
-      <div style="display:flex; align-items:center; gap:12px;">
-        <span style="cursor:pointer">👤 Admin(SP)</span>
-        <button type="button" style="padding:4px 12px; font-size:12px; font-weight:500; color:#4b5563; background:#f3f4f6; border:1px solid #d1d5db; border-radius:4px; cursor:pointer;" onclick="if(confirm('로그아웃 하시겠습니까?')) { location.href='login.html'; }">로그아웃</button>
-      </div>
-    </div>
-  </header>
-  
-  <div class="dashboard-layout">
-        <aside class="sidebar">
-      <div class="sidebar-category">Infrastructure (Location)</div>
-      <div class="sidebar-item" data-page="localarea-list.html">🏢 LocalAreas</div>
-      <div class="sidebar-item" data-page="store-list.html">🏪 Stores</div>
-      
-      <div class="sidebar-category">Device & Monitoring</div>
-      <div class="sidebar-item" data-page="device-list.html">🖥️ Devices</div>
-      <div class="sidebar-item" data-page="log-content-access.html">📊 Access Logs</div>
+import re
 
-      <div class="sidebar-category">Contents & Product</div>
-      <div class="sidebar-item" data-page="product-list.html">📦 Product</div>
-      <div class="sidebar-item" data-page="serial-list.html">🔑 Licenses (Serial)</div>
-      <div class="sidebar-item" data-page="package-list.html">🎒 Package</div>
-      <div class="sidebar-item" data-page="content-list.html">🎬 Content</div>
-      
-      <div class="sidebar-category">System</div>
-      <div class="sidebar-item" data-page="settings.html">⚙️ Settings</div>
-
-      <div class="sidebar-category">Help</div>
-      <div class="sidebar-item active" data-page="notice-list.html">📢 Notice</div>
-      <div class="sidebar-item" data-page="version-register.html">📢 Update</div>
-    
-        <div style="margin-top: auto; padding-top: 24px; margin-bottom: 8px;">
-          <div style="padding: 12px 16px; border-radius: 8px; background: #f8fafc; border: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; cursor: default;" title="Last checked: Just now">
-            <div style="display: flex; align-items: center; gap: 8px;">
-              <div style="width: 8px; height: 8px; border-radius: 50%; background-color: #10b981; box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2); animation: pulse 2s infinite;"></div>
-              <div style="display: flex; flex-direction: column;">
-                <span style="font-size: 12px; font-weight: 600; color: #374151;">API Server</span>
-                <span style="font-size: 11px; color: #10b981; font-weight: 500;">Online (42ms)</span>
-              </div>
-            </div>
-            <span style="font-size: 12px; color: #64748b;">v1.2</span>
-          </div>
-        </div>
-      </aside>
-
-            <main class="main-content">
+new_content = """    <main class="main-content">
       <div class="container">
         
         <div class="breadcrumb" style="font-size: 13px; color: #6b7280; margin-bottom: 20px; display:flex; gap:8px; align-items:center;">
@@ -277,5 +219,15 @@
       });
     </script>
   </body>
-</html>
+</html>"""
 
+with open('CMS-webpage/wireframe_site/notice-list.html', 'r', encoding='utf-8') as f:
+    text = f.read()
+
+# Replace <main class="main-content"> ... </html> with the supercharged HTML
+new_html = re.sub(r'<main class="main-content">.*</html>', new_content, text, flags=re.DOTALL)
+
+with open('CMS-webpage/wireframe_site/notice-list.html', 'w', encoding='utf-8') as f:
+    f.write(new_html)
+
+print("Advanced Notice page logic injected!")
