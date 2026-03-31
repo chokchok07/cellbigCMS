@@ -57,7 +57,7 @@
         <!-- Page Header -->
         <div class="page-header">
           <div>
-            <h1 class="page-title">🎬 Content Editor</h1>
+            <h1 class="page-title" id="pageMainTitle">🎬 Content Editor</h1>
             <p class="page-desc" id="pageMode">Create New Content</p>
           </div>
           <div class="header-actions">
@@ -137,7 +137,9 @@
             </div>
 
             <!-- Versions Section (Moved from right column) -->
-            <div class="card" id="versionsSection" style="display:none;">
+            <!-- Right Column -->
+          <div style="display: flex; flex-direction: column; gap: 24px;">
+<div class="card" id="versionsSection" style="display:none;">
               <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
                 <h2 style="margin:0; font-size:16px;">📂 릴리즈 버전 목록 및 히스토리</h2>
                 <button class="btn btn-primary" style="padding:4px 8px; font-size:12px;" onclick="openNewVersionModal()">+ New Version</button>
@@ -200,9 +202,7 @@
 
           </div>
 
-          <!-- Right Column -->
-          <div style="display: flex; flex-direction: column; gap: 24px;">
-
+          
             <!-- Initial Upload Section (New Mode Only) -->
             <div class="card" id="initialUploadSection">
               <h2 style="margin-top:0">📁 초기 버전 파일 업로드 <span style="color:#ef4444; font-size:12px; font-weight:normal; margin-left:8px;">*새 콘텐츠 등록용</span></h2>
@@ -270,7 +270,12 @@
     const isEditMode = urlParams.get('id') ? true : false;
     
     if (isEditMode) {
-      document.getElementById('pageMode').textContent = 'Edit: Content ' + urlParams.get('id');
+      
+      // Set to Detail View Mode texts
+      const pageMainTitle = document.getElementById('pageMainTitle');
+      if(pageMainTitle) pageMainTitle.textContent = '🎬 콘텐츠 상세정보';
+      document.getElementById('pageMode').textContent = '콘텐츠의 상세 정보를 확인하고 수정합니다';
+
       document.getElementById('contentId').value = urlParams.get('id');
       document.getElementById('contentId').disabled = true;
       

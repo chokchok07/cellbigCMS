@@ -66,7 +66,7 @@
           <div>
             <h1 class="page-title" style="margin-bottom: 8px;">
               📦 SandCraft - 11 Items
-              <span class="status-badge status-published" style="font-size: 13px; transform: translateY(-2px); display: inline-block;">Published</span>
+              <span class="badge badge-published">Published</span>
             </h1>
             <p style="color:#6b7280; margin:0; font-size:14px; display:flex; gap:12px; align-items:center;">
               <span>ID: pkg-sand-11</span> • 
@@ -99,7 +99,8 @@
                 <textarea class="input" style="width:100%; height:60px; resize:vertical;">샌드크래프트 기본 11종 콘텐츠 패키지</textarea>
                 
                 <div class="info-label" style="font-weight: 600; color: #4b5563; text-align: right; padding-top: 4px;">Status:</div>
-                <select class="input" style="width:100%;"><option value="published" selected>Published</option><option value="draft">Draft</option></select>
+                <select class="input" style="width:100%;"><option value="published" selected>Published</option><option value="test">Test</option>
+                      <option value="unpublished">Unpublished</option></select>
               </div>
             </div>
 
@@ -368,5 +369,88 @@
       });
     </script>
 
+  <!-- Manage Contents Modal -->
+  <style>
+    .v-modal-overlay {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000;
+    }
+    .v-modal-content {
+      background: #fff; padding: 2rem; border-radius: 8px; width: 600px;
+      max-height: 80vh; overflow-y: auto; text-align: left;
+    }
+    .v-modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+    .v-modal-content h3 { margin: 0; color: #1f2937; margin-right: auto; }
+    .close-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #6b7280; }
+    .v-modal-actions { margin-top: 1.5rem; display: flex; justify-content: flex-end; gap: 0.5rem; }
+    .v-btn-cancel { background: #f3f4f6; color: #374151; padding: 0.5rem 1rem; border: none; border-radius: 4px; cursor: pointer; }
+    .v-btn-confirm { background: #1f2937; color: #fff; padding: 0.5rem 1rem; border: none; border-radius: 4px; cursor: pointer; }
+    .manage-list { list-style: none; padding: 0; margin: 0; border: 1px solid #e5e7eb; border-radius: 4px; }
+    .manage-item { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; border-bottom: 1px solid #e5e7eb; }
+    .manage-item:last-child { border-bottom: none; }
+    .manage-item-info { display: flex; flex-direction: column; }
+    .manage-item-title { font-weight: bold; color: #1f2937; margin-bottom: 0.25rem; }
+    .manage-item-meta { font-size: 0.85rem; color: #6b7280; }
+  </style>
+
+  <div class="v-modal-overlay" id="manageContentsModal" style="display: none;">
+    <div class="v-modal-content">
+      <div class="v-modal-header">
+        <h3>Manage Connected Contents</h3>
+        <button class="close-btn" onclick="closeManageContents()">&times;</button>
+      </div>
+      <div>
+        <p style="margin-bottom: 1rem; font-size: 0.9rem; color: #4b5563;">Select contents to add or remove from this package.</p>
+        <ul class="manage-list">
+          <li class="manage-item">
+            <div class="manage-item-info">
+              <span class="manage-item-title">Sand Animation 01</span>
+              <span class="manage-item-meta">ID: c-sand-01 | v1.2</span>
+            </div>
+            <input type="checkbox" class="cnt-checkbox" checked>
+          </li>
+          <li class="manage-item">
+            <div class="manage-item-info">
+              <span class="manage-item-title">Sand Animation 02</span>
+              <span class="manage-item-meta">ID: c-sand-02 | v2.0</span>
+            </div>
+            <input type="checkbox" class="cnt-checkbox" checked>
+          </li>
+          <li class="manage-item">
+            <div class="manage-item-info">
+              <span class="manage-item-title">Sand Animation 03</span>
+              <span class="manage-item-meta">ID: c-sand-03 | v1.0</span>
+            </div>
+            <input type="checkbox" class="cnt-checkbox">
+          </li>
+          <li class="manage-item">
+            <div class="manage-item-info">
+              <span class="manage-item-title">Sand Animation 04</span>
+              <span class="manage-item-meta">ID: c-sand-04 | v3.1</span>
+            </div>
+            <input type="checkbox" class="cnt-checkbox">
+          </li>
+        </ul>
+      </div>
+      <div class="v-modal-actions">
+        <button class="v-btn-cancel" onclick="closeManageContents()">취소</button>
+        <button class="v-btn-confirm" onclick="submitManageContents()">저장</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function manageContents() {
+      document.getElementById('manageContentsModal').style.display = 'flex';
+    }
+    function closeManageContents() {
+      document.getElementById('manageContentsModal').style.display = 'none';
+    }
+    function submitManageContents() {
+      const checked = document.querySelectorAll('.cnt-checkbox:checked');
+      alert(checked.length + ' 개의 콘텐츠가 저장되었습니다.');
+      closeManageContents();
+    }
+  </script>
 </body>
 </html>

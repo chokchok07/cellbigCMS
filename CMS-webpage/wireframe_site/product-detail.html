@@ -89,7 +89,15 @@
                 <textarea class="input" style="width:100%; height:60px; resize:vertical;">샌드크래프트 제품군</textarea>
                 
                 <div class="info-label" style="font-weight: 600; color: #4b5563; text-align: right; padding-top: 4px;">Default Package:</div>
-                <div class="info-value" style="color: #111827; background: #f9fafb; padding: 6px 12px; border-radius: 6px; min-height: 20px;"><a href="package-detail.html" style="color:#2563eb;text-decoration:none">pkg-sand-11</a></div>
+                <div class="info-value" style="display: flex; gap: 8px; align-items: center;">
+                  <select class="input" style="flex: 1;">
+                    <option value="pkg-sand-11" selected>pkg-sand-11</option>
+                    <option value="pkg-sand-full">pkg-sand-full</option>
+                    <option value="pkg-sand-lite">pkg-sand-lite</option>
+                    <option value="none">None</option>
+                  </select>
+                  <a href="package-detail.html" style="color:#2563eb;text-decoration:none;font-size:13px;white-space:nowrap;">View Package</a>
+                </div>
                 
                 <div class="info-label" style="font-weight: 600; color: #4b5563; text-align: right; padding-top: 4px;">Created:</div>
                 <div class="info-value" style="color: #111827; background: #f9fafb; padding: 6px 12px; border-radius: 6px; min-height: 20px;">2026-01-15 10:00</div>
@@ -168,25 +176,31 @@
                     <td><a href="#" class="action-link">Beach Game</a></td>
                     <td>single</td>
                     <td>v2.1</td>
-                    <td><span style="color:#10b981">🟢 Published</span></td>
+                    <td><span class="badge badge-published">Published</span></td>
                   </tr>
                   <tr>
                     <td><a href="#" class="action-link">Ocean View</a></td>
                     <td>single</td>
                     <td>v1.3</td>
-                    <td><span style="color:#10b981">🟢 Published</span></td>
+                    <td><span class="badge badge-published">Published</span></td>
                   </tr>
                   <tr>
                     <td><a href="#" class="action-link">Sand Menu</a></td>
                     <td>container</td>
                     <td>v1.0</td>
-                    <td><span style="color:#6b7280">⚪ Draft</span></td>
+                    <td><span class="badge badge-test">Test</span></td>
+                  </tr>
+                  <tr>
+                    <td><a href="#" class="action-link">Winter Scene</a></td>
+                    <td>single</td>
+                    <td>v1.0</td>
+                    <td><span class="badge badge-unpublished">Unpublished</span></td>
                   </tr>
                   <tr>
                     <td><a href="#" class="action-link">Beach Builder</a></td>
                     <td>single</td>
                     <td>v3.2</td>
-                    <td><span style="color:#10b981">🟢 Published</span></td>
+                    <td><span class="badge badge-published">Published</span></td>
                   </tr>
                 </tbody>
               </table>

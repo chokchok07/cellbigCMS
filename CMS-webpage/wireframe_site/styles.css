@@ -413,3 +413,6 @@ td input[type="checkbox"], th input[type="checkbox"] {
 
 .action-btn-success { color: #059669; border-color: #a7f3d0; }
 .action-btn-success:hover { background: #ecfdf5 !important; border-color: #10b981 !important; color: #047857 !important; }
+
+.badge-test, .status-test { background: #fef08a; color: #92400e; }
+.badge-unpublished, .status-unpublished { background: #f3f4f6; color: #4b5563; }

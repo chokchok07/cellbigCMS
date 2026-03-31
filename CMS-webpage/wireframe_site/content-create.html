@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
-<title>콘텐츠 상세정보 - Cellbig CMS</title>
+<title>신규 콘텐츠 등록 - Cellbig CMS</title>
 <link href="styles.css" rel="stylesheet"/>
 </head>
 <body>
@@ -47,12 +47,12 @@
 <span style="color: #d1d5db;">/</span>
 <span onclick="location.href='content-list.html'" onmouseout="this.style.background='transparent'" onmouseover="this.style.background='#e5e7eb'" style="cursor:pointer; padding: 4px 8px; border-radius: 4px; transition: background 0.2s;">🎬 Content</span>
 <span style="color: #d1d5db;">/</span>
-<span style="color: #374151; font-weight: 600; padding: 4px 8px;">🎬 콘텐츠 상세정보</span>
+<span style="color: #374151; font-weight: 600; padding: 4px 8px;">🎬 Content Detail</span>
 </div>
 <div class="page-header">
 <div>
-<h1 class="page-title">🎬 콘텐츠 상세정보</h1>
-<p class="page-desc" id="pageMode">콘텐츠의 상세 정보를 확인하고 수정합니다</p>
+<h1 class="page-title">🎬 Content Detail</h1>
+<p class="page-desc" id="pageMode">View or Edit Content</p>
 </div>
 <div class="header-actions">
 <button class="btn btn-secondary" onclick="handleCancel()">Delete Content</button>
@@ -123,94 +123,31 @@
 
 </div>
 <!-- Right Column -->
-<div style="display: flex; flex-direction: column; gap: 24px;"><div class="card" id="versionsSection" style="display:none;">
-<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
-<h2 style="margin:0; font-size:16px;">📂 릴리즈 버전 목록 및 히스토리</h2>
-<button class="btn btn-primary" onclick="openNewVersionModal()" style="padding:4px 8px; font-size:12px;">+ New Version</button>
-</div>
-<p style="color:#666;font-size:13px;margin-bottom:16px">이 콘텐츠에 연결된 전체 아티팩트 및 버전 업데이트 기록입니다.</p>
-<div id="versionsList" style="display:flex; flex-direction:column; gap:10px;">
-<div style="padding:16px; border:1px solid #e5e7eb; border-radius:6px; background:#fff; border-left:4px solid #3b82f6;">
-<div style="display:flex; justify-content:space-between; margin-bottom:8px;">
-<div>
-<span style="font-weight:600; font-size:16px; color:#111827; margin-right:8px;">v1.3.0</span>
-<span style="font-size:12px; padding:2px 6px; background:#dcfce7; color:#1d4ed8; border-radius:4px;">Latest (Published)</span>
-</div>
-<span style="font-size:12px; color:#6b7280;">2026-03-01 14:30</span>
-</div>
-<div style="font-size:13px; color:#4b5563; margin-bottom:12px; line-height:1.5;">
-                    - 해변 배경 그래픽 최적화<br/>
-                    - 싱글 모드 버그 픽스
-                  </div>
-<div style="display:flex; gap:16px; font-size:12px;">
-<span style="color:#6b7280;">📦 artifact: beach_v1.3.zip (46MB)</span>
-<span style="color:#4b5563;">업데이트: <strong style="color:#ef4444;">강제(Required)</strong></span>
-</div>
-</div>
-<div style="padding:16px; border:1px solid #e5e7eb; border-radius:6px; background:#f9fafb;">
-<div style="display:flex; justify-content:space-between; margin-bottom:8px;">
-<div>
-<span style="font-weight:600; font-size:16px; color:#4b5563; margin-right:8px;">v1.2.0</span>
-<span style="font-size:12px; padding:2px 6px; background:#f3f4f6; color:#4b5563; border-radius:4px;">Previous</span>
-</div>
-<span style="font-size:12px; color:#6b7280;">2026-02-15 09:20</span>
-</div>
-<div style="font-size:13px; color:#4b5563; margin-bottom:12px; line-height:1.5;">
-                    - 컨테이너 지원 버전 업데이트
-                  </div>
-<div style="display:flex; gap:16px; font-size:12px;">
-<span style="color:#6b7280;">📦 artifact: beach_v1.2.zip (45MB)</span>
-<span style="color:#4b5563;">업데이트: Optional</span>
-</div>
-</div>
-<div style="padding:16px; border:1px solid #e5e7eb; border-radius:6px; background:#f9fafb; opacity:0.8;">
-<div style="display:flex; justify-content:space-between; margin-bottom:8px;">
-<div>
-<span style="font-weight:600; font-size:16px; color:#9ca3af; margin-right:8px;">v1.1.0</span>
-<span style="font-size:12px; padding:2px 6px; background:#f3f4f6; color:#9ca3af; border-radius:4px;">Test</span>
-</div>
-<span style="font-size:12px; color:#9ca3af;">2026-01-15 10:00</span>
-</div>
-<div style="font-size:13px; color:#9ca3af; margin-bottom:12px; line-height:1.5;">
-                    - 최초 출시
-                  </div>
-<div style="display:flex; gap:16px; font-size:12px;">
-<span style="color:#9ca3af;">📦 artifact: beach_v1.1.zip (43MB)</span>
-</div>
-</div>
-</div>
-</div>
+<div style="display: flex; flex-direction: column; gap: 24px;">
 <!-- Initial Upload Section (New Mode Only) -->
+<div class="card" id="initialUploadSection">
+<h2 style="margin-top:0">📁 초기 버전 파일 업로드 <span style="color:#ef4444; font-size:12px; font-weight:normal; margin-left:8px;">*새 콘텐츠 등록용</span></h2>
+<p style="color:#6b7280; font-size:13px; margin-bottom:16px;">새 콘텐츠 등록과 함께 첫 번째 버전(v1.0.0)으로 등록될 아티팩트를 업로드하세요.</p>
+<div class="form-group">
+<div onclick="document.getElementById('contentFile').click()" style="border:2px dashed #d1d5db; border-radius:6px; padding:32px; text-align:center; background:#f9fafb; cursor:pointer;">
+<div style="font-size:32px; margin-bottom:12px;">☁️</div>
+<div style="font-weight:500; color:#374151; margin-bottom:8px;">클릭하거나 파일을 이곳으로 드래그하세요</div>
+<div style="font-size:12px; color:#6b7280;">최대 2GB의 .zip 아티팩트 지원</div>
+<input accept=".zip" id="contentFile" onchange="handleFileSelect(event)" style="display:none;" type="file"/>
+</div>
+<div id="selectedFileName" style="margin-top:12px; font-size:14px; color:#3b82f6; font-weight:500; text-align:center;"></div>
+</div>
+</div>
 <!-- Package Usages (Read only view) -->
-<div class="card" id="packagesSection" style="display:none;">
-<h2 style="margin-top:0; font-size:16px;">🎒 포함된 패키지</h2>
-<div style="font-size:13px; color:#4b5563; margin-top:8px;">
-<ul style="padding-left:20px; margin:0; line-height:1.6;">
-<li>pkg-sand-11 (SandCraft 11 Items)</li>
-<li>pkg-sand-full (SandCraft Full Edition)</li>
-</ul>
-</div>
-</div>
+
 <!-- Lifecycle / Meta -->
-<div class="card" id="systemMetadataSection" style="display:none; background:#f9fafb;">
-<h2 style="margin-top:0; font-size:15px; color:#374151;">ℹ️ 시스템 메타데이터</h2>
-<div style="font-size:13px; color:#6b7280; display:flex; flex-direction:column; gap:8px;">
-<div style="display:flex; justify-content:space-between;">
-<span>Created:</span>
-<span id="metaCreated" style="font-weight:500; color:#111827;"></span>
-</div>
-<div style="display:flex; justify-content:space-between; border-top:1px solid #e5e7eb; padding-top:8px;">
-<span>Last Updated:</span>
-<span id="metaUpdated" style="font-weight:500; color:#111827;"></span>
-</div>
-</div>
-</div>
+
 </div>
 </div>
 </div>
 </main>
 </div>
-<script>document.addEventListener("DOMContentLoaded", () => { document.getElementById("systemMetadataSection").classList.remove("hidden"); document.getElementById("versionsSection").classList.remove("hidden"); document.getElementById("packagesSection").classList.remove("hidden"); });</script>
+<script>document.addEventListener("DOMContentLoaded", () => { document.getElementById("initialUploadSection").classList.remove("hidden"); });</script>
 <!-- New Version Modal -->
 <div id="newVersionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center; padding:20px;">
 <div style="background:#fff; width:600px; max-width:100%; max-height:90vh; border-radius:8px; display:flex; flex-direction:column; overflow:hidden; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);">

@@ -120,6 +120,27 @@
 			"isBackground": false,
 			"problemMatcher": [],
 			"group": "test"
+		},
+		{
+			"label": "Run Split Logic",
+			"type": "shell",
+			"command": "C:/Users/user/AppData/Local/Programs/Python/Python310/python.exe split_logic.py",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Install bs4",
+			"type": "shell",
+			"command": "C:/Users/user/AppData/Local/Programs/Python/Python310/python.exe -m pip install beautifulsoup4",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Run Split Logic V2",
+			"type": "shell",
+			"command": "C:/Users/user/AppData/Local/Programs/Python/Python310/python.exe split_logic.py",
+			"isBackground": false,
+			"group": "build"
 		}
 	]
 }
