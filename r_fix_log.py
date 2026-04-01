@@ -1,0 +1,1 @@
+with open('fix_log.txt') as f: print(f.read())

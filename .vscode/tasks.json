@@ -141,6 +141,161 @@
 			"command": "C:/Users/user/AppData/Local/Programs/Python/Python310/python.exe split_logic.py",
 			"isBackground": false,
 			"group": "build"
+		},
+		{
+			"label": "Run Split Actions",
+			"type": "shell",
+			"command": "C:/Users/user/AppData/Local/Programs/Python/Python310/python.exe split_actions.py"
+		},
+		{
+			"label": "Run Explore Versions",
+			"type": "shell",
+			"command": "C:/Users/user/AppData/Local/Programs/Python/Python310/python.exe explore_versions.py"
+		},
+		{
+			"label": "Run Explore Versions 2",
+			"type": "shell",
+			"command": "C:/Users/user/AppData/Local/Programs/Python/Python310/python.exe explore_versions.py"
+		},
+		{
+			"label": "Run Explore Extract",
+			"type": "shell",
+			"command": "C:/Users/user/AppData/Local/Programs/Python/Python310/python.exe explore_extract.py"
+		},
+		{
+			"label": "Run Explore Extract File",
+			"type": "shell",
+			"command": "C:/Users/user/AppData/Local/Programs/Python/Python310/python.exe explore_extract.py > output.txt"
+		},
+		{
+			"label": "Run Move Versions",
+			"type": "shell",
+			"command": "C:/Users/user/AppData/Local/Programs/Python/Python310/python.exe move_versions.py"
+		},
+		{
+			"label": "Run Clean Editor",
+			"type": "shell",
+			"command": "C:/Users/user/AppData/Local/Programs/Python/Python310/python.exe clean_editor.py"
+		},
+		{
+			"label": "Run Clean BS4",
+			"type": "shell",
+			"command": "C:/Users/user/AppData/Local/Programs/Python/Python310/python.exe clean_bs4.py"
+		},
+		{
+			"label": "Run Apply Versions BS4",
+			"type": "shell",
+			"command": "C:/Users/user/AppData/Local/Programs/Python/Python310/python.exe apply_versions_bs4.py"
+		},
+		{
+			"label": "Check Output",
+			"type": "shell",
+			"command": "C:/Users/user/AppData/Local/Programs/Python/Python310/python.exe -c \"html=open('CMS-webpage/wireframe_site/content-versions.html', encoding='utf-8').read().splitlines(); print('\\n'.join(html[:30]))\" > first_30.txt"
+		},
+		{
+			"label": "Run Check Status",
+			"type": "shell",
+			"command": "C:/Users/user/AppData/Local/Programs/Python/Python310/python.exe check_change_status.py > out2.txt"
+		},
+		{
+			"label": "Run RO",
+			"type": "shell",
+			"command": "C:/Users/user/AppData/Local/Programs/Python/Python310/python.exe ro.py"
+		},
+		{
+			"label": "Run Add Status Change",
+			"type": "shell",
+			"command": "C:/Users/user/AppData/Local/Programs/Python/Python310/python.exe add_change_status.py"
+		},
+		{
+			"label": "Run Add Status Change 2",
+			"type": "shell",
+			"command": "C:/Users/user/AppData/Local/Programs/Python/Python310/python.exe add_change_status2.py"
+		},
+		{
+			"label": "Run Check Cards",
+			"type": "shell",
+			"command": "C:/Users/user/AppData/Local/Programs/Python/Python310/python.exe explore_cards.py > out3.txt"
+		},
+		{
+			"label": "Run RO2",
+			"type": "shell",
+			"command": "C:/Users/user/AppData/Local/Programs/Python/Python310/python.exe ro2.py"
+		},
+		{
+			"label": "Run Unify Buttons",
+			"type": "shell",
+			"command": "C:/Users/user/AppData/Local/Programs/Python/Python310/python.exe unify_buttons.py"
+		},
+		{
+			"label": "Run Unify Fix",
+			"type": "shell",
+			"command": "C:/Users/user/AppData/Local/Programs/Python/Python310/python.exe unify_buttons_fix.py"
+		},
+		{
+			"label": "Run Check New Version",
+			"type": "shell",
+			"command": "C:/Users/user/AppData/Local/Programs/Python/Python310/python.exe check_new_version.py"
+		},
+		{
+			"label": "Run Check Script",
+			"type": "shell",
+			"command": "C:/Users/user/AppData/Local/Programs/Python/Python310/python.exe r_chk.py"
+		},
+		{
+			"label": "Run Check 3",
+			"type": "shell",
+			"command": "C:/Users/user/AppData/Local/Programs/Python/Python310/python.exe check3.py > chk3.txt"
+		},
+		{
+			"label": "Run Read Chk3",
+			"type": "shell",
+			"command": "C:/Users/user/AppData/Local/Programs/Python/Python310/python.exe r_chk3.py"
+		},
+		{
+			"label": "Run Len",
+			"type": "shell",
+			"command": "C:/Users/user/AppData/Local/Programs/Python/Python310/python.exe len.py > len.txt"
+		},
+		{
+			"label": "Run Extract Modal 2",
+			"type": "shell",
+			"command": "C:/Users/user/AppData/Local/Programs/Python/Python310/python.exe extract_modal2.py"
+		},
+		{
+			"label": "Run Extract BS4",
+			"type": "shell",
+			"command": "C:/Users/user/AppData/Local/Programs/Python/Python310/python.exe extract_bs4.py"
+		},
+		{
+			"label": "Run Inject New Version",
+			"type": "shell",
+			"command": "C:/Users/user/AppData/Local/Programs/Python/Python310/python.exe inject_new_version.py"
+		},
+		{
+			"label": "Run Check 4",
+			"type": "shell",
+			"command": "C:/Users/user/AppData/Local/Programs/Python/Python310/python.exe check_new_version.py > chk4.txt"
+		},
+		{
+			"label": "Run Read 4",
+			"type": "shell",
+			"command": "C:/Users/user/AppData/Local/Programs/Python/Python310/python.exe r_chk4.py"
+		},
+		{
+			"label": "Run Fix Modal Call",
+			"type": "shell",
+			"command": "C:/Users/user/AppData/Local/Programs/Python/Python310/python.exe fix_modal_call.py"
+		},
+		{
+			"label": "Run Fix Log Links",
+			"type": "shell",
+			"command": "C:/Users/user/AppData/Local/Programs/Python/Python310/python.exe fix_log_device_links.py > fix_log.txt"
+		},
+		{
+			"label": "Run Read Fix Log",
+			"type": "shell",
+			"command": "C:/Users/user/AppData/Local/Programs/Python/Python310/python.exe r_fix_log.py"
 		}
 	]
 }

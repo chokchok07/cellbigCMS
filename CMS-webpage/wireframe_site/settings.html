@@ -150,8 +150,8 @@
                 <td>op1@cellbig.com</td>
                 <td style="text-align:right">
                   <div style="display:flex; justify-content:flex-end; gap:8px;">
-                    <button class="btn btn-success" style="background:#10b981; border-color:#10b981; color:#fff;" onclick="alert('계정이 승인되었습니다.')">승인</button>
-                    <button class="btn btn-danger" style="background:#ef4444; border-color:#ef4444; color:#fff;" onclick="alert('요청이 거절되었습니다.')">거절</button>
+                    <button class="btn btn-success" style="background:#10b981; border-color:#10b981; color:#fff;" onclick="openApprovalModal('new_op_1', '김운영', '(주)셀빅')">승인 처리</button>
+                    <button class="btn btn-danger" style="background:#ef4444; border-color:#ef4444; color:#fff;" onclick="if(confirm('이 계정의 가입을 거절하시겠습니까?')) alert('요청이 거절되었습니다.');">거절</button>
                   </div>
                 </td>
               </tr>
@@ -163,8 +163,8 @@
                 <td>storeA@test.com</td>
                 <td style="text-align:right">
                   <div style="display:flex; justify-content:flex-end; gap:8px;">
-                     <button class="btn btn-success" style="background:#10b981; border-color:#10b981; color:#fff;" onclick="alert('계정이 승인되었습니다.')">승인</button>
-                     <button class="btn btn-danger" style="background:#ef4444; border-color:#ef4444; color:#fff;" onclick="alert('요청이 거절되었습니다.')">거절</button>
+                     <button class="btn btn-success" style="background:#10b981; border-color:#10b981; color:#fff;" onclick="openApprovalModal('store_manager_A', '이지점', '매장 A')">승인 처리</button>
+                     <button class="btn btn-danger" style="background:#ef4444; border-color:#ef4444; color:#fff;" onclick="if(confirm('이 계정의 가입을 거절하시겠습니까?')) alert('요청이 거절되었습니다.');">거절</button>
                   </div>
                 </td>
               </tr>
@@ -175,7 +175,7 @@
         <div id="pane-users" class="tab-content" style="background:#fff; padding:20px; border-radius:8px; border:1px solid #e5e7eb;">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 16px;">
             <h3 style="margin:0">Admin Users</h3>
-            <button class="btn btn-primary" onclick="location.href='user-detail.html'">+ New User</button>
+            <button class="btn btn-primary" onclick="openNewUserModal()">+ New User</button>
           </div>
 
           <!-- Filter Panel for Users -->
@@ -354,5 +354,173 @@
       });
     </script>
 
+  <!-- Account Approval Modal -->
+  <div id="approvalModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9999; justify-content:center; align-items:center;">
+    <div style="background:#fff; width:450px; border-radius:8px; overflow:hidden; box-shadow:0 4px 6px rgba(0,0,0,0.1);">
+      <div style="padding:16px 24px; border-bottom:1px solid #e5e7eb; display:flex; justify-content:space-between; align-items:center;">
+        <h3 style="margin:0; font-size:1.125rem; font-weight:600; color:#111827;">Account Approval</h3>
+        <button type="button" onclick="closeApprovalModal()" style="background:none; border:none; font-size:1.25rem; cursor:pointer; color:#6b7280;">&times;</button>
+      </div>
+      <div style="padding:24px;">
+        <p style="margin:0 0 16px 0; color:#374151;">Assign role and access level for <strong id="approvalModal_name_company"></strong>.</p>
+        
+        <div style="margin-bottom:16px;">
+          <label style="display:block; font-weight:600; margin-bottom:8px;">Account Role</label>
+          <select id="approvalModal_role" class="input" style="width:100%;" onchange="toggleRegionSelect()">
+            <option value="SuperAdmin">최고 관리자 (Super Admin)</option>
+            <option value="Operation">운영 관리자 (Operation Admin)</option>
+            <option value="LocalAdmin">지역 관리자 (Regional Admin)</option>
+            <option value="Technician">설치/유지보수 담당자 (Technician)</option>
+          </select>
+        </div>
+
+        <div id="approvalModal_regionContainer" style="display:none; margin-bottom:16px;">
+          <label style="display:block; font-weight:600; margin-bottom:8px;">Assigned Region</label>
+          <select id="approvalModal_region" class="input" style="width:100%;">
+            <option value="">-- Select Region --</option>
+            <option value="Seoul">서울 (Seoul)</option>
+            <option value="Busan">부산 (Busan)</option>
+            <option value="Gyeonggi">경기 (Gyeonggi)</option>
+            <option value="Jeju">제주 (Jeju)</option>
+          </select>
+        </div>
+      </div>
+      <div style="padding:16px 24px; border-top:1px solid #e5e7eb; display:flex; justify-content:flex-end; gap:8px; background:#f9fafb;">
+        <button type="button" class="btn btn-secondary" onclick="closeApprovalModal()">Cancel</button>
+        <button type="button" class="btn btn-success" style="background:#10b981; border-color:#10b981; color:#fff;" onclick="confirmApproval()">Approve Account</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openApprovalModal(userId, name, company) {
+      document.getElementById('approvalModal_name_company').innerText = `${name} (${company})`;
+      document.getElementById('approvalModal_role').value = 'SuperAdmin';
+      toggleRegionSelect();
+      document.getElementById('approvalModal').style.display = 'flex';
+    }
+
+    function closeApprovalModal() {
+      document.getElementById('approvalModal').style.display = 'none';
+    }
+
+    function toggleRegionSelect() {
+      const role = document.getElementById('approvalModal_role').value;
+      const regionContainer = document.getElementById('approvalModal_regionContainer');
+      if (role === 'LocalAdmin') {
+        regionContainer.style.display = 'block';
+      } else {
+        regionContainer.style.display = 'none';
+      }
+    }
+
+    function confirmApproval() {
+      const role = document.getElementById('approvalModal_role').value;
+      if (role === 'LocalAdmin' && !document.getElementById('approvalModal_region').value) {
+        alert('Please select a region for Regional Admin.');
+        return;
+      }
+      alert('Account has been approved and assigned responsibilities.');
+      closeApprovalModal();
+      // Add logic here to remove the row from pending list or reload page
+    }
+  </script>
+  <!-- New User Modal -->
+  <div id="newUserModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9999; justify-content:center; align-items:center;">
+    <div style="background:#fff; width:500px; border-radius:8px; overflow:hidden; box-shadow:0 4px 6px rgba(0,0,0,0.1); max-height:90vh; display:flex; flex-direction:column;">
+      <div style="padding:16px 24px; border-bottom:1px solid #e5e7eb; display:flex; justify-content:space-between; align-items:center;">
+        <h3 style="margin:0; font-size:1.125rem; font-weight:600; color:#111827;">Add New User</h3>
+        <button type="button" onclick="closeNewUserModal()" style="background:none; border:none; font-size:1.25rem; cursor:pointer; color:#6b7280;">&times;</button>
+      </div>
+      <div style="padding:24px; overflow-y:auto;">
+        <p style="margin:0 0 20px 0; color:#374151;">신규 관리자 계정을 직접 생성하고 권한을 부여합니다.</p>
+        
+        <div style="margin-bottom:16px;">
+          <label style="display:block; font-weight:600; margin-bottom:8px;">Email (ID) <span style="color:#ef4444">*</span></label>
+          <input type="email" class="input" style="width:100%;" placeholder="admin@example.com">
+        </div>
+        
+        <div style="margin-bottom:16px;">
+          <label style="display:block; font-weight:600; margin-bottom:8px;">Password <span style="color:#ef4444">*</span></label>
+          <input type="password" class="input" style="width:100%;" placeholder="Enter password">
+        </div>
+
+        <div style="display:flex; gap:16px; margin-bottom:16px;">
+          <div style="flex:1;">
+            <label style="display:block; font-weight:600; margin-bottom:8px;">Name <span style="color:#ef4444">*</span></label>
+            <input type="text" class="input" style="width:100%;" placeholder="홍길동">
+          </div>
+          <div style="flex:1;">
+            <label style="display:block; font-weight:600; margin-bottom:8px;">Company <span style="color:#ef4444">*</span></label>
+            <input type="text" class="input" style="width:100%;" placeholder="(주)회사명">
+          </div>
+        </div>
+
+        <div style="margin-bottom:20px;">
+          <label style="display:block; font-weight:600; margin-bottom:8px;">Phone Number (Optional)</label>
+          <input type="text" class="input" style="width:100%;" placeholder="010-0000-0000">
+        </div>
+
+        <hr style="border:0; border-top:1px solid #e5e7eb; margin:0 0 20px 0;">
+
+        <div style="margin-bottom:16px;">
+          <label style="display:block; font-weight:600; margin-bottom:8px;">Account Role <span style="color:#ef4444">*</span></label>
+          <select id="newUserModal_role" class="input" style="width:100%;" onchange="toggleNewUserRegionSelect()">
+            <option value="SuperAdmin">최고 관리자 (Super Admin)</option>
+            <option value="Operation">운영 관리자 (Operation Admin)</option>
+            <option value="LocalAdmin">지역 관리자 (Regional Admin)</option>
+            <option value="Technician">설치/유지보수 담당자 (Technician)</option>
+          </select>
+        </div>
+
+        <div id="newUserModal_regionContainer" style="display:none; margin-bottom:8px;">
+          <label style="display:block; font-weight:600; margin-bottom:8px;">Assigned Region <span style="color:#ef4444">*</span></label>
+          <select id="newUserModal_region" class="input" style="width:100%;">
+            <option value="">-- Select Region --</option>
+            <option value="Seoul">서울 (Seoul)</option>
+            <option value="Busan">부산 (Busan)</option>
+            <option value="Gyeonggi">경기 (Gyeonggi)</option>
+            <option value="Jeju">제주 (Jeju)</option>
+          </select>
+        </div>
+      </div>
+      <div style="padding:16px 24px; border-top:1px solid #e5e7eb; display:flex; justify-content:flex-end; gap:8px; background:#f9fafb;">
+        <button type="button" class="btn btn-secondary" onclick="closeNewUserModal()">Cancel</button>
+        <button type="button" class="btn btn-primary" onclick="confirmNewUser()">Create User</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openNewUserModal() {
+      document.getElementById('newUserModal_role').value = 'SuperAdmin';
+      toggleNewUserRegionSelect();
+      document.getElementById('newUserModal').style.display = 'flex';
+    }
+
+    function closeNewUserModal() {
+      document.getElementById('newUserModal').style.display = 'none';
+    }
+
+    function toggleNewUserRegionSelect() {
+      const role = document.getElementById('newUserModal_role').value;
+      const regionContainer = document.getElementById('newUserModal_regionContainer');
+      if (role === 'LocalAdmin') {
+        regionContainer.style.display = 'block';
+      } else {
+        regionContainer.style.display = 'none';
+      }
+    }
+
+    function confirmNewUser() {
+      const role = document.getElementById('newUserModal_role').value;
+      if (role === 'LocalAdmin' && !document.getElementById('newUserModal_region').value) {
+        alert('Please select a region for Regional Admin.');
+        return;
+      }
+      alert('신규 사용자가 성공적으로 생성되었으며, 권한이 부여되었습니다.');
+      closeNewUserModal();
+    }
+  </script>
 </body>
 </html>

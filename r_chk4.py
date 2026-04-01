@@ -1,0 +1,1 @@
+with open('chk4.txt') as f: print(f.read())

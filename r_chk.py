@@ -1,0 +1,1 @@
+print(open('chk.txt').read())

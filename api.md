@@ -31,7 +31,13 @@
   "description": "강남 1호점 메인 디스플레이",
   "store_id": "store-gangnam-01",
   "mac_addresses": ["00:1A:2B:3C:4D:5E", ""],
-  "status": "online",
+    "products": [
+      {
+        "product_id": "prod-01",
+        "installed_package_id": "pkg-sand-11"
+      }
+    ],
+    "status": "online",
   "meta": {
     "cpu": "Intel Core i7-12700",
     "gpu": "NVIDIA RTX 3060",
@@ -70,7 +76,9 @@
 ```json
 {
   "title": "Sand Animation 01",
+  "product_id": "product-sandcraft",
   "content_type": "video",
+  "category": "education",
   "description": "모래 애니메이션 비디오",
   "status": "published"
 }

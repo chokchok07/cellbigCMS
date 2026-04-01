@@ -79,6 +79,12 @@
           </div>
           <div class="header-actions">
               <!-- Generate Keys button removed as keys are now generated from Device Editor -->
+          </div>
+        </div>
+
+        <!-- Search/Filter Panel -->
+        <div class="filter-panel">
+          <div class="filter-row" style="display:flex; gap:12px; align-items:center;">
             <input type="text" id="searchInput" placeholder="Search by Serial Key..." class="search-input" style="flex:1;">
             <select id="productFilter" class="filter-select">
                         <option value="">All Products</option>
@@ -93,7 +99,7 @@
                         <option value="Revoked">Revoked</option>
                     </select>
             <button class="btn btn-secondary" onclick="filterTable()">Search</button>
-            </div>
+          </div>
         </div>
 
         <!-- Action Bar -->
@@ -102,7 +108,6 @@
             <div class="bulk-actions">
                     <label><input type="checkbox" id="selectAll"> Select All</label>
                     <button class="btn-secondary">Export CSV</button>
-                    <button class="action-btn action-btn-danger">Revoke Selected</button>
             </div>
         </div>
 
