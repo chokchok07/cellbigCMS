@@ -101,17 +101,6 @@
                 <div class="info-label" style="font-weight: 600; color: #4b5563; text-align: right; padding-top: 4px;">Description:</div>
                 <textarea class="input" style="width:100%; height:60px; resize:vertical;">샌드크래프트 제품군</textarea>
                 
-                <div class="info-label" style="font-weight: 600; color: #4b5563; text-align: right; padding-top: 4px;">Default Package:</div>
-                <div class="info-value" style="display: flex; gap: 8px; align-items: center;">
-                  <select class="input" style="flex: 1;">
-                    <option value="pkg-sand-11" selected>pkg-sand-11</option>
-                    <option value="pkg-sand-full">pkg-sand-full</option>
-                    <option value="pkg-sand-lite">pkg-sand-lite</option>
-                    <option value="none">None</option>
-                  </select>
-                  <a href="package-detail.html" style="color:#2563eb;text-decoration:none;font-size:13px;white-space:nowrap;">View Package</a>
-                </div>
-                
                 <div class="info-label" style="font-weight: 600; color: #4b5563; text-align: right; padding-top: 4px;">Created:</div>
                 <div class="info-value" style="color: #111827; background: #f9fafb; padding: 6px 12px; border-radius: 6px; min-height: 20px;">2026-01-15 10:00</div>
                 
@@ -124,14 +113,12 @@
             <div class="card" style="display:flex; flex-direction:column; margin-bottom:20px;">
               <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
                 <h2 style="font-size: 18px; color: #111827; margin:0">📦 연결된 패키지 <span id="packageCount">(3)</span></h2>
-                <button type="button" class="btn btn-primary" onclick="openPackageSelectionModal()">+ Add Package</button>
               </div>
               <div style="flex:1; overflow-y:auto; max-height:400px; padding-right:8px;">
           <table class="section-table">
             <thead>
               <tr>
                 <th>Package Name</th>
-                <th style="width:100px">Version</th>
                 <th style="width:150px">Deploy Date</th>
                 <th style="width:180px">Action</th>
               </tr>
@@ -139,29 +126,23 @@
             <tbody id="packagesListTableBody">
               <tr>
                 <td><strong>pkg-sand-11</strong></td>
-                <td>v1.1</td>
                 <td>2026-02-01</td>
                 <td>
-                  <a href="#" class="action-link">View</a>
-                  <a href="#" class="action-link" style="color:#dc2626">Remove</a>
+                  <button type="button" class="btn btn-outline" style="padding: 4px 8px; font-size: 12px;" onclick="location.href='package-detail.html?id=pkg-sand-11'">View</button>
                 </td>
               </tr>
               <tr>
                 <td><strong>pkg-sand-24</strong></td>
-                <td>v2.4</td>
                 <td>2026-01-20</td>
                 <td>
-                  <a href="#" class="action-link">View</a>
-                  <a href="#" class="action-link" style="color:#dc2626">Remove</a>
+                  <button type="button" class="btn btn-outline" style="padding: 4px 8px; font-size: 12px;" onclick="location.href='package-detail.html?id=pkg-sand-24'">View</button>
                 </td>
               </tr>
               <tr>
                 <td><strong>pkg-sand-test</strong></td>
-                <td>v0.9</td>
                 <td>2026-02-10</td>
                 <td>
-                  <a href="#" class="action-link">View</a>
-                  <a href="#" class="action-link" style="color:#dc2626">Remove</a>
+                  <button type="button" class="btn btn-outline" style="padding: 4px 8px; font-size: 12px;" onclick="location.href='package-detail.html?id=pkg-sand-test'">View</button>
                 </td>
               </tr>
             </tbody>
