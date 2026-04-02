@@ -73,7 +73,7 @@
               <p class="page-desc">ID: 101 | 샌드크래프트 - 해변 (SandCraft - Beach)</p>
             </div>
             <div class="header-actions">
-              <button class="btn btn-primary" onclick="location.href='version-register.html'">+ New Version</button>
+              <button class="btn btn-primary" onclick="openNewVersionModal()">+ New Version</button>
             </div>
           </div>
         </div>
@@ -112,9 +112,9 @@
                   <div>By: admin@example.com</div>
                 </div>
                 <div style="display:flex; gap:8px;">
-                  <button class="btn btn-outline" style="padding:4px 8px; font-size:12px;" onclick="alert('다운로드 데모')">⬇️ Download</button>
-                  <button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="alert('상태 변경 모달 오픈')">Change Status</button>
-                  <button class="btn btn-primary" style="padding:4px 8px; font-size:12px;" onclick="location.href='version-register.html'">View</button>
+                  <button class="btn btn-outline" style="padding:4px 8px; font-size:12px;" onclick="showDownloadToast()">⬇️ Download</button>
+                  <button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="openChangeStatusModal()">Change Status</button>
+                  <button class="btn btn-primary" style="padding:4px 8px; font-size:12px;" onclick="openViewModal()">View</button>
                 </div>
               </div>
             </div>
@@ -151,9 +151,9 @@
                   <div>By: test_admin</div>
                 </div>
                 <div style="display:flex; gap:8px;">
-                  <button class="btn btn-outline" style="padding:4px 8px; font-size:12px;" onclick="alert('다운로드 데모')">⬇️ Download</button>
-                  <button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="alert('상태 변경 모달 오픈')">Change Status</button>
-                  <button class="btn btn-primary" style="padding:4px 8px; font-size:12px;" onclick="location.href='version-register.html'">View</button>
+                  <button class="btn btn-outline" style="padding:4px 8px; font-size:12px;" onclick="showDownloadToast()">⬇️ Download</button>
+                  <button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="openChangeStatusModal()">Change Status</button>
+                  <button class="btn btn-primary" style="padding:4px 8px; font-size:12px;" onclick="openViewModal()">View</button>
                 </div>
               </div>
             </div>
@@ -189,9 +189,9 @@
                   <div>By: admin_root</div>
                 </div>
                 <div style="display:flex; gap:8px;">
-                  <button class="btn btn-outline" style="padding:4px 8px; font-size:12px;" onclick="alert('다운로드 데모')">⬇️ Download</button>
-                  <button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="alert('상태 변경 모달 오픈')">Change Status</button>
-                  <button class="btn btn-primary" style="padding:4px 8px; font-size:12px;" onclick="location.href='version-register.html'">View</button>
+                  <button class="btn btn-outline" style="padding:4px 8px; font-size:12px;" onclick="showDownloadToast()">⬇️ Download</button>
+                  <button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="openChangeStatusModal()">Change Status</button>
+                  <button class="btn btn-primary" style="padding:4px 8px; font-size:12px;" onclick="openViewModal()">View</button>
                 </div>
               </div>
             </div>
@@ -287,5 +287,388 @@
 
   </script>
 
+
+  <!-- New Version Modal -->
+  <div id="newVersionModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center; padding:20px;">
+    <div style="background:#fff; width:600px; max-height:90vh; border-radius:8px; display:flex; flex-direction:column; overflow:hidden; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);">
+      
+      <!-- Modal Header -->
+      <div style="padding:16px 20px; border-bottom:1px solid #e5e7eb; display:flex; justify-content:space-between; align-items:center; background:#f9fafb;">
+        <h3 style="margin:0; font-size:18px; color:#111827;" id="modalVersionTitle">새 버전 업로드 (+ New Version)</h3>
+        <button type="button" style="background:transparent; border:none; font-size:24px; cursor:pointer; color:#6b7280;" onclick="closeNewVersionModal()">&times;</button>
+      </div>
+      
+      <!-- Modal Body -->
+      <div style="padding:20px; overflow-y:auto; display:flex; flex-direction:column; gap:24px;">
+        
+        <!-- 버전 -->
+        <div>
+          <label style="display:block; margin-bottom:8px; font-weight:600; color:#374151; font-size:14px;">버전 (Version)</label>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <input type="number" id="versionMajor" min="0" max="999" value="1" style="width:70px; padding:8px 12px; border:1px solid #d1d5db; border-radius:4px; text-align:center;">
+            <span style="font-weight:bold; color:#6b7280;">.</span>
+            <input type="number" id="versionMinor" min="0" max="999" value="0" style="width:70px; padding:8px 12px; border:1px solid #d1d5db; border-radius:4px; text-align:center;">
+            <span style="font-weight:bold; color:#6b7280;">.</span>
+            <input type="number" id="versionPatch" min="0" max="999" value="0" style="width:70px; padding:8px 12px; border:1px solid #d1d5db; border-radius:4px; text-align:center;">
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+          <!-- 업데이트 타입 -->
+          <div>
+            <label style="display:block; margin-bottom:8px; font-weight:600; color:#374151; font-size:14px;">업데이트 유형</label>
+            <div style="display:flex; gap:16px;">
+              <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+                <input type="radio" name="updateType" value="forced" style="width:16px; height:16px;">
+                <span style="font-size:13px;">강제 업데이트</span>
+              </label>
+              <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+                <input type="radio" name="updateType" value="optional" checked style="width:16px; height:16px;">
+                <span style="font-size:13px;">선택 업데이트</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- 배포 환경 -->
+          <div>
+            <label style="display:block; margin-bottom:8px; font-weight:600; color:#374151; font-size:14px;">배포 환경</label>
+            <div style="display:flex; gap:16px;">
+              <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+                <input type="radio" name="deploymentTarget" value="production" style="width:16px; height:16px;">
+                <span style="font-size:13px;">상용 (Production)</span>
+              </label>
+              <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+                <input type="radio" name="deploymentTarget" value="test" checked style="width:16px; height:16px;">
+                <span style="font-size:13px;">테스트 (Test)</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- 버전 파일 및 크기 확인 -->
+        <div>
+          <label style="display:block; margin-bottom:8px; font-weight:600; color:#374151; font-size:14px;">버전 파일 (Artifact File)</label>
+          <div style="display:flex; gap:8px; align-items:center;">
+            <div style="flex:1; padding:8px 12px; border:1px solid #d1d5db; border-radius:4px; background:#f9fafb; font-size:13px; color:#6b7280;" id="versionFileName">content_v1.0.1.zip</div>
+            <input type="file" id="versionFile" style="display:none" accept=".zip">
+            <button type="button" class="btn btn-outline" style="padding:8px 16px; font-size:13px;" onclick="document.getElementById('versionFile').click()">파일 찾기</button>
+          </div>
+          
+          <!-- UI 전용: 파일 용량 표시 (와이어프레임) -->
+          <div style="margin-top:8px; font-size:13px; color:#4b5563; display:flex; align-items:center; gap:6px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color:#10b981;">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>업로드된 파일 용량: <strong style="color:#111827;">345.2 MB</strong></span>
+          </div>
+        </div>
+
+        <!-- 상태 -->
+        <div>
+          <label style="display:block; margin-bottom:8px; font-weight:600; color:#374151; font-size:14px;">상태 (Status)</label>
+          <div style="display:flex; gap:20px; padding:12px; background:#f9fafb; border:1px solid #e5e7eb; border-radius:6px; align-items:center;">
+            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+              <input type="radio" name="versionState" value="draft" checked style="width:16px; height:16px;">
+              <span style="font-size:14px; font-weight:600; color:#4b5563;">Draft (초안)</span>
+            </label>
+            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+              <input type="radio" name="versionState" value="staged" style="width:16px; height:16px;">
+              <span style="font-size:14px; font-weight:600; color:#047857;">Staged (테스트)</span>
+            </label>
+            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+              <input type="radio" name="versionState" value="published" style="width:16px; height:16px;">
+              <span style="font-size:14px; font-weight:600; color:#1d4ed8;">Published (상용)</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- 버전 설명 -->
+        <div>
+          <label style="display:block; margin-bottom:8px; font-weight:600; color:#374151; font-size:14px;">버전 설명 (Release Notes)</label>
+          <textarea id="versionReleaseNotes" style="width:100%; min-height:100px; padding:12px; border:1px solid #d1d5db; border-radius:4px; font-family:inherit; font-size:13px; resize:vertical;" placeholder="변경 사항 및 배포 노트를 입력하세요."></textarea>
+        </div>
+
+      </div>
+      
+      <!-- Modal Footer -->
+      <div style="padding:16px 20px; border-top:1px solid #e5e7eb; display:flex; justify-content:flex-end; gap:10px; background:#f9fafb;">
+        <button type="button" class="btn btn-secondary" onclick="closeNewVersionModal()">취소</button>
+        <button type="button" class="btn btn-primary" onclick="submitNewVersion()">버전 등록</button>
+      </div>
+      
+    </div>
+  </div>
+
+  <script>
+    function openNewVersionModal() {
+      document.getElementById('newVersionModal').style.display = 'flex';
+    }
+
+    function closeNewVersionModal() {
+      document.getElementById('newVersionModal').style.display = 'none';
+      document.getElementById('versionFileName').innerText = '파일을 선택해 주세요. (.zip)';
+      
+      const vArea = document.getElementById('versionFileVerificationArea');
+      if (vArea) vArea.style.display = 'none';
+      
+      document.getElementById('versionFile').value = '';
+    }
+
+    function handleVersionFileSelect(event) {
+      const file = event.target.files[0];
+      if (file) {
+        document.getElementById('versionFileName').innerText = file.name;
+        
+        const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
+        
+        // 파일 영역 Display ON 및 용량 표시
+        document.getElementById('versionFileVerificationArea').style.display = 'flex';
+        document.getElementById('versionFileSize').innerText = `${sizeMB} MB`;
+      }
+    }
+
+    function submitNewVersion() {
+      const major = document.getElementById('versionMajor').value;
+      const minor = document.getElementById('versionMinor').value;
+      const patch = document.getElementById('versionPatch').value;
+      
+      if (!document.getElementById('versionFile').files[0]) {
+        alert('버전 파일(.zip)을 등록해주세요.');
+        return;
+      }
+      
+      alert(`v${major}.${minor}.${patch} 버전이 성공적으로 등록되었습니다!`);
+      closeNewVersionModal();
+    }
+  </script>
+
+  <!-- Toast Notification -->
+  <div id="toastContainer" style="display:none; position:fixed; bottom:20px; right:20px; background:#374151; color:#fff; padding:12px 24px; border-radius:6px; box-shadow:0 4px 6px rgba(0,0,0,0.1); z-index:9999; font-size:14px; align-items:center; gap:12px; transition:opacity 0.3s ease;">
+    <div class="toast-loader" id="toastLoader" style="width:16px; height:16px; border:2px solid transparent; border-top-color:#fff; border-radius:50%; animation:toast-spin 1s linear infinite;"></div>
+    <span id="toastMessage">다운로드 중입니다... (content.zip)</span>
+  </div>
+  
+  <style>
+    @keyframes toast-spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+
+  <script>
+    function simulateDownload(btnElement) {
+      if(btnElement.disabled) return;
+      
+      const originalText = btnElement.innerHTML;
+      btnElement.disabled = true;
+      btnElement.style.opacity = '0.7';
+      btnElement.innerHTML = '⏳ Loading...';
+      
+      // Toast 노출
+      const toast = document.getElementById('toastContainer');
+      const toastMsg = document.getElementById('toastMessage');
+      const toastLoader = document.getElementById('toastLoader');
+      
+      toast.style.display = 'flex';
+      toast.style.opacity = '1';
+      toast.style.background = '#374151'; // 다크그레이
+      toastLoader.style.display = 'block';
+      toastMsg.innerText = '다운로드 중입니다... (content.zip)';
+      
+      // 2초 뒤 완료 처리
+      setTimeout(() => {
+        btnElement.innerHTML = '✅ 완료';
+        btnElement.style.color = '#10b981';
+        btnElement.style.borderColor = '#10b981';
+        
+        toastLoader.style.display = 'none';
+        toast.style.background = '#10b981'; // 초록색으로 변경
+        toastMsg.innerText = '다운로드가 완료되었습니다!';
+        
+        // 2초 뒤 토스트 닫고 버튼 복구
+        setTimeout(() => {
+          toast.style.opacity = '0';
+          setTimeout(() => {
+            toast.style.display = 'none';
+            btnElement.disabled = false;
+            btnElement.style.opacity = '1';
+            btnElement.innerHTML = originalText;
+            btnElement.style.color = '';
+            btnElement.style.borderColor = '';
+          }, 300);
+        }, 2000);
+      }, 1500);
+    }
+  </script>
+
+  <!-- 다운로드 토스트 UI -->
+  <div id="downloadToast" style="display:none; position:fixed; bottom:20px; right:20px; background:#3b82f6; color:#fff; padding:12px 24px; border-radius:8px; box-shadow:0 4px 6px rgba(0,0,0,0.1); font-size:14px; z-index:10000; align-items:center; gap:8px;">
+    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+    다운로드가 시작되었습니다...
+  </div>
+
+  <!-- Change Status 모달 UI -->
+  <div id="changeStatusModal" class="modal-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center;">
+    <div style="background:#fff; width:400px; border-radius:8px; display:flex; flex-direction:column; overflow:hidden; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);">
+      <div style="padding:16px 20px; border-bottom:1px solid #e5e7eb; display:flex; justify-content:space-between; align-items:center; background:#f9fafb;">
+        <h3 style="margin:0; font-size:16px; color:#111827;">배포 상태 변경</h3>
+        <button type="button" style="background:transparent; border:none; font-size:20px; cursor:pointer;" onclick="closeChangeStatusModal()">&times;</button>
+      </div>
+      <div style="padding:20px; display:flex; flex-direction:column; gap:12px;">
+        <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+          <input type="radio" name="statusOption" checked>
+          <span style="font-size:14px;">Draft (초안)</span>
+        </label>
+        <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+          <input type="radio" name="statusOption">
+          <span style="font-size:14px; color:#047857;">Staged (테스트)</span>
+        </label>
+        <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+          <input type="radio" name="statusOption">
+          <span style="font-size:14px; color:#1d4ed8;">Published (상용/발행)</span>
+        </label>
+        <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+          <input type="radio" name="statusOption">
+          <span style="font-size:14px; color:#ef4444;">Deprecated (사용 중단)</span>
+        </label>
+      </div>
+      <div style="padding:16px 20px; border-top:1px solid #e5e7eb; display:flex; justify-content:flex-end; gap:8px; background:#f9fafb;">
+        <button type="button" class="btn btn-secondary" onclick="closeChangeStatusModal()">취소</button>
+        <button type="button" class="btn btn-primary" onclick="alert('[UI 시뮬레이션] 상태가 변경되었습니다.'); closeChangeStatusModal();">적용</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- View (버전 상세 정보) 모달 UI -->
+  <div id="viewModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center; padding:20px;">
+    <div style="background:#fff; width:600px; max-height:90vh; border-radius:8px; display:flex; flex-direction:column; overflow:hidden; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);">
+      
+      <!-- Modal Header -->
+      <div style="padding:16px 20px; border-bottom:1px solid #e5e7eb; display:flex; justify-content:space-between; align-items:center; background:#f9fafb;">
+        <h3 style="margin:0; font-size:18px; color:#111827;" id="modalViewTitle">버전 상세정보 (View)</h3>
+        <button type="button" style="background:transparent; border:none; font-size:24px; cursor:pointer; color:#6b7280;" onclick="closeViewModal()">&times;</button>
+      </div>
+      
+      <!-- Modal Body -->
+      <div style="padding:20px; overflow-y:auto; display:flex; flex-direction:column; gap:24px;">
+        
+        <!-- 버전 -->
+        <div>
+          <label style="display:block; margin-bottom:8px; font-weight:600; color:#374151; font-size:14px;">버전 (Version)</label>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <input type="number" id="viewVersionMajor" min="0" max="999" value="1" disabled style="width:70px; padding:8px 12px; border:1px solid #d1d5db; border-radius:4px; text-align:center; background:#f3f4f6;">
+            <span style="font-weight:bold; color:#6b7280;">.</span>
+            <input type="number" id="viewVersionMinor" min="0" max="999" value="0" disabled style="width:70px; padding:8px 12px; border:1px solid #d1d5db; border-radius:4px; text-align:center; background:#f3f4f6;">
+            <span style="font-weight:bold; color:#6b7280;">.</span>
+            <input type="number" id="viewVersionPatch" min="0" max="999" value="0" disabled style="width:70px; padding:8px 12px; border:1px solid #d1d5db; border-radius:4px; text-align:center; background:#f3f4f6;">
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+          <!-- 업데이트 타입 -->
+          <div>
+            <label style="display:block; margin-bottom:8px; font-weight:600; color:#374151; font-size:14px;">업데이트 유형</label>
+            <div style="display:flex; gap:16px;">
+              <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+                <input type="radio" name="viewUpdateType" value="forced" style="width:16px; height:16px;">
+                <span style="font-size:13px;">강제 업데이트</span>
+              </label>
+              <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+                <input type="radio" name="viewUpdateType" value="optional" checked style="width:16px; height:16px;">
+                <span style="font-size:13px;">선택 업데이트</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- 배포 환경 -->
+          <div>
+            <label style="display:block; margin-bottom:8px; font-weight:600; color:#374151; font-size:14px;">배포 환경</label>
+            <div style="display:flex; gap:16px;">
+              <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+                <input type="radio" name="viewDeploymentTarget" value="production" style="width:16px; height:16px;">
+                <span style="font-size:13px;">상용 (Production)</span>
+              </label>
+              <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+                <input type="radio" name="viewDeploymentTarget" value="test" checked style="width:16px; height:16px;">
+                <span style="font-size:13px;">테스트 (Test)</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- 버전 파일 및 크기 확인 -->
+        <div>
+          <label style="display:block; margin-bottom:8px; font-weight:600; color:#374151; font-size:14px;">버전 파일 (Artifact File)</label>
+          <div style="display:flex; gap:8px; align-items:center;">
+            <div style="flex:1; padding:8px 12px; border:1px solid #d1d5db; border-radius:4px; background:#f9fafb; font-size:13px; color:#6b7280;">content_v1.0.0.zip</div>
+            <button type="button" class="btn btn-outline" style="padding:8px 16px; font-size:13px;">파일 변경</button>
+          </div>
+          
+          <!-- UI 전용: 파일 용량 표시 (와이어프레임) -->
+          <div style="margin-top:8px; font-size:13px; color:#4b5563; display:flex; align-items:center; gap:6px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color:#10b981;">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>현재 파일 용량: <strong style="color:#111827;">345.2 MB</strong></span>
+          </div>
+        </div>
+
+        <!-- 상태 -->
+        <div>
+          <label style="display:block; margin-bottom:8px; font-weight:600; color:#374151; font-size:14px;">상태 (Status)</label>
+          <div style="display:flex; gap:20px; padding:12px; background:#f9fafb; border:1px solid #e5e7eb; border-radius:6px; align-items:center;">
+            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+              <input type="radio" name="viewVersionState" value="draft" style="width:16px; height:16px;">
+              <span style="font-size:14px; font-weight:600; color:#4b5563;">Draft (초안)</span>
+            </label>
+            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+              <input type="radio" name="viewVersionState" value="staged" style="width:16px; height:16px;">
+              <span style="font-size:14px; font-weight:600; color:#047857;">Staged (테스트)</span>
+            </label>
+            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+              <input type="radio" name="viewVersionState" value="published" checked style="width:16px; height:16px;">
+              <span style="font-size:14px; font-weight:600; color:#1d4ed8;">Published (상용)</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- 버전 설명 -->
+        <div>
+          <label style="display:block; margin-bottom:8px; font-weight:600; color:#374151; font-size:14px;">버전 설명 (Release Notes)</label>
+          <textarea id="viewVersionReleaseNotes" style="width:100%; min-height:100px; padding:12px; border:1px solid #d1d5db; border-radius:4px; font-family:inherit; font-size:13px; resize:vertical;">- 초기 버전 런칭</textarea>
+        </div>
+
+      </div>
+      
+      <!-- Modal Footer -->
+      <div style="padding:16px 20px; border-top:1px solid #e5e7eb; display:flex; justify-content:flex-end; gap:10px; background:#f9fafb;">
+        <button type="button" class="btn btn-secondary" onclick="closeViewModal()">닫기</button>
+        <button type="button" class="btn btn-primary" onclick="alert('[UI 시뮬레이션] 상세 정보가 저장되었습니다.'); closeViewModal();">저장</button>
+      </div>
+      
+    </div>
+  </div>
+
+  <script>
+    function showDownloadToast() {
+      const toast = document.getElementById('downloadToast');
+      toast.style.display = 'flex';
+      setTimeout(() => { toast.style.display = 'none'; }, 2000);
+    }
+    function openChangeStatusModal() {
+      document.getElementById('changeStatusModal').style.display = 'flex';
+    }
+    function closeChangeStatusModal() {
+      document.getElementById('changeStatusModal').style.display = 'none';
+    }
+    function openViewModal() {
+      document.getElementById('viewModal').style.display = 'flex';
+    }
+    function closeViewModal() {
+      document.getElementById('viewModal').style.display = 'none';
+    }
+  </script>
 </body>
+
+
+
 </html>

@@ -99,21 +99,21 @@
             <div class="card" style="margin-bottom: 24px;">
               <h2 style="font-size: 18px; color: #111827; margin-top: 0; margin-bottom: 20px; border-bottom: 1px solid #e5e7eb; padding-bottom: 12px;">📋 기본 정보</h2>
               <div style="display: grid; grid-template-columns: 140px 1fr; gap: 16px 24px; align-items: start;">
-                <div class="info-label" style="font-weight: 600; color: #4b5563; text-align: right; padding-top: 4px;">Product:</div>
-                <select class="input" style="width:100%;"><option value="product-sandcraft" selected>SandCraft</option><option value="product-fish">FishWorld</option></select>
+                <div class="info-label" style="font-weight: 600; color: #4b5563; text-align: right; padding-top: 4px;">Package Name:</div>
+                <input type="text" class="input" style="width:100%" value="SandCraft - 11 Items">
                 
                 <div class="info-label" style="font-weight: 600; color: #4b5563; text-align: right; padding-top: 4px;">Package ID:</div>
                 <div class="info-value" style="color: #111827; background: #f3f4f6; padding: 6px 12px; border-radius: 6px; min-height: 20px; font-family: monospace;">pkg-sand-11</div>
                 
-                <div class="info-label" style="font-weight: 600; color: #4b5563; text-align: right; padding-top: 4px;">Package Name:</div>
-                <input type="text" class="input" style="width:100%" value="SandCraft - 11 Items">
-                
-                <div class="info-label" style="font-weight: 600; color: #4b5563; text-align: right; padding-top: 4px;">Description:</div>
-                <textarea class="input" style="width:100%; height:60px; resize:vertical;">샌드크래프트 기본 11종 콘텐츠 패키지</textarea>
+                <div class="info-label" style="font-weight: 600; color: #4b5563; text-align: right; padding-top: 4px;">Product:</div>
+                <select class="input" style="width:100%;"><option value="product-sandcraft" selected>SandCraft</option><option value="product-fish">FishWorld</option></select>
                 
                 <div class="info-label" style="font-weight: 600; color: #4b5563; text-align: right; padding-top: 4px;">Status:</div>
                 <select class="input" style="width:100%;"><option value="published" selected>Published</option><option value="test">Test</option>
                       <option value="unpublished">Unpublished</option></select>
+                
+                <div class="info-label" style="font-weight: 600; color: #4b5563; text-align: right; padding-top: 4px;">Description:</div>
+                <textarea class="input" style="width:100%; height:60px; resize:vertical;">샌드크래프트 기본 11종 콘텐츠 패키지</textarea>
               </div>
             </div>
 
@@ -134,7 +134,7 @@
             <div class="card">
               <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
                 <h2 style="font-size: 18px; color: #111827; margin:0">📝 Connected Contents (11)</h2>
-                <button class="btn btn-primary" style="padding: 4px 10px; font-size: 13px;" onclick="manageContents()">Manage</button>
+                <button class="btn btn-primary" style="padding: 4px 10px; font-size: 13px;" onclick="document.getElementById('manageModal').style.display = 'flex'">Manage</button>
               </div>
               
               <div style="flex: 1; overflow-y: auto; max-height: 400px; border: 1px solid #e5e7eb; border-radius: 6px;">
@@ -389,8 +389,8 @@
       background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000;
     }
     .v-modal-content {
-      background: #fff; padding: 2rem; border-radius: 8px; width: 600px;
-      max-height: 80vh; overflow-y: auto; text-align: left;
+      background: #fff; padding: 2rem; border-radius: 8px; width: 900px;
+      max-height: 95vh; overflow-y: auto; text-align: left;
     }
     .v-modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
     .v-modal-content h3 { margin: 0; color: #1f2937; margin-right: auto; }
@@ -453,6 +453,10 @@
   </div>
 
   <script>
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+    
     function manageContents() {
       document.getElementById('manageContentsModal').style.display = 'flex';
     }
@@ -465,5 +469,104 @@
       closeManageContents();
     }
   </script>
+<div class="modal-overlay" id="manageModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); align-items: center; justify-content: center; z-index: 1000;">
+    <div class="modal-content" style="background: white; border-radius: 8px; width: 80vw; max-width: 1200px; height: 80vh; max-height: 80vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);">
+      <div class="modal-header" style="padding: 16px 24px; border-bottom: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center;">
+        <h2 style="margin: 0; font-size: 18px; color: #111827;">Connected Contents</h2>
+        <button type="button" onclick="closeModal('manageModal')" style="background: none; border: none; font-size: 20px; cursor: pointer; color: #6b7280;">&times;</button>
+      </div>
+      <div class="modal-body" style="padding: 24px; overflow-y: auto; flex-grow: 1; min-height: 0;">
+        
+        <!-- Search part -->
+        <div style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-end;">
+          <div style="flex: 1; margin-right: 20px;">
+            <label style="display: block; font-size: 14px; font-weight: 500; color: #374151; margin-bottom: 8px;">Product 선택</label>
+            <div style="display: flex; gap: 8px;">
+              <select class="input" style="flex: 1;">
+                <option value="">All Products</option>
+                <option value="sandcraft" selected>SandCraft</option>
+                <option value="fishworld">FishWorld</option>
+              </select>
+              <button class="btn btn-secondary">Search</button>
+            </div>
+          </div>
+          <div style="font-size: 14px; font-weight: 600; color: #111827; white-space: nowrap;">
+            현재 선택된 콘텐츠: <span class="badge badge-success" style="font-size: 14px; padding: 2px 8px;" id="modalSelectedCount">2개</span>
+          </div>
+        </div>
+
+        <!-- Contents List -->
+        <div style="border: 1px solid #e5e7eb; border-radius: 6px; overflow: hidden;">
+          <table class="content-table" style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr style="background: #f9fafb; border-bottom: 1px solid #e5e7eb;">
+                <th style="padding: 12px; text-align: left; font-size: 13px; color: #4b5563;">Content ID</th>
+                <th style="padding: 12px; text-align: left; font-size: 13px; color: #4b5563;">Name</th>
+                                <th style="padding: 12px; text-align: center; font-size: 13px; color: #4b5563;">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Added Content -->
+              <tr style="border-bottom: 1px solid #e5e7eb;">
+                <td style="padding: 12px; font-family: monospace; color: #6b7280;">c-sand-01</td>
+                <td style="padding: 12px; color: #111827;">화산 폭발 (Volcano)</td>
+                
+                <td style="padding: 12px; text-align: center;">
+                  <label style="cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
+                    <input type="checkbox" checked  class="cnt-checkbox" onchange="updateModalCount()" style="accent-color: #10b981; width: 16px; height: 16px; cursor: pointer;">
+                  </label>
+                </td>
+              </tr>
+              <!-- Added Content -->
+              <tr style="border-bottom: 1px solid #e5e7eb;">
+                <td style="padding: 12px; font-family: monospace; color: #6b7280;">c-sand-02</td>
+                <td style="padding: 12px; color: #111827;">공룡 화석 발굴 (Dino)</td>
+                
+                <td style="padding: 12px; text-align: center;">
+                  <label style="cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
+                    <input type="checkbox" checked  class="cnt-checkbox" onchange="updateModalCount()" style="accent-color: #10b981; width: 16px; height: 16px; cursor: pointer;">
+                  </label>
+                </td>
+              </tr>
+              <!-- Not Added Content -->
+              <tr style="border-bottom: 1px solid #e5e7eb; background: #f9fafb;">
+                <td style="padding: 12px; font-family: monospace; color: #6b7280;">c-sand-03</td>
+                <td style="padding: 12px; color: #111827;">개미왕국 (Ants)</td>
+                
+                <td style="padding: 12px; text-align: center;">
+                  <label style="cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
+                    <input type="checkbox"  class="cnt-checkbox" onchange="updateModalCount()" style="accent-color: #10b981; width: 16px; height: 16px; cursor: pointer;">
+                  </label>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+      <div class="modal-footer" style="padding: 16px 24px; border-top: 1px solid #e5e7eb; display: flex; justify-content: flex-end; gap: 8px;">
+        <button type="button" class="btn btn-secondary" onclick="closeModal('manageModal')">Cancel</button>
+        <button type="button" class="btn btn-primary" onclick="submitManageContentsNew()">Done</button>
+      </div>
+    </div>
+  </div>
+
+    <script>
+    function updateModalCount() {
+      const cnt = document.querySelectorAll('#manageModal .cnt-checkbox:checked').length;
+      const target = document.getElementById('modalSelectedCount');
+      if (target) {
+        target.innerText = cnt + ' selected';
+      }
+    }
+
+    function submitManageContentsNew() {
+      if (!confirm('콘텐츠를 추가하시겠습니까?')) return;
+      const checked = document.querySelectorAll('#manageModal .cnt-checkbox:checked');
+      alert(checked.length + ' 개의 콘텐츠가 패키지에 반영되었습니다.');
+      closeModal('manageModal'); // close the large modal
+    }
+    </script>
+    
 </body>
 </html>

@@ -1,0 +1,11 @@
+margin-top:0">📁 초기 버전 파일 업로드 <span style=
+">새 콘텐츠 등록과 함께 첫 번째 버전(v1.0.0)으로 등록될 아티팩트를
+; color:#111827;">새 버전 업로드 (+ New Version)
+        <!-- 버전 -->
+1; font-size:14px;">버전 (Version)</label>
+        <!-- 버전 파일 및 확인 -->
+1; font-size:14px;">버전 파일 (Artifact File)<
+ margin-top:6px;">새 버전을 업로드 시 기본 상태는 'Draf
+        <!-- 버전 설명 -->
+1; font-size:14px;">버전 설명 (Release Notes)<
+submitNewVersion()">버전 등록</button>

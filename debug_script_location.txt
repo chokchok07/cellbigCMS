@@ -1,0 +1,15 @@
+lectedCount');
+      if (target) {
+        target.innerText = cnt + ' selected';
+      }
+    }
+
+    function submitManageContentsNew() {
+      const checked = document.querySelectorAll('#manageModal .cnt-checkbox:checked');
+      alert(checked.length + ' 개의 콘텐츠가 패키지에 반영되었습니다.');
+      closeModal('manageModal'); // close the large modal
+    }
+    </script>
+    
+</body>
+</html>

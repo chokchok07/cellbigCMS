@@ -148,8 +148,7 @@
                 <td>
                   <div class="action-buttons">
                     <button class="action-btn" onclick="window.location.href='content-editor.html?id=101'">View</button>
-                  <button class="action-btn version-btn" onclick="window.location.href='content-versions.html?id=101'" style="margin-left:4px; background-color:#6366f1; color:white; border-color:#6366f1;">Version</button>
-</div>
+                  </div>
                 </td>
               </tr>
 
@@ -167,8 +166,7 @@
                 <td>
                   <div class="action-buttons">
                     <button class="action-btn" onclick="window.location.href='content-editor.html?id=101'">View</button>
-                  <button class="action-btn version-btn" onclick="window.location.href='content-versions.html?id=101'" style="margin-left:4px; background-color:#6366f1; color:white; border-color:#6366f1;">Version</button>
-</div>
+                  </div>
                 </td>
               </tr>
 
@@ -186,8 +184,7 @@
                 <td>
                   <div class="action-buttons">
                     <button class="action-btn" onclick="window.location.href='content-editor.html?id=101'">View</button>
-                  <button class="action-btn version-btn" onclick="window.location.href='content-versions.html?id=101'" style="margin-left:4px; background-color:#6366f1; color:white; border-color:#6366f1;">Version</button>
-</div>
+                  </div>
                 </td>
               </tr>
 
@@ -205,8 +202,7 @@
                 <td>
                   <div class="action-buttons">
                     <button class="action-btn" onclick="window.location.href='content-editor.html?id=101'">View</button>
-                  <button class="action-btn version-btn" onclick="window.location.href='content-versions.html?id=101'" style="margin-left:4px; background-color:#6366f1; color:white; border-color:#6366f1;">Version</button>
-</div>
+                  </div>
                 </td>
               </tr>
 
@@ -224,8 +220,7 @@
                 <td>
                   <div class="action-buttons">
                     <button class="action-btn" onclick="window.location.href='content-editor.html?id=101'">View</button>
-                  <button class="action-btn version-btn" onclick="window.location.href='content-versions.html?id=101'" style="margin-left:4px; background-color:#6366f1; color:white; border-color:#6366f1;">Version</button>
-</div>
+                  </div>
                 </td>
               </tr>
 
@@ -243,8 +238,7 @@
                 <td>
                   <div class="action-buttons">
                     <button class="action-btn" onclick="window.location.href='content-editor.html?id=101'">View</button>
-                  <button class="action-btn version-btn" onclick="window.location.href='content-versions.html?id=101'" style="margin-left:4px; background-color:#6366f1; color:white; border-color:#6366f1;">Version</button>
-</div>
+                  </div>
                 </td>
               </tr>
             </tbody>
@@ -350,15 +344,6 @@
       closeNewContentModal();
       // In a real app, this would refresh the list
     }
-    function handleModalFileUpload(event) {
-      const file = event.target.files[0];
-      if (file) {
-        const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
-        const display = document.getElementById('modalFileSizeDisplay');
-        display.style.display = 'block';
-        display.innerHTML = `선택된 파일: <strong>${file.name}</strong> (${sizeMB} MB)`;
-      }
-    }
   </script>
 
   <!-- New Content Modal Overlay -->
@@ -389,16 +374,6 @@
           <div class="form-group" style="margin-bottom:16px;">
             <label class="form-label required" style="display:block; margin-bottom:6px; font-size:13px; font-weight:500;">Title (콘텐츠 명)</label>
             <input type="text" class="input" style="width:100%; padding:8px 12px; border:1px solid #d1d5db; border-radius:6px;" id="modalContentTitle" placeholder="예: 샌드크래프트 - 해변">
-          </div>
-
-          <div class="form-group" style="margin-bottom:16px;">
-            <label class="form-label" style="display:block; margin-bottom:6px; font-size:13px; font-weight:500;">Product (제품 할당)</label>
-            <select class="input" style="width:100%; padding:8px 12px; border:1px solid #d1d5db; border-radius:6px;">
-              <option value="">선택 안함</option>
-              <option value="sandcraft">샌드크래프트 (SandCraft)</option>
-              <option value="actionwall">액션월 (ActionWall)</option>
-              <option value="alive">얼라이브 (Alive)</option>
-            </select>
           </div>
 
           <div class="form-group" style="margin-bottom:16px;">
@@ -438,9 +413,8 @@
             <div style="font-size:32px; margin-bottom:12px;">☁️</div>
             <div style="font-weight:500; color:#374151; margin-bottom:8px;">클릭하거나 ZIP 파일을 이곳으로 드래그하세요</div>
             <div style="font-size:12px; color:#6b7280;">최대 2GB 허용 (.zip 형식)</div>
-            <input type="file" id="modalFileUpload" style="display:none" accept=".zip" onchange="handleModalFileUpload(event)">
+            <input type="file" id="modalFileUpload" style="display:none" accept=".zip">
           </div>
-          <div id="modalFileSizeDisplay" style="margin-top:12px; font-size:14px; color:#3b82f6; text-align:center; display:none;"></div>
         </div>
         
       </div>
@@ -513,30 +487,12 @@
           }
         });
       });
-      function handleModalFileUpload(event) {
-      const file = event.target.files[0];
-      if (file) {
-        const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
-        const display = document.getElementById('modalFileSizeDisplay');
-        display.style.display = 'block';
-        display.innerHTML = `선택된 파일: <strong>${file.name}</strong> (${sizeMB} MB)`;
-      }
-    }
-  </script>
+    </script>
 
 
     <script>
     
-      function handleModalFileUpload(event) {
-      const file = event.target.files[0];
-      if (file) {
-        const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
-        const display = document.getElementById('modalFileSizeDisplay');
-        display.style.display = 'block';
-        display.innerHTML = `선택된 파일: <strong>${file.name}</strong> (${sizeMB} MB)`;
-      }
-    }
-  </script>
+    </script>
 
 </body>
 </html>

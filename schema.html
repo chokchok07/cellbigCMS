@@ -135,6 +135,7 @@ erDiagram
     tb_store ||--o{ tb_user_scope : "granted to (optional)"
     
     tb_product ||--o{ tb_package : "defines"
+    tb_product ||--o{ tb_content : "owns
     tb_package ||--o{ tb_package_content : "composition"
     tb_content ||--o{ tb_package_content : "included in"
     
@@ -227,6 +228,7 @@ erDiagram
         <table>
             <tr><th>Column</th><th>Type</th><th>Key/Null</th><th>Description</th></tr>
             <tr><td><span class="pk">content_id</span></td><td><span class="type-badge">VARCHAR(50)</span></td><td>PK</td><td>콘텐츠 고유 식별자</td></tr>
+            <tr><td><a href="#tb-product" class="fk-link" style="color:var(--pk-color);">🔗 product_id</a></td><td><span class="type-badge">VARCHAR(50)</span></td><td>FK</td><td>연결할 제품 ID</td></tr>
             <tr><td>title</td><td><span class="type-badge">VARCHAR(100)</span></td><td>NOT NULL</td><td>콘텐츠 제목</td></tr>
             <tr><td>file_url</td><td><span class="type-badge">VARCHAR(255)</span></td><td>NOT NULL</td><td>다운로드 대상 S3/CDN 경로</td></tr>
             <tr><td>file_size</td><td><span class="type-badge">BIGINT</span></td><td></td><td>파일 용량 (Byte)</td></tr>

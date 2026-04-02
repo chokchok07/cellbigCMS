@@ -1,0 +1,14 @@
+<button type="button" style="padding:4px 12px; font-size:12px; font-weight:500; color:#4b5563; background:#f3f4f6; border:1px solid #d1d5db; border-radius:4px; cursor:pointer;" onclick="if(confirm('로그아웃 하시겠습니까?')) { location.href='login.html'; }">
+<button class="btn btn-primary" onclick="location.href='version-register.html'">
+<button class="btn btn-outline" style="padding:4px 8px; font-size:12px;" onclick="alert('다운로드 데모')">
+<button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="alert('상태 변경 모달 오픈')">
+<button class="btn btn-primary" style="padding:4px 8px; font-size:12px;" onclick="location.href='version-register.html'">
+<button class="btn btn-outline" style="padding:4px 8px; font-size:12px;" onclick="alert('다운로드 데모')">
+<button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="alert('상태 변경 모달 오픈')">
+<button class="btn btn-primary" style="padding:4px 8px; font-size:12px;" onclick="location.href='version-register.html'">
+<button class="btn btn-outline" style="padding:4px 8px; font-size:12px;" onclick="alert('다운로드 데모')">
+<button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="alert('상태 변경 모달 오픈')">
+<button class="btn btn-primary" style="padding:4px 8px; font-size:12px;" onclick="location.href='version-register.html'">
+<button type="button" onclick="closeStatusModal()" style="background: none; border: none; font-size: 1.25rem; cursor: pointer; color: #6b7280;">
+<button type="button" class="btn btn-secondary" onclick="closeStatusModal()">
+<button type="button" class="btn btn-primary" id="statusConfirmBtn" onclick="confirmStatus()">

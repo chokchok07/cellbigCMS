@@ -1,0 +1,50 @@
+Title (콘텐츠 명)</label>
+            <input type="text" class="input" style="width:100%; padding:8px 12px; border:1px solid #d1d5db; border-radius:6px;" id="modalContentTitle" placeholder="예: 샌드크래프트 - 해변">
+          </div>
+
+          <div class="form-group" style="margin-bottom:16px;">
+            <label class="form-label" style="display:block; margin-bottom:6px; font-size:13px; font-weight:500;">Description (설명)</label>
+            <textarea class="input" style="width:100%; height:60px; padding:8px 12px; border:1px solid #d1d5db; border-radius:6px; resize:vertical;" placeholder="콘텐츠에 대한 간략한 설명"></textarea>
+          </div>
+        </div>
+
+        <!-- Technical Detail Section -->
+        <div>
+          <h4 style="margin:0 0 12px 0; font-size:15px; color:#374151; border-bottom:1px solid #e5e7eb; padding-bottom:8px;">기술 설정</h4>
+          
+          <div style="display:flex; gap:16px; margin-bottom:16px;">
+            
+            
+            <div class="form-group" style="flex:1;">
+              <label class="form-label required" style="display:block; margin-bottom:6px; font-size:13px; font-weight:500;">Content Type (유형)</label>
+              <select class="input" style="width:100%; padding:8px 12px; border:1px solid #d1d5db; border-radius:6px;">
+                <option value="single">Single (독립 실행형)</option>
+                <option value="container">Container (실행 런타임)</option>
+                <option value="sensor">Sensor (런타임에 종속된 에셋)</option>
+                <option value="etc">Etc (런타임 + 자체 콘텐츠)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" style="display:block; margin-bottom:6px; font-size:13px; font-weight:500;">Entry Point (실행 파일 경로)</label>
+            <input type="text" class="input" style="width:100%; padding:8px 12px; border:1px solid #d1d5db; border-radius:6px;" placeholder="/app/sand/beach.exe">
+          </div>
+        </div>
+
+        <!-- Initial Upload Section -->
+        <div>
+          <h4 style="margin:0 0 12px 0; font-size:15px; color:#374151; border-bottom:1px solid #e5e7eb; padding-bottom:8px;">초기 버전 업로드 (v1.0.0)</h4>
+          <div style="border:2px dashed #d1d5db; border-radius:6px; padding:32px; text-align:center; background:#f9fafb; cursor:pointer;" onclick="document.getElementById('modalFileUpload').click()">
+            <div style="font-size:32px; margin-bottom:12px;">☁️</div>
+            <div style="font-weight:500; color:#374151; margin-bottom:8px;">클릭하거나 ZIP 파일을 이곳으로 드래그하세요</div>
+            <div style="font-size:12px; color:#6b7280;">최대 2GB 허용 (.zip 형식)</div>
+            <input type="file" id="modalFileUpload" style="display:none" accept=".zip">
+          </div>
+        </div>
+        
+      </div>
+      
+      <!-- Modal Footer -->
+      <div style="padding:16px 20px; border-top:1px solid #e5e7eb; display:flex; justify-content:flex-end; gap:10px; background:#f9fafb;">
+    

@@ -1,0 +1,109 @@
+<tbody>
+              <!-- Content Row 1 -->
+              <tr>
+                
+                <td>
+                  <span style="font-weight: 500; color: #1f2937;">SandCraft - Beach</span>
+                </td>
+                <td>single</td>
+                <td>
+                  <span class="badge badge-published">Published</span>
+                </td>
+                <td>v2.1</td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="action-btn" onclick="window.location.href='content-editor.html?id=101'">View</button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Content Row 2 -->
+              <tr>
+                
+                <td>
+                  <span style="font-weight: 500; color: #1f2937;">Ocean Viewer</span>
+                </td>
+                <td>single</td>
+                <td>
+                  <span class="badge badge-test">Test</span>
+                </td>
+                <td>v1.3</td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="action-btn" onclick="window.location.href='content-editor.html?id=101'">View</button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Content Row 3 -->
+              <tr>
+                
+                <td>
+                  <span style="font-weight: 500; color: #1f2937;">Game Hub</span>
+                </td>
+                <td>container</td>
+                <td>
+                  <span class="badge badge-unpublished">Unpublished</span>
+                </td>
+                <td>v1.0</td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="action-btn" onclick="window.location.href='content-editor.html?id=101'">View</button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Content Row 4 -->
+              <tr>
+                
+                <td>
+                  <span style="font-weight: 500; color: #1f2937;">Mini Game 1</span>
+                </td>
+                <td>sensor</td>
+                <td>
+                  <span class="badge badge-test">Test</span>
+                </td>
+                <td>v2.0</td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="action-btn" onclick="window.location.href='content-editor.html?id=101'">View</button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Content Row 5 -->
+              <tr>
+                
+                <td>
+                  <span style="font-weight: 500; color: #1f2937;">Virtual Tour</span>
+                </td>
+                <td>single</td>
+                <td>
+                  <span class="badge badge-published">Published</span>
+                </td>
+                <td>v3.5</td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="action-btn" onclick="window.location.href='content-editor.html?id=101'">View</button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Content Row 6 -->
+              <tr>
+                
+                <td>
+                  <span style="font-weight: 500; color: #1f2937;">Educational Suite</span>
+                </td>
+                <td>etc</td>
+                <td>
+                  <span class="badge badge-test">Test</span>
+                </td>
+                <td>v1.2</td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="action-btn" onclick="window.location.href='content-editor.html?id=101'">View</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody

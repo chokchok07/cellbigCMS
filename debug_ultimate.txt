@@ -1,0 +1,19 @@
+MODALS:
+<div class="modal-overlay" id="manageModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); align-items: center; justify-content: center; z-index: 1000;">
+
+MANAGE BUTTONS:
+<button class="btn btn-primary" style="padding: 4px 10px; font-size: 13px;" onclick="document.getElementById('manageModal').style.display = 'flex'">Manage</button>
+
+DONE BUTTONS:
+<button type="button" class="btn btn-primary" onclick="if(confirm(\'콘텐츠를 추가하시겠습니까?\')) { submitManageContentsNew() }">Done</button>
+
+FUNCTIONS (partial):
+function openStatusModal(action) {
+function closeStatusModal() {
+function confirmStatus() {
+function closeModal(id) {
+function manageContents() {
+function closeManageContents() {
+function submitManageContents() {
+function updateModalCount() {
+function submitManageContentsNew() {

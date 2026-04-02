@@ -1,0 +1,6 @@
+<button class="action-btn version-btn" onclick="window.location.href=\'content-versions.html?id=101\'" style="margin-left:4px; background-color:#6366f1; color:white; border-color:#6366f1;">Version</button>
+<button class="action-btn version-btn" onclick="window.location.href=\'content-versions.html?id=101\'" style="margin-left:4px; background-color:#6366f1; color:white; border-color:#6366f1;">Version</button>
+<button class="action-btn version-btn" onclick="window.location.href=\'content-versions.html?id=101\'" style="margin-left:4px; background-color:#6366f1; color:white; border-color:#6366f1;">Version</button>
+<button class="action-btn version-btn" onclick="window.location.href=\'content-versions.html?id=101\'" style="margin-left:4px; background-color:#6366f1; color:white; border-color:#6366f1;">Version</button>
+<button class="action-btn version-btn" onclick="window.location.href=\'content-versions.html?id=101\'" style="margin-left:4px; background-color:#6366f1; color:white; border-color:#6366f1;">Version</button>
+<button class="action-btn version-btn" onclick="window.location.href=\'content-versions.html?id=101\'" style="margin-left:4px; background-color:#6366f1; color:white; border-color:#6366f1;">Version</button>

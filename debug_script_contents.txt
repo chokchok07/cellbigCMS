@@ -1,0 +1,210 @@
+
+<script>
+      // Navigation handling
+      document.querySelectorAll('.sidebar-item').forEach(item => {
+        item.addEventListener('click', function() {
+          const page = this.getAttribute('data-page');
+          if (page) {
+            window.location.href = page;
+          }
+        });
+      });
+
+      // New vs Edit Mode Detection
+      document.addEventListener('DOMContentLoaded', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const isNew = !urlParams.has('id');
+        
+        // Base Name Mapping
+        const entityNames = {
+          'localarea': 'LocalArea',
+          'store': 'Store',
+          'device': 'Device',
+          'package': 'Package',
+          'product': 'Product',
+          'content': 'Content'
+        };
+        
+        const path = window.location.pathname;
+        let entityKey = 'Item';
+        for(let key in entityNames) {
+            if(path.includes(key + '-detail')) {
+                entityKey = entityNames[key];
+                break;
+            }
+        }
+
+        const pageTitle = document.querySelector('.page-title');
+        const breadcrumbLast = document.querySelector('.breadcrumb span:last-child');
+        const statusSpan = document.querySelector('.status-badge') || document.querySelector('.page-title span');
+        const metaSection = document.getElementById('metadataSection');
+        
+        if (isNew) {
+          if (pageTitle) {
+            // Strip out inner HTML like badges when replacing text
+            const badgeHTML = statusSpan ? statusSpan.outerHTML : '';
+            pageTitle.innerHTML = `✨ Create New ${entityKey} ${badgeHTML}`;
+          }
+          if (breadcrumbLast) breadcrumbLast.innerHTML = `✨ New ${entityKey}`;
+          if (statusSpan) statusSpan.style.display = 'none'; // Hide status in new mode
+          
+          
+          if (metaSection) metaSection.style.display = 'none';
+
+            // Auto-generate ID placeholder
+            document.querySelectorAll('.info-label').forEach(label => {
+                if (label.textContent.includes('ID')) {
+                    let nextEl = label.nextElementSibling;
+                    while(nextEl && nextEl.tagName !== 'INPUT' && nextEl.tagName !== 'DIV') {
+                        nextEl = nextEl.nextElementSibling;
+                    }
+                    if (nextEl && nextEl.tagName === 'INPUT') {
+                        nextEl.value = '';
+                        nextEl.placeholder = '서버에서 자동 생성됩니다';
+                        nextEl.readOnly = true;
+                        nextEl.style.backgroundColor = '#f3f4f6';
+                        nextEl.style.color = '#9ca3af';
+                    }
+                }
+            });
+
+            // Re-purpose Delete and Save buttons for New Mode
+            const btnPrimary = document.querySelector('.btn-primary');
+            if (btnPrimary && pageTitle) {
+                const objName = pageTitle.textContent.replace('✨ Create New ', '').trim();
+                btnPrimary.innerHTML = '✨ Save ' + objName;
+                btnPrimary.onclick = function() { 
+                    alert(objName + ' created successfully!'); 
+                    window.location.href = location.pathname.replace('-detail', '-list'); 
+                };
+            }
+            
+            // Delete button was hidden by previous scripts. Un-hide it and turn into Cancel.
+            const deleteBtn = document.querySelector('.btn-secondary');
+            if (deleteBtn) {
+                deleteBtn.style.display = 'inline-block';
+                deleteBtn.innerHTML = '✕ Cancel';
+                deleteBtn.style.color = '#4b5563';
+                deleteBtn.style.borderColor = '#d1d5db';
+                deleteBtn.onclick = function() { history.back(); };
+            }
+
+
+                 // Hide metadata section
+          
+          // Hide mapping lists (right column cards showing Connected Contents, Devices, etc)
+          const allCards = document.querySelectorAll('.card');
+          allCards.forEach(card => {
+              const h2 = card.querySelector('h2');
+              if (h2 && (h2.textContent.includes('포함된 콘텐츠') || h2.textContent.includes('Connected Contents') || h2.textContent.includes('Installed') || h2.textContent.includes('하위') || h2.textContent.includes('Child') || h2.textContent.includes('스토어') || h2.textContent.includes('Store') || h2.textContent.includes('디바이스') || h2.textContent.includes('기기') || h2.textContent.includes('연결된'))) {
+                  card.style.display = 'none';
+              }
+          });
+
+          
+          // Hide Delete Button
+          // previously old delete btn selection
+          
+          
+          // Clear inputs
+          document.querySelectorAll('input[type="text"], textarea').forEach(el => {
+              if (el.id !== 'searchInput') el.value = '';
+          });
+          document.querySelectorAll('.info-value').forEach(el => {
+              if (el.tagName !== 'SPAN') el.innerHTML = '-';
+          });
+        }
+      });
+    
+</script>
+
+=======
+
+
+<script>
+      let currentStatusAction = '';
+      function openStatusModal(action) {
+        currentStatusAction = action;
+        const modal = document.getElementById('statusConfirmModal');
+        const title = document.getElementById('statusModalTitle');
+        const message = document.getElementById('statusModalMessage');
+        const confirmBtn = document.getElementById('statusConfirmBtn');
+        
+        if (action === 'active') {
+          title.innerText = '활성화 확인';
+          message.innerText = '활성화 하시겠습니까?';
+          confirmBtn.innerText = '활성화';
+          confirmBtn.style.background = '#10b981';
+          confirmBtn.style.borderColor = '#10b981';
+        } else {
+          title.innerText = '비활성화 확인';
+          message.innerText = '비활성화 하시겠습니까?';
+          confirmBtn.innerText = '비활성화';
+          confirmBtn.style.background = '#ef4444';
+          confirmBtn.style.borderColor = '#ef4444';
+        }
+        
+        modal.style.display = 'flex';
+      }
+      function closeStatusModal() {
+        document.getElementById('statusConfirmModal').style.display = 'none';
+      }
+      function confirmStatus() {
+        closeStatusModal();
+      }
+      
+      document.addEventListener('DOMContentLoaded', () => {
+        // Also bind any generic Active/Inactive buttons in table lists
+        document.querySelectorAll('.btn-danger, .btn-success, .btn').forEach(btn => {
+          if(btn.innerText.includes('Inactive') && !btn.hasAttribute('onclick')) {
+            btn.addEventListener('click', () => openStatusModal('inactive'));
+          }
+          if(btn.innerText.includes('Active') && !btn.hasAttribute('onclick')) {
+            btn.addEventListener('click', () => openStatusModal('active'));
+          }
+        });
+      });
+    
+</script>
+
+=======
+
+
+<script>
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+    
+    function manageContents() {
+      document.getElementById('manageContentsModal').style.display = 'flex';
+    }
+    function closeManageContents() {
+      document.getElementById('manageContentsModal').style.display = 'none';
+    }
+    function submitManageContents() {
+      const checked = document.querySelectorAll('.cnt-checkbox:checked');
+      alert(checked.length + ' 개의 콘텐츠가 저장되었습니다.');
+      closeManageContents();
+    }
+  
+</script>
+
+=======
+
+
+<script>
+    function updateModalCount() {
+      const cnt = document.querySelectorAll('#manageModal .cnt-checkbox:checked').length;
+      const target = document.getElementById('modalSelectedCount');
+      if (target) {
+        target.innerText = cnt + ' selected';
+      }
+    }
+
+    function submitManageContentsNew() {
+      const checked = document.querySelectorAll('#manageModal .cnt-checkbox:checked');
+      alert(checked.length + ' 개의 콘텐츠가 패키지에 반영되었습니다.');
+      closeModal('manageModal'); // close the large modal
+    }
+    
+</script>

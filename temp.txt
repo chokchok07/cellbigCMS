@@ -106,7 +106,10 @@
                 <option value="unpublished">Unpublished</option>
               </select>
             </div>
-            
+            <div class="form-group">
+              <label class="form-label required">Version</label>
+              <input type="text" class="input" style="width:100%;" value="" placeholder="예: 1.0.0">
+            </div>
             <div class="form-group">
               <label class="form-label">Description</label>
               <textarea class="input" style="width:100%; height:80px; resize:vertical;" placeholder="내용을 입력하세요"></textarea>
