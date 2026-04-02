@@ -78,47 +78,43 @@
         </div>
 
         <!-- Search/Filter Panel -->
-        <div class="filter-panel" style="display:flex; flex-direction:column; gap:12px;">
-            <div class="filter-row" style="flex-wrap:wrap; justify-content:space-between; align-items:flex-end;">
-                <div style="display:flex; flex-wrap:wrap; gap:12px; align-items:center;">
-                    <div style="display:flex;align-items:center;gap:8px;">
-                        <span style="font-size:13px;color:#6b7280">Date:</span>
-                        <input type="date" class="input" style="padding:6px" value="2023-11-01">
-                        <span>~</span>
-                        <input type="date" class="input" style="padding:6px" value="2023-11-01">
-                    </div>
-                    
-                    <select class="filter-select" style="width:140px;">
-                        <option value="">All LocalAreas</option>
-                        <option value="seoul">Seoul</option>
-                    </select>
-                    
-                    <select class="filter-select" style="width:140px;">
-                        <option value="">All Stores</option>
-                        <option value="main">Main Store</option>
-                    </select>
-
-                    <select class="filter-select" style="width:140px;">
-                        <option value="">All Devices</option>
-                        <option value="dev1">dev-001</option>
-                    </select>
-
-                    <select class="filter-select" style="width:150px;">
-                        <option value="">All Contents</option>
-                        <option value="sand">SandCraft</option>
-                    </select>
-
-                    <select id="actionFilter" class="filter-select" style="width:120px;">
-                        <option value="">All Actions</option>
-                        <option value="START">START</option>
-                        <option value="STOP">STOP</option>
-                        <option value="ERROR">ERROR</option>
-                        <option value="HEARTBEAT">HEARTBEAT</option>
-                    </select>
-                </div>
-                
-                <button class="btn btn-secondary">Search</button>
+        <div class="filter-panel" style="display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:flex-start;">
+            <div style="display:flex;align-items:center;gap:8px;">
+                <span style="font-size:13px;color:#6b7280">Date:</span>
+                <input type="date" class="input" style="padding:6px" value="2023-11-01">
+                <span>~</span>
+                <input type="date" class="input" style="padding:6px" value="2023-11-01">
             </div>
+            
+            <select class="filter-select" style="width:140px;">
+                <option value="">All LocalAreas</option>
+                <option value="seoul">Seoul</option>
+            </select>
+            
+            <select class="filter-select" style="width:140px;">
+                <option value="">All Stores</option>
+                <option value="main">Main Store</option>
+            </select>
+
+            <select class="filter-select" style="width:140px;">
+                <option value="">All Devices</option>
+                <option value="dev1">dev-001</option>
+            </select>
+
+            <select class="filter-select" style="width:150px;">
+                <option value="">All Contents</option>
+                <option value="sand">SandCraft</option>
+            </select>
+
+            <select id="actionFilter" class="filter-select" style="width:120px;">
+                <option value="">All Actions</option>
+                <option value="START">START</option>
+                <option value="STOP">STOP</option>
+                <option value="ERROR">ERROR</option>
+                <option value="HEARTBEAT">HEARTBEAT</option>
+            </select>
+            
+            <button class="btn btn-secondary">Search</button>
         </div>
 
         <!-- Action Bar -->

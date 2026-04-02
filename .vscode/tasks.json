@@ -296,6 +296,30 @@
 			"label": "Run Read Fix Log",
 			"type": "shell",
 			"command": "C:/Users/user/AppData/Local/Programs/Python/Python310/python.exe r_fix_log.py"
+		},
+		{
+			"label": "Git Status Test",
+			"type": "shell",
+			"command": "git status > mygitstatus.txt",
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Git Log Task",
+			"type": "shell",
+			"command": "git log -n 5 -p CMS-webpage/wireframe_site/content-editor.html > git_log_out.txt",
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Python read",
+			"type": "shell",
+			"command": "python -c \"import os; print(os.path.exists('git_log_out.txt')); print(open('git_log_out.txt', 'r', encoding='utf-16').read())\" > git_log_out_2.txt",
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
 		}
 	]
 }
